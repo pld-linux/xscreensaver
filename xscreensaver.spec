@@ -4,10 +4,10 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.24
-Release:	1
+Release:	4
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
-Copyright:	BSD
+License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver.desktop
 URL:		http://www.jwz.org/xscreensaver/
@@ -21,12 +21,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_mandir		%{_prefix}/man
 
 %description
-Screen savers of every sort are included in this package, guaranteeing hours
-of enjoyment and monitor saving. And if you are bent on really saving your
-monitor, there's that old classic, the plain black screen.
+Screen savers of every sort are included in this package, guaranteeing
+hours of enjoyment and monitor saving. And if you are bent on really saving
+your monitor, there's that old classic, the plain black screen.
 
 %description -l de
-Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner. 
+Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner.
 Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm wirklich
 schonen möchten, gibt's den alten Klassiker, den einfachen schwarzen
 Bildschirm.
@@ -73,7 +73,7 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{etc/pam.d,usr/X11R6/share/applnk/Utilities}
+install -d $RPM_BUILD_ROOT/{etc/pam.d,%{_applnkdir}/Utilities}
 
 make install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
@@ -85,7 +85,7 @@ make install \
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 make -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
-install %{SOURCE1} $RPM_BUILD_ROOT/usr/X11R6/share/applnk/Utilities
+install %{SOURCE1} $RPM_BUILD_ROOT%{_prefix}/share/applnk/Utilities
 
 strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
@@ -98,7 +98,7 @@ rm -r $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
-/usr/X11R6/share/applnk/Utilities/xscreensaver.desktop
+%{_applnkdir}/Utilities/xscreensaver.desktop
 %{_libdir}/X11/app-defaults/XScreenSaver
 %attr(640,root,root) %config %verify(not size mtime md5) /etc/pam.d/xscreensaver
 
