@@ -94,7 +94,7 @@ rm -r $RPM_BUILD_ROOT
 - removed man group from man pages,
 - added gzipping man pages and documetation,
 - simplifications in %install,
-- moved modules to /usr/X11R6/libexec/xscreensaver,
+- moved modules to /usr/X11R6/lib/xscreensaver,
 - minor changes,
 - recompiled on rpm 3,
 - package is now FHS 2.0 compliant.
