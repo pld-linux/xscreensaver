@@ -23,7 +23,7 @@ Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
 Version:	4.03
-Release:	2
+Release:	3
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
