@@ -2,7 +2,7 @@ Summary:     X screen savers
 Summary(fr): Economiseurs d'écran X
 Summary(pl): Wygaszacz ekranu pod X Window
 Name:        xscreensaver
-Version:     3.05
+Version:     3.06
 Release:     1
 Group:       X11/Utilities
 Copyright:   BSD
@@ -33,7 +33,7 @@ monotora to jest te¿ dostêpny klasyczny "czysty" czarny wygaszacz.
 %build
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" ./configure \
 	--prefix=/usr/X11R6 \
-	--without-motif
+	--with-motif
 make
 
 %install
@@ -69,6 +69,10 @@ rm -r $RPM_BUILD_ROOT
 %attr(644, root, man) /usr/X11R6/man/man1/*
 
 %changelog
+* Tue Nov 24 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [3.06-1]
+- configure now is runed with --with-motif (we have lesstif).
+
 * Mon Nov 16 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [3.04-1]
 - added pl translation,
