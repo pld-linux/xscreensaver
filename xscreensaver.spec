@@ -155,7 +155,7 @@ GNOME2 support.
 Wsparcie dla GNOME2.
 
 %prep
-%setup  -q
+%setup -q
 install -m755 %{SOURCE4} .
 
 %build
@@ -198,7 +198,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_applnkdir}/Settings/Xscreensaver}
 
 install %{SOURCE1} %{SOURCE2} \
-    $RPM_BUILD_ROOT%{_applnkdir}/Settings/Xscreensaver
+	$RPM_BUILD_ROOT%{_applnkdir}/Settings/Xscreensaver
 
 %{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
@@ -213,10 +213,10 @@ echo '%defattr(755,root,root)' > $_DIR/files.gle
 
 find_config_and_man()
 {
-	if test -e $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}/${1}.xml ; then
+	if test -e $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/${1}.xml ; then
 		echo %{_sysconfdir}/%{name}/${1}.xml
 	fi
-	if test -e $RPM_BUILD_ROOT/%{_mandir}/man1/${1}.1 ; then
+	if test -e $RPM_BUILD_ROOT%{_mandir}/man1/${1}.1 ; then
 		echo %{_mandir}/man1/${1}.1'*'
 	fi
 }
