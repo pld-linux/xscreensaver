@@ -2,15 +2,16 @@ Summary:	X screen savers
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.12
-Release:	2
+Version:	3.14
+Release:	1
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 Copyright:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 URL:		http://www.jwz.org/xscreensaver/
 BuildPrereq:	XFree86-devel
-BuildPrereq:	lesstif-devel
+BuildPrereq:	gtk+-devel
+BuildPrereq:	glib-devel
 BuildPrereq:    xpm-devel
 Buildroot:	/tmp/%{name}-%{version}-root
 
@@ -51,7 +52,8 @@ autoconf
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 ./configure %{_target_platform} \
 	--prefix=/usr/X11R6 \
-	--with-motif \
+	--without-motif \
+	--with-gtk \
 	--with-pam \
 	--enable-subdir=../lib/xscreensaver
 
