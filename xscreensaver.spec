@@ -19,7 +19,6 @@ BuildRequires:	gnome-libs-devel
 BuildRequires:	control-center-devel
 BuildRequires:	esound-devel
 BuildRequires:	gtk+-devel
-BuildRequires:	xpm-devel
 BuildRequires:	bc
 BuildRequires:	pam-devel
 BuildRequires:	perl
