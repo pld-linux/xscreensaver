@@ -2,7 +2,7 @@ Summary:     X screen savers
 Summary(fr): Economiseurs d'écran X
 Summary(pl): Wygaszacz ekranu pod X Window
 Name:        xscreensaver
-Version:     3.04
+Version:     3.05
 Release:     1
 Group:       X11/Utilities
 Copyright:   BSD
