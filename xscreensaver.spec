@@ -29,6 +29,7 @@ BuildRequires:	binutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xscreensaver-gnome
 
+%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
 
@@ -62,6 +63,7 @@ Group:		X11/Applications
 Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
+Requires:	OpenGL
 Obsoletes:	xscreensaver-GL
 
 %description GL
