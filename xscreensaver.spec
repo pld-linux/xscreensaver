@@ -7,8 +7,6 @@ Version:	3.34
 Release:	3
 Epoch:		1
 Group:		X11/Applications
-Group(de):	X11/Applikationen
-Group(pl):	X11/Aplikacje
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
@@ -66,8 +64,6 @@ wygaszacz.
 Summary:	OpenGL X screen savers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
 Group:		X11/Applications
-Group(de):	X11/Applikationen
-Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 Requires:	OpenGL
 
@@ -81,8 +77,6 @@ Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
 Summary:	OpenGL && GLE X screen savers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL && GLE
 Group:		X11/Applications
-Group(de):	X11/Applikationen
-Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 
 %description GLE
