@@ -2,7 +2,7 @@ Summary:	X screen savers
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.14
+Version:	3.16
 Release:	1
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
@@ -10,10 +10,14 @@ Copyright:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 URL:		http://www.jwz.org/xscreensaver/
 BuildPrereq:	XFree86-devel
+BuildPrereq:	Mesa-devel
 BuildPrereq:	gtk+-devel
 BuildPrereq:	glib-devel
 BuildPrereq:    xpm-devel
 Buildroot:	/tmp/%{name}-%{version}-root
+
+%define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 
 %description
 Screen savers of every sort are included in this package, guaranteeing hours
@@ -51,7 +55,8 @@ Wygaszacz ekranu pod X Window u¿ywaj±ce OpenGL.
 autoconf
 CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 ./configure %{_target_platform} \
-	--prefix=/usr/X11R6 \
+	--prefix=%{_prefix} \
+	--mandir=%{_mandir} \
 	--without-motif \
 	--with-gtk \
 	--with-pam \
@@ -63,15 +68,18 @@ make
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/{pam.d,X11/wmconfig}
 
-make install-strip \
-	prefix=$RPM_BUILD_ROOT/usr/X11R6 \
-	AD_DIR=$RPM_BUILD_ROOT/usr/X11R6/lib/X11/app-defaults \
-	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
+make install \
+	prefix=$RPM_BUILD_ROOT%{_prefix} \
+	AD_DIR=$RPM_BUILD_ROOT%{_libdir}/X11/app-defaults \
+	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d \
+	mandir=$RPM_BUILD_ROOT%{_mandir}
 
-install driver/xscreensaver $RPM_BUILD_ROOT/usr/X11R6/bin
+install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 make -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
-gzip -9nf $RPM_BUILD_ROOT/usr/X11R6/share/man/man1/* \
+strip $RPM_BUILD_ROOT%{_bindir}/* || :
+
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	README README.debugging screenblank.txt
 
 cat > $RPM_BUILD_ROOT/etc/X11/wmconfig/xscreensaver <<EOF
@@ -88,118 +96,118 @@ rm -r $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
 /etc/X11/wmconfig/xscreensaver
-%config /usr/X11R6/lib/X11/app-defaults/XScreenSaver
+%config %{_libdir}/X11/app-defaults/XScreenSaver
 %config /etc/pam.d/xscreensaver
 
-%attr(0755,root,root) /usr/X11R6/bin/xscreensaver
-%attr(0755,root,root) /usr/X11R6/bin/xscreensaver-command
-%attr(0755,root,root) /usr/X11R6/bin/xscreensaver-demo
+%attr(0755,root,root) %{_bindir}/xscreensaver
+%attr(0755,root,root) %{_bindir}/xscreensaver-command
+%attr(0755,root,root) %{_bindir}/xscreensaver-demo
 
-/usr/X11R6/share/man/man1/*
+%{_mandir}/man1/*
 
-%dir /usr/X11R6/lib/xscreensaver
+%dir %{_libdir}/xscreensaver
 %defattr(755,root,root)
-/usr/X11R6/lib/xscreensaver/ant
-/usr/X11R6/lib/xscreensaver/attraction
-/usr/X11R6/lib/xscreensaver/blitspin
-/usr/X11R6/lib/xscreensaver/bouboule
-/usr/X11R6/lib/xscreensaver/braid
-/usr/X11R6/lib/xscreensaver/bsod
-/usr/X11R6/lib/xscreensaver/bubbles
-/usr/X11R6/lib/xscreensaver/compass
-/usr/X11R6/lib/xscreensaver/coral
-/usr/X11R6/lib/xscreensaver/critical
-/usr/X11R6/lib/xscreensaver/crystal
-/usr/X11R6/lib/xscreensaver/cynosure
-/usr/X11R6/lib/xscreensaver/decayscreen
-/usr/X11R6/lib/xscreensaver/deco
-/usr/X11R6/lib/xscreensaver/deluxe
-/usr/X11R6/lib/xscreensaver/demon
-/usr/X11R6/lib/xscreensaver/discrete
-/usr/X11R6/lib/xscreensaver/distort
-/usr/X11R6/lib/xscreensaver/drift
-/usr/X11R6/lib/xscreensaver/epicycle
-/usr/X11R6/lib/xscreensaver/fadeplot
-/usr/X11R6/lib/xscreensaver/flag
-/usr/X11R6/lib/xscreensaver/flame
-/usr/X11R6/lib/xscreensaver/flow
-/usr/X11R6/lib/xscreensaver/forest
-/usr/X11R6/lib/xscreensaver/galaxy
-/usr/X11R6/lib/xscreensaver/glplanet
-/usr/X11R6/lib/xscreensaver/goop
-/usr/X11R6/lib/xscreensaver/grav
-/usr/X11R6/lib/xscreensaver/greynetic
-/usr/X11R6/lib/xscreensaver/halo
-/usr/X11R6/lib/xscreensaver/helix
-/usr/X11R6/lib/xscreensaver/hopalong
-/usr/X11R6/lib/xscreensaver/hypercube
-/usr/X11R6/lib/xscreensaver/ifs
-/usr/X11R6/lib/xscreensaver/imsmap
-/usr/X11R6/lib/xscreensaver/interference
-/usr/X11R6/lib/xscreensaver/jigsaw
-/usr/X11R6/lib/xscreensaver/julia
-/usr/X11R6/lib/xscreensaver/kaleidescope
-/usr/X11R6/lib/xscreensaver/kumppa
-/usr/X11R6/lib/xscreensaver/laser
-/usr/X11R6/lib/xscreensaver/lightning
-/usr/X11R6/lib/xscreensaver/lisa
-/usr/X11R6/lib/xscreensaver/lissie
-/usr/X11R6/lib/xscreensaver/lmorph
-/usr/X11R6/lib/xscreensaver/loop
-/usr/X11R6/lib/xscreensaver/maze
-/usr/X11R6/lib/xscreensaver/moire
-/usr/X11R6/lib/xscreensaver/moire2
-/usr/X11R6/lib/xscreensaver/mountain
-/usr/X11R6/lib/xscreensaver/munch
-/usr/X11R6/lib/xscreensaver/noseguy
-/usr/X11R6/lib/xscreensaver/pedal
-/usr/X11R6/lib/xscreensaver/penetrate
-/usr/X11R6/lib/xscreensaver/penrose
-/usr/X11R6/lib/xscreensaver/phosphor
-/usr/X11R6/lib/xscreensaver/pyro
-/usr/X11R6/lib/xscreensaver/qix
-/usr/X11R6/lib/xscreensaver/rd-bomb
-/usr/X11R6/lib/xscreensaver/rocks
-/usr/X11R6/lib/xscreensaver/rorschach
-/usr/X11R6/lib/xscreensaver/rotor
-/usr/X11R6/lib/xscreensaver/sierpinski
-/usr/X11R6/lib/xscreensaver/slidescreen
-/usr/X11R6/lib/xscreensaver/slip
-/usr/X11R6/lib/xscreensaver/sonar
-/usr/X11R6/lib/xscreensaver/sphere
-/usr/X11R6/lib/xscreensaver/spiral
-/usr/X11R6/lib/xscreensaver/spotlight
-/usr/X11R6/lib/xscreensaver/squiral
-/usr/X11R6/lib/xscreensaver/starfish
-/usr/X11R6/lib/xscreensaver/strange
-/usr/X11R6/lib/xscreensaver/swirl
-/usr/X11R6/lib/xscreensaver/t3d
-/usr/X11R6/lib/xscreensaver/triangle
-/usr/X11R6/lib/xscreensaver/truchet
-/usr/X11R6/lib/xscreensaver/vines
-/usr/X11R6/lib/xscreensaver/wander
-/usr/X11R6/lib/xscreensaver/worm
-/usr/X11R6/lib/xscreensaver/xflame
-/usr/X11R6/lib/xscreensaver/xjack
-/usr/X11R6/lib/xscreensaver/xlyap
-/usr/X11R6/lib/xscreensaver/xmatrix
-/usr/X11R6/lib/xscreensaver/xroger
+%{_libdir}/xscreensaver/ant
+%{_libdir}/xscreensaver/attraction
+%{_libdir}/xscreensaver/blitspin
+%{_libdir}/xscreensaver/bouboule
+%{_libdir}/xscreensaver/braid
+%{_libdir}/xscreensaver/bsod
+%{_libdir}/xscreensaver/bubbles
+%{_libdir}/xscreensaver/compass
+%{_libdir}/xscreensaver/coral
+%{_libdir}/xscreensaver/critical
+%{_libdir}/xscreensaver/crystal
+%{_libdir}/xscreensaver/cynosure
+%{_libdir}/xscreensaver/decayscreen
+%{_libdir}/xscreensaver/deco
+%{_libdir}/xscreensaver/deluxe
+%{_libdir}/xscreensaver/demon
+%{_libdir}/xscreensaver/discrete
+%{_libdir}/xscreensaver/distort
+%{_libdir}/xscreensaver/drift
+%{_libdir}/xscreensaver/epicycle
+%{_libdir}/xscreensaver/fadeplot
+%{_libdir}/xscreensaver/flag
+%{_libdir}/xscreensaver/flame
+%{_libdir}/xscreensaver/flow
+%{_libdir}/xscreensaver/forest
+%{_libdir}/xscreensaver/galaxy
+%{_libdir}/xscreensaver/glplanet
+%{_libdir}/xscreensaver/goop
+%{_libdir}/xscreensaver/grav
+%{_libdir}/xscreensaver/greynetic
+%{_libdir}/xscreensaver/halo
+%{_libdir}/xscreensaver/helix
+%{_libdir}/xscreensaver/hopalong
+%{_libdir}/xscreensaver/hypercube
+%{_libdir}/xscreensaver/ifs
+%{_libdir}/xscreensaver/imsmap
+%{_libdir}/xscreensaver/interference
+%{_libdir}/xscreensaver/jigsaw
+%{_libdir}/xscreensaver/julia
+%{_libdir}/xscreensaver/kaleidescope
+%{_libdir}/xscreensaver/kumppa
+%{_libdir}/xscreensaver/laser
+%{_libdir}/xscreensaver/lightning
+%{_libdir}/xscreensaver/lisa
+%{_libdir}/xscreensaver/lissie
+%{_libdir}/xscreensaver/lmorph
+%{_libdir}/xscreensaver/loop
+%{_libdir}/xscreensaver/maze
+%{_libdir}/xscreensaver/moire
+%{_libdir}/xscreensaver/moire2
+%{_libdir}/xscreensaver/mountain
+%{_libdir}/xscreensaver/munch
+%{_libdir}/xscreensaver/noseguy
+%{_libdir}/xscreensaver/pedal
+%{_libdir}/xscreensaver/penetrate
+%{_libdir}/xscreensaver/penrose
+%{_libdir}/xscreensaver/phosphor
+%{_libdir}/xscreensaver/pyro
+%{_libdir}/xscreensaver/qix
+%{_libdir}/xscreensaver/rd-bomb
+%{_libdir}/xscreensaver/rocks
+%{_libdir}/xscreensaver/rorschach
+%{_libdir}/xscreensaver/rotor
+%{_libdir}/xscreensaver/sierpinski
+%{_libdir}/xscreensaver/slidescreen
+%{_libdir}/xscreensaver/slip
+%{_libdir}/xscreensaver/sonar
+%{_libdir}/xscreensaver/sphere
+%{_libdir}/xscreensaver/spiral
+%{_libdir}/xscreensaver/spotlight
+%{_libdir}/xscreensaver/squiral
+%{_libdir}/xscreensaver/starfish
+%{_libdir}/xscreensaver/strange
+%{_libdir}/xscreensaver/swirl
+%{_libdir}/xscreensaver/t3d
+%{_libdir}/xscreensaver/triangle
+%{_libdir}/xscreensaver/truchet
+%{_libdir}/xscreensaver/vines
+%{_libdir}/xscreensaver/wander
+%{_libdir}/xscreensaver/worm
+%{_libdir}/xscreensaver/xflame
+%{_libdir}/xscreensaver/xjack
+%{_libdir}/xscreensaver/xlyap
+%{_libdir}/xscreensaver/xmatrix
+%{_libdir}/xscreensaver/xroger
 
 %files GL
 %defattr(755,root,root)
-/usr/X11R6/lib/xscreensaver/atlantis
-/usr/X11R6/lib/xscreensaver/bubble3d
-/usr/X11R6/lib/xscreensaver/cage
-/usr/X11R6/lib/xscreensaver/gears
-/usr/X11R6/lib/xscreensaver/lament
-/usr/X11R6/lib/xscreensaver/moebius
-/usr/X11R6/lib/xscreensaver/morph3d
-/usr/X11R6/lib/xscreensaver/pipes
-/usr/X11R6/lib/xscreensaver/pulsar
-/usr/X11R6/lib/xscreensaver/rubik
-/usr/X11R6/lib/xscreensaver/sproingies
-/usr/X11R6/lib/xscreensaver/stairs
-/usr/X11R6/lib/xscreensaver/superquadrics
+%{_libdir}/xscreensaver/atlantis
+%{_libdir}/xscreensaver/bubble3d
+%{_libdir}/xscreensaver/cage
+%{_libdir}/xscreensaver/gears
+%{_libdir}/xscreensaver/lament
+%{_libdir}/xscreensaver/moebius
+%{_libdir}/xscreensaver/morph3d
+%{_libdir}/xscreensaver/pipes
+%{_libdir}/xscreensaver/pulsar
+%{_libdir}/xscreensaver/rubik
+%{_libdir}/xscreensaver/sproingies
+%{_libdir}/xscreensaver/stairs
+%{_libdir}/xscreensaver/superquadrics
 
 %changelog
 * Fri May 14 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
