@@ -1,7 +1,10 @@
 [Desktop Entry]
 Name=XScreenSaver
-Comment=X Screen Saver
-Exec=/usr/X11R6/bin/xscreensaver &
+Comment=X Screen Savers
+Comment[de]=X-Bildschirmschoner
+Comment[fr]=Economiseurs d'écran X
+Comment[pl]=Wygaszacze ekranu dla X
+Exec=/usr/X11R6/bin/xscreensaver 
 Icon=x_app.xpm
 Terminal=0
 Type=Application
