@@ -3,8 +3,8 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.29
-Release:	3
+Version:	3.30
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
