@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.31
-Release:	1
+Release:	2
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -15,6 +15,7 @@ Source1:	%{name}.desktop
 Source2:	%{name}.pamd
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
+BuildRequires:	gle-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	control-center-devel
 BuildRequires:	esound-devel
@@ -22,6 +23,9 @@ BuildRequires:	gtk+-devel
 BuildRequires:	bc
 BuildRequires:	pam-devel
 BuildRequires:	perl
+BuildRequires:	grep
+BuildRequires:	awk
+BuildRequires:	binutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xscreensaver-gnome
 
@@ -66,6 +70,20 @@ Screen savers which uses OpenGL libraries.
 %description -l pl GL
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
 
+%package GLE
+Summary:	OpenGL && GLE X screen savers
+Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL && GLE
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
+Requires:	%{name} = %{version}
+
+%description GLE
+Screen savers which uses OpenGL and GLE libraries.
+
+%description -l pl GLE
+Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
+
 %prep
 %setup  -q
 
@@ -82,7 +100,7 @@ autoconf
 	--with-pam \
 	--with-dpms-ext \
 	--with-gl \
-	--without-gle \
+	--with-gle \
 	--enable-subdir=../lib/xscreensaver
 
 %{__make}
@@ -104,7 +122,7 @@ rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
 	--with-pam \
 	--with-dpms-ext \
 	--with-gl \
-	--without-gle \
+	--with-gle \
 	--enable-subdir=../lib/xscreensaver
 
 cd driver
@@ -145,10 +163,38 @@ correct_desktop $RPM_BUILD_ROOT%{_datadir}/control-center/Desktop/screensaver-pr
 
 correct_desktop $RPM_BUILD_ROOT%{_applnkdir}/Settings/GNOME/Desktop/screensaver-properties.desktop
 
+_DIR=$(pwd)
+cd $RPM_BUILD_ROOT%{_libdir}/%{name}
+
+echo '%defattr(755,root,root)' > $_DIR/files.normal
+echo '%defattr(755,root,root)' > $_DIR/files.gl
+echo '%defattr(755,root,root)' > $_DIR/files.gle
+
+for file in * ; do
+	_REQUIRES="`objdump -p $file 2> /dev/null | awk '
+		BEGIN { START=0; LIBNAME=""; }
+		/Dynamic Section:/ { START=1; }
+		/NEEDED/ && (START==1) {
+			LIBNAME=$2;
+		}
+		(START==1) && (LIBNAME!="") { print LIBNAME; }
+		/^$/ { START=0; }' 2>&1 `"
+
+if (echo "$_REQUIRES" | grep -q "libgle.so"); then
+	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.gle
+elif (echo "$_REQUIRES" | grep -q "libGLU.so"); then
+	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.gl
+else
+	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.normal
+fi
+done
+
+cd $_DIR
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f files.normal
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
 %config %{_libdir}/X11/app-defaults/*
@@ -162,127 +208,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %dir %{_libdir}/xscreensaver
-%defattr(755,root,root)
-%{_libdir}/xscreensaver/ant
-%{_libdir}/xscreensaver/attraction
-%{_libdir}/xscreensaver/blaster
-%{_libdir}/xscreensaver/blitspin
-%{_libdir}/xscreensaver/bouboule
-%{_libdir}/xscreensaver/braid
-%{_libdir}/xscreensaver/bsod
-%{_libdir}/xscreensaver/bubbles
-%{_libdir}/xscreensaver/bumps
-%{_libdir}/xscreensaver/ccurve
-%{_libdir}/xscreensaver/compass
-%{_libdir}/xscreensaver/coral
-%{_libdir}/xscreensaver/critical
-%{_libdir}/xscreensaver/crystal
-%{_libdir}/xscreensaver/cynosure
-%{_libdir}/xscreensaver/decayscreen
-%{_libdir}/xscreensaver/deco
-%{_libdir}/xscreensaver/deluxe
-%{_libdir}/xscreensaver/demon
-%{_libdir}/xscreensaver/discrete
-%{_libdir}/xscreensaver/distort
-%{_libdir}/xscreensaver/drift
-%{_libdir}/xscreensaver/epicycle
-%{_libdir}/xscreensaver/fadeplot
-%{_libdir}/xscreensaver/flag
-%{_libdir}/xscreensaver/flame
-%{_libdir}/xscreensaver/flow
-%{_libdir}/xscreensaver/forest
-%{_libdir}/xscreensaver/galaxy
-%{_libdir}/xscreensaver/goop
-%{_libdir}/xscreensaver/grav
-%{_libdir}/xscreensaver/greynetic
-%{_libdir}/xscreensaver/halo
-%{_libdir}/xscreensaver/helix
-%{_libdir}/xscreensaver/hopalong
-%{_libdir}/xscreensaver/hyperball
-%{_libdir}/xscreensaver/hypercube
-%{_libdir}/xscreensaver/ifs
-%{_libdir}/xscreensaver/imsmap
-%{_libdir}/xscreensaver/interference
-%{_libdir}/xscreensaver/jigsaw
-%{_libdir}/xscreensaver/julia
-%{_libdir}/xscreensaver/kaleidescope
-%{_libdir}/xscreensaver/kumppa
-%{_libdir}/xscreensaver/laser
-%{_libdir}/xscreensaver/lightning
-%{_libdir}/xscreensaver/lisa
-%{_libdir}/xscreensaver/lissie
-%{_libdir}/xscreensaver/lmorph
-%{_libdir}/xscreensaver/loop
-%{_libdir}/xscreensaver/maze
-%{_libdir}/xscreensaver/moire
-%{_libdir}/xscreensaver/moire2
-%{_libdir}/xscreensaver/mountain
-%{_libdir}/xscreensaver/munch
-%{_libdir}/xscreensaver/nerverot
-%{_libdir}/xscreensaver/noseguy
-%{_libdir}/xscreensaver/pedal
-%{_libdir}/xscreensaver/penetrate
-%{_libdir}/xscreensaver/penrose
-%{_libdir}/xscreensaver/petri
-%{_libdir}/xscreensaver/phosphor
-%{_libdir}/xscreensaver/pyro
-%{_libdir}/xscreensaver/qix
-%{_libdir}/xscreensaver/ripples
-%{_libdir}/xscreensaver/rd-bomb
-%{_libdir}/xscreensaver/rocks
-%{_libdir}/xscreensaver/rorschach
-%{_libdir}/xscreensaver/rotor
-%{_libdir}/xscreensaver/sierpinski
-%{_libdir}/xscreensaver/shadebobs
-%{_libdir}/xscreensaver/slidescreen
-%{_libdir}/xscreensaver/slip
-%{_libdir}/xscreensaver/sonar
-%{_libdir}/xscreensaver/sphere
-%{_libdir}/xscreensaver/spiral
-%{_libdir}/xscreensaver/spotlight
-%{_libdir}/xscreensaver/squiral
-%{_libdir}/xscreensaver/starfish
-%{_libdir}/xscreensaver/strange
-%{_libdir}/xscreensaver/swirl
-%{_libdir}/xscreensaver/t3d
-%{_libdir}/xscreensaver/triangle
-%{_libdir}/xscreensaver/truchet
-%{_libdir}/xscreensaver/vidwhacker
-%{_libdir}/xscreensaver/vines
-%{_libdir}/xscreensaver/wander
-%{_libdir}/xscreensaver/webcollage
-%{_libdir}/xscreensaver/whirlwindwarp
-%{_libdir}/xscreensaver/worm
-%{_libdir}/xscreensaver/xflame
-%{_libdir}/xscreensaver/xjack
-%{_libdir}/xscreensaver/xlyap
-%{_libdir}/xscreensaver/xmatrix
-%{_libdir}/xscreensaver/xrayswarm
-#%{_libdir}/xscreensaver/xroger
-%{_libdir}/xscreensaver/xspirograph
-%{_libdir}/xscreensaver/xsublim
-%{_libdir}/xscreensaver/xteevee
-%{_libdir}/xscreensaver/zoom
 
-%files GL
+%files GL -f files.gl
 %defattr(755,root,root)
-%{_libdir}/xscreensaver/atlantis
-%{_libdir}/xscreensaver/bubble3d
-%{_libdir}/xscreensaver/cage
-%{_libdir}/xscreensaver/gears
-%{_libdir}/xscreensaver/glplanet
-%{_libdir}/xscreensaver/gltext
-%{_libdir}/xscreensaver/gflux
-%{_libdir}/xscreensaver/lament
-%{_libdir}/xscreensaver/moebius
-%{_libdir}/xscreensaver/morph3d
-%{_libdir}/xscreensaver/pipes
-%{_libdir}/xscreensaver/pulsar
-%{_libdir}/xscreensaver/rubik
-%{_libdir}/xscreensaver/sierpinski3d
-%{_libdir}/xscreensaver/sproingies
-%{_libdir}/xscreensaver/stairs
-%{_libdir}/xscreensaver/starwars
-%{_libdir}/xscreensaver/stonerview
-%{_libdir}/xscreensaver/superquadrics
-%{_libdir}/xscreensaver/xscreensaver-gl-helper
+
+%files GLE -f files.gle
+%defattr(755,root,root)
