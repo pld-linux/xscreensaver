@@ -102,7 +102,7 @@ rm -r $RPM_BUILD_ROOT
 %doc {README,README.debugging,screenblank.txt}.gz
 /usr/X11R6/share/applnk/Utilities/xscreensaver.desktop
 %{_libdir}/X11/app-defaults/XScreenSaver
-%config /etc/pam.d/xscreensaver
+%attr(640,root,root) %config %verify(not size mtime md5) /etc/pam.d/xscreensaver
 
 %attr(0755,root,root) %{_bindir}/xscreensaver
 %attr(0755,root,root) %{_bindir}/xscreensaver-command
