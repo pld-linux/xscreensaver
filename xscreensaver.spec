@@ -11,10 +11,8 @@ Copyright:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver.desktop
 URL:		http://www.jwz.org/xscreensaver/
-BuildRequires:	XFree86-devel
 BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gtk+-devel
-BuildRequires:	glib-devel
 BuildRequires:	xpm-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
