@@ -23,7 +23,7 @@ Summary(uk):	îÁÂ¦Ò ÐÒÏÇÒÁÍ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ ÄÌÑ X Window
 Summary(zh_CN):	X ´°¿ÚÏµÍ³±£»¤Æ÷
 Name:		xscreensaver
 Version:	4.03
-Release:	3
+Release:	4
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -36,6 +36,7 @@ Source4:	mkinstalldirs
 Patch1:		%{name}-c++.patch
 Patch2:		%{name}-xml.patch
 Patch3:		%{name}-icon.patch
+Patch4:		%{name}-sectempfix.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf >= 2.53
@@ -146,17 +147,18 @@ Lets you to set up xscreensaver from within GNOME control center.
 Pozwala skonfigurowaæ xscreensavera poprzez control center GNOME.
 
 %prep
-%setup	-q
+%setup -q
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 install -m755 %{SOURCE4} mkinstalldirs
 
 %build
 %{__gettextize}
 sed 's/@PACKAGE@/@GETTEXT_PACKAGE@/' po/Makefile.in.in >po/Makefile.in.in.fixed
 mv po/Makefile.in.in.fixed po/Makefile.in.in
-aclocal
+%{__aclocal}
 %{__autoconf}
 # Build GNOME-free version.
 %configure \
@@ -214,9 +216,7 @@ rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
 	--with-configdir=%{_sysconfdir}/xscreensaver
 
-cd driver
-%{__make} xscreensaver-demo
-cd ..
+%{__make} -C driver xscreensaver-demo
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -224,7 +224,8 @@ install -d $RPM_BUILD_ROOT/etc/pam.d \
 	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/GNOME/Desktop,System},%{_datadir}/control-center/Desktop}
 
 export KDEDIR=%{_prefix}
-%{__make} install install_prefix=$RPM_BUILD_ROOT \
+%{__make} install \
+	install_prefix=$RPM_BUILD_ROOT \
 	DESTDIR=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
 	PAM_DIR=/etc/pam.d \
@@ -236,7 +237,9 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/System
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 mv -f $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
 install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo
-%{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
+
+%{__make} -C driver install-pam \
+	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 
@@ -261,10 +264,10 @@ echo '%defattr(755,root,root)' > $_DIR/files.gle
 
 find_config_and_man()
 {
-	if test -e $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}/${1}.xml ; then
+	if test -e $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/${1}.xml ; then
 		echo %{_sysconfdir}/%{name}/${1}.xml
 	fi
-	if test -e $RPM_BUILD_ROOT/%{_mandir}/man1/${1}.1 ; then
+	if test -e $RPM_BUILD_ROOT%{_mandir}/man1/${1}.1 ; then
 		echo %{_mandir}/man1/${1}.1'*'
 	fi
 }
