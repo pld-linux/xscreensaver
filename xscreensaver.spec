@@ -27,6 +27,8 @@ BuildRequires:	perl
 BuildRequires:	grep
 BuildRequires:	awk
 BuildRequires:	binutils
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xscreensaver-gnome
 
@@ -65,7 +67,6 @@ Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 Requires:	OpenGL
-Obsoletes:	xscreensaver-GL
 
 %description GL
 Screen savers which uses OpenGL libraries.
@@ -213,8 +214,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xscreensaver
 
 %files GL -f files.gl
-%defattr(755,root,root)
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
 
 %files GLE -f files.gle
-%defattr(755,root,root)
+%defattr(644,root,root,755)
