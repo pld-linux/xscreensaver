@@ -26,19 +26,22 @@ Summary(ru):	îÁÂÏÒ ÐÒÏÇÒÁÍÍ ÈÒÁÎÅÎÉÑ ÜËÒÁÎÁ ÄÌÑ X Window
 Summary(uk):	îÁÂ¦Ò ÐÒÏÇÒÁÍ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ ÄÌÑ X Window
 Summary(zh_CN):	X ´°¿ÚÏµÍ³±£»¤Æ÷
 Name:		xscreensaver
-Version:	4.14
-Release:	2
+Version:	4.15
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
 Source0:	http://www.jwz.org/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	84ef242bab91fc64a4370cbb90df06ed
+# Source0-md5:	2cfd498b21c0fea828be5f39fc8af53c
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Source4:	mkinstalldirs
+Patch0:		%{name}-locale-names.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	bc
 %{?with_gnome1:BuildRequires:	control-center1-devel}
 BuildRequires:	esound-devel
@@ -51,7 +54,7 @@ BuildRequires:	glut-devel
 BuildRequires:	gtk+2-devel >= 2.0.3
 BuildRequires:	libglade2-devel >= 2.0.0
 BuildRequires:	libxml2-devel >= 2.4.22
-BuildRequires:	pam-devel
+BuildRequires:	pam-devel >= 0.77.3
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 Requires:	pam >= 0.77.3
@@ -109,7 +112,7 @@ Summary(es):	A set of GL screensavers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
 Summary(pt_BR):	Protetores de tela GL
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	OpenGL
 
 %description GL
@@ -130,7 +133,7 @@ Ainda mais protetores de tela, usando a biblioteca 3D OpenGL.
 Summary:	OpenGL && GLE X screen savers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL && GLE
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description GLE
 Screen savers which uses OpenGL and GLE libraries.
@@ -142,7 +145,7 @@ Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
 Summary:	GNOME1 support
 Summary(pl):	Wsparcie dla GNOME1
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	control-center < 2.0
 
 %description gnome1
@@ -155,7 +158,7 @@ Wsparcie dla GNOME1.
 Summary:	GNOME2 support
 Summary(pl):	Wsparcie dla GNOME2
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	control-center >= 2.0
 
 %description gnome2
@@ -166,9 +169,14 @@ Wsparcie dla GNOME2.
 
 %prep
 %setup -q
+%patch0 -p1
 install -m755 %{SOURCE4} .
 
+mv po/{no,nb}.po
+
 %build
+%{__aclocal}
+%{__autoconf}
 %configure \
 	PERL=%{__perl} \
 %ifarch alpha
@@ -181,6 +189,7 @@ install -m755 %{SOURCE4} .
 	--with-mit-ext \
 	--with-proc-interrupts \
 	--with-pam \
+	--with-shadow \
 	--without-motif \
 	--with-xml \
 	--with-gl \
@@ -190,7 +199,8 @@ install -m755 %{SOURCE4} .
 	--with-xdbe-ext \
 	--with-hackdir=%{_libdir}/xscreensaver \
 	--with-configdir=%{_sysconfdir}/xscreensaver \
-	--with-fortune=%{_bindir}/fortune
+	--with-fortune=%{_bindir}/fortune \
+	--enable-locking
 
 %{__make} all
 
