@@ -155,7 +155,7 @@ Gnome2 support.
 Wsparcie dla Gnome2.
 
 %prep
-%setup  -q 
+%setup  -q
 install -m755 %{SOURCE4} .
 
 %build
@@ -186,7 +186,7 @@ install -m755 %{SOURCE4} .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-	
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	install_prefix=$RPM_BUILD_ROOT \
@@ -194,7 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 	GNOME_CCDIR_1=%{_xprefix}/share/control-center/Desktop \
 	GNOME_CCDIR_2=%{_xprefix}/share/control-center/capplets \
 	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
-	
+
 install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_applnkdir}/Settings/Xscreensaver}
 
 install %{SOURCE1} %{SOURCE2} \
@@ -253,7 +253,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f files.normal
 %defattr(644,root,root,755)
-%doc README README.debugging 
+%doc README README.debugging
 %doc %{_sysconfdir}/%{name}/README
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
