@@ -242,8 +242,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver*
 %dir %{_libdir}/xscreensaver
 %{_applnkdir}/Settings/GNOME/Desktop/*
-%{_datadir}/control-center-2.0/capplets/*
-%{_datadir}/%{name}
+/usr/share/control-center-2.0/capplets/*
+/usr/share/%{name}
 
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
 
