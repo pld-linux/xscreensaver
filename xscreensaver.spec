@@ -34,6 +34,7 @@ Source3:	%{name}.pamd
 Source4:	mkinstalldirs
 Patch1:		%{name}-c++.patch
 Patch2:		%{name}-xml.patch
+Patch3:		%{name}-icon.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf >= 2.53
@@ -147,6 +148,7 @@ Pozwala skonfigurowaæ xscreensavera poprzez control center GNOME.
 %setup	-q
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 install -m755 %{SOURCE4} mkinstalldirs
 
 %build
