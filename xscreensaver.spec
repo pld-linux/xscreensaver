@@ -10,7 +10,7 @@
 # - xearth
 # - xfishtank
 # - xmountains
-# - xsnow
+# - xsnow (partialy done)
 # make package for KDE with /usr/X11R6/bin/xscreensaver.kss
 Summary:	X screen savers
 Summary(de):	X-Bildschirmschoner
@@ -22,7 +22,7 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.02
+Version:	4.03
 Release:	1
 Epoch:		1
 Group:		X11/Applications
@@ -31,7 +31,7 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
-Patch0:		%{name}-configure.in.patch
+Source4:	mkinstalldirs
 Patch1:		%{name}-c++.patch
 Patch2:		%{name}-xml.patch
 URL:		http://www.jwz.org/xscreensaver/
@@ -143,11 +143,14 @@ Requires:	%{name} = %{version}
 
 %prep
 %setup  -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
+install -m755 %{SOURCE4} mkinstalldirs
 
 %build
+gettextize --copy --force
+sed 's/@PACKAGE@/@GETTEXT_PACKAGE@/' po/Makefile.in.in >po/Makefile.in.in.fixed
+mv po/Makefile.in.in.fixed po/Makefile.in.in
 aclocal
 autoconf
 # Build GNOME-free version.
@@ -174,7 +177,7 @@ autoconf
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
 	--with-configdir=%{_sysconfdir}/xscreensaver
 
-%{__make}
+%{__make} all
 
 mv -f driver/xscreensaver-demo{,-gnomefree}
 
@@ -217,6 +220,7 @@ install -d $RPM_BUILD_ROOT/etc/pam.d \
 
 export KDEDIR=%{_prefix}
 %{__make} install install_prefix=$RPM_BUILD_ROOT \
+	DESTDIR=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
 	PAM_DIR=/etc/pam.d \
 	GNOME_CCDIR=%{_datadir}/control-center/Desktop \
@@ -285,6 +289,9 @@ fi
 done
 
 cd $_DIR
+
+%find_lang %{name}
+cat %{name}.lang >> files.normal
 
 %clean
 rm -rf $RPM_BUILD_ROOT
