@@ -1,0 +1,12 @@
+diff -Nru xscreensaver-4.02.orig/configure.in xscreensaver-4.02/configure.in
+--- xscreensaver-4.02.orig/configure.in	Tue Mar 19 00:01:26 2002
++++ xscreensaver-4.02/configure.in	Wed May 15 16:23:09 2002
+@@ -2988,7 +2988,7 @@
+   GTK_ICONDIR='$(GNOME_DATADIR)/pixmaps'
+ elif test "$have_gtk" = yes; then
+   # should this be "$(prefix)/share/pixmaps"? But /usr/X11R6/share/ is wrong...
+-  GTK_ICONDIR='/usr/share/pixmaps'
++  GTK_ICONDIR='$(prefix)/share/pixmaps'
+ else
+   GTK_ICONDIR=''
+ fi
