@@ -48,8 +48,7 @@ BuildRequires:	perl
 BuildRequires:	grep
 BuildRequires:	awk
 BuildRequires:	binutils
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	autoconf >= 2.53
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
