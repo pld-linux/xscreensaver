@@ -31,7 +31,8 @@ monotora to jest te¿ dostêpny klasyczny "czysty" czarny wygaszacz.
 %setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" ./configure \
+CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
+./configure %{_target} \
 	--prefix=/usr/X11R6 \
 	--with-motif
 make
