@@ -23,7 +23,7 @@ Summary(uk):	Ó¡¬¶“ –“œ«“¡Õ ⁄¬≈“≈÷≈ŒŒ— ≈À“¡Œ’ ƒÃ— X Window
 Summary(zh_CN):	X ¥∞ø⁄œµÕ≥±£ª§∆˜
 Name:		xscreensaver
 Version:	4.06
-Release:	1
+Release:	2
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -49,9 +49,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xscreensaver-gnome
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 %define		_sysconfdir	/etc/X11
+%define		_g1datadir	/usr/X11R6/share
 
 %description
 Screen savers of every sort are included in this package, guaranteeing
@@ -129,6 +128,32 @@ Screen savers which uses OpenGL and GLE libraries.
 %description GLE -l pl
 Wygaszacze ekranu pod X Window uøywaj±ce OpenGL oraz GLE.
 
+%package gnome1
+Summary:	Gnome1 support
+Summary(pl):	Wsparcie dla Gnome1
+Group:		X11/Applications
+Requires:	%{name} = %{version}
+Requires:	control-center < 2.0
+
+%description gnome1
+Gnome1 support.
+
+%description gnome1 -l pl
+Wsparcie dla Gnome1.
+
+%package gnome2
+Summary:	Gnome2 support
+Summary(pl):	Wsparcie dla Gnome2
+Group:		X11/Applications
+Requires:	%{name} = %{version}
+Requires:	control-center >= 2.0
+
+%description gnome2
+Gnome2 support.
+
+%description gnome2 -l pl
+Wsparcie dla Gnome2.
+
 %prep
 %setup  -q 
 %patch1 -p1
@@ -156,29 +181,28 @@ install -m755 %{SOURCE4} .
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
 	--with-configdir=%{_sysconfdir}/xscreensaver
 
-
 %{__make} all
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/pam.d \
-	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/GNOME/Desktop,System},%{_datadir}/control-center/Desktop}
-
-KDEDIR=%{_prefix}; export KDEDIR
-%{__make} install install_prefix=$RPM_BUILD_ROOT \
+	
+%{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
+	install_prefix=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
 	PAM_DIR=/etc/pam.d \
-	GNOME_CCDIR=%{_datadir}/control-center/Desktop \
+	GNOME_CCDIR_1=%{_g1datadir}/control-center/Desktop \
+	GNOME_CCDIR_2=%{_g1datadir}/control-center/capplets \
 	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
+	
+install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_applnkdir}/Settings/Xscreensaver}
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/System
-install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/System
+install %{SOURCE1} %{SOURCE2} \
+    $RPM_BUILD_ROOT%{_applnkdir}/Settings/Xscreensaver
+
 %{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
-
-rm -f $RPM_BUILD_ROOT%{_bindir}/screensaver-properties-capplet
 
 _DIR=$(pwd)
 cd $RPM_BUILD_ROOT%{_libdir}/%{name}
@@ -230,23 +254,20 @@ rm -rf $RPM_BUILD_ROOT
 %files -f files.normal
 %defattr(644,root,root,755)
 %doc README README.debugging 
-%dir %{_sysconfdir}/%{name}
 %doc %{_sysconfdir}/%{name}/README
-%config %{_libdir}/X11/app-defaults/*
-%{_applnkdir}/System/*
-%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
 %attr(755,root,root) %{_bindir}/xscreensaver-demo
 %attr(755,root,root) %{_bindir}/xscreensaver-getimage*
-%{_mandir}/man1/xscreensaver*
-%dir %{_libdir}/xscreensaver
-%{_applnkdir}/Settings/GNOME/Desktop/*
-/usr/share/control-center-2.0/capplets/*
-/usr/share/%{name}
-
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
-
+%dir %{_sysconfdir}/%{name}
+%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
+%dir %{_libdir}/xscreensaver
+%config %{_libdir}/X11/app-defaults/*
+%{_datadir}/%{name}
+%dir %{_applnkdir}/Settings
+%{_applnkdir}/Settings/*
+%{_mandir}/man1/xscreensaver*
 
 %files GL -f files.gl
 %defattr(644,root,root,755)
@@ -254,3 +275,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files GLE -f files.gle
 %defattr(644,root,root,755)
+
+%files gnome1
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/screensaver-properties-capplet
+%{_g1datadir}/control-center/Desktop/*
+%{_g1datadir}/control-center/capplets/*
+%{_applnkdir}/Settings/GNOME/Desktop/*
+
+%files gnome2
+%defattr(644,root,root,755)
+%{_datadir}/control-center-2.0/capplets/*
