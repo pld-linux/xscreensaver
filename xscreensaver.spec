@@ -9,7 +9,6 @@ Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-Source1:	xscreensaver.desktop
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gtk+-devel
@@ -73,19 +72,20 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{etc/pam.d,%{_applnkdir}/Utilities}
+install -d $RPM_BUILD_ROOT/etc/pam.d \
+	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/Desktop,%{_datadir}/control-center/Desktop}
 
 make install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	mandir=$RPM_BUILD_ROOT%{_mandir} \
 	bindir=$RPM_BUILD_ROOT%{_bindir} \
 	AD_DIR=$RPM_BUILD_ROOT%{_libdir}/X11/app-defaults \
-	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
+	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d \
+	GNOME_CCDIR=$RPM_BUILD_ROOT%{_datadir}/control-center/Desktop \
+	GNOME_PANELDIR=$RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop
 
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 make -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
-
-install %{SOURCE1} $RPM_BUILD_ROOT%{_prefix}/share/applnk/Utilities
 
 strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
@@ -98,8 +98,8 @@ rm -r $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
-%{_applnkdir}/Utilities/xscreensaver.desktop
-%{_libdir}/X11/app-defaults/XScreenSaver
+%{_datadir}/control-center/Desktop/*
+%{_applnkdir}/Settings/Desktop/*
 %attr(640,root,root) %config %verify(not size mtime md5) /etc/pam.d/xscreensaver
 
 %attr(0755,root,root) %{_bindir}/xscreensaver
