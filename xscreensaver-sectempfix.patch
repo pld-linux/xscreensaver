@@ -1,0 +1,203 @@
+diff -ru xscreensaver-4.14/driver/passwd-kerberos.c xscreensaver-4.14.fix/driver/passwd-kerberos.c
+--- xscreensaver-4.14/driver/passwd-kerberos.c	2003-10-19 02:49:48.000000000 +0200
++++ xscreensaver-4.14.fix/driver/passwd-kerberos.c	2003-11-13 10:02:00.000000000 +0100
+@@ -26,6 +26,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <sys/types.h>
++#include <sys/stat.h>
+ 
+ /* I'm not sure if this is exactly the right test...
+    Might __APPLE__ be defined if this is apple hardware, but not
+@@ -192,6 +193,7 @@
+     C_Block mitkey;
+     Bool success;
+     char *newtkfile;
++    int fh = -1;
+ 
+     /* temporarily switch to a new ticketfile.
+        I'm not using tmpnam() because it isn't entirely portable.
+@@ -199,7 +201,19 @@
+     newtkfile = malloc(80 * sizeof(char));
+     memset(newtkfile, 0, sizeof(newtkfile));
+ 
+-    sprintf(newtkfile, "/tmp/xscrn-%i", getpid());
++    sprintf(newtkfile, "/tmp/xscrn-%i.XXXXXX", getpid());
++
++    if( (fh = mkstemp(newtktfile)) < 0)
++    {
++        free(newtktfile);
++        return(False);
++    }
++    if( fchmod(fh, 0600) < 0)
++    {
++        free(newtktfile);
++        return(False);
++    }
++
+ 
+     krb_set_tkt_string(newtkfile);
+ 
+@@ -222,6 +236,7 @@
+     krb_set_tkt_string(tk_file);
+     free(newtkfile);
+     memset(mitkey, 0, sizeof(mitkey));
++    close(fh); /* XXXtom: should the file be removed? */
+     
+ 
+     /* Did we verify successfully? */
+diff -ru xscreensaver-4.14/driver/xscreensaver-getimage-video xscreensaver-4.14.fix/driver/xscreensaver-getimage-video
+--- xscreensaver-4.14/driver/xscreensaver-getimage-video	2003-10-24 23:27:15.000000000 +0200
++++ xscreensaver-4.14.fix/driver/xscreensaver-getimage-video	2003-11-13 11:07:08.000000000 +0100
+@@ -27,6 +27,8 @@
+ require 5;
+ use diagnostics;
+ use strict;
++use File::Temp qw(:mktemp);
++use File::Path;
+ 
+ my $progname = $0; $progname =~ s@.*/@@g;
+ my $version = q{ $Revision$ }; $version =~ s/^[^0-9]+([0-9.]+).*$/$1/;
+@@ -42,7 +44,8 @@
+ #
+ 
+ my $tmpdir = $ENV{TMPDIR};
+-$tmpdir = "/tmp" unless $tmpdir;
++$tmpdir =  "/tmp" unless $tmpdir;
++$tmpdir = mkdtemp( $tmpdir . "/xscreensaver.XXXXXX");
+ 
+ my $tmpfile = "$tmpdir/xssgv.$$.ppm";
+ 
+@@ -71,6 +74,7 @@
+ sub error {
+   ($_) = @_;
+   print STDERR "$progname: $_\n";
++  rmtree([$tmpdir] , 0, 1);
+   exit 1;
+ }
+ 
+@@ -153,6 +157,7 @@
+ 
+ sub usage {
+   print STDERR "usage: $progname [--verbose] [--stdout]\n";
++  rmtree([ $tmpdir ], 0, 1);
+   exit 1;
+ }
+ 
+@@ -171,4 +176,5 @@
+ }
+ 
+ main;
++rmtree([$tmpdir] , 0, 1);
+ exit 0;
+--- xscreensaver-4.03/driver/xscreensaver.kss	2002-07-31 12:05:10.000000000 +0200
++++ xscreensaver-4.03.fix/driver/xscreensaver.kss	2003-11-13 10:26:14.000000000 +0100
+@@ -61,7 +61,16 @@
+     -test)
+       # I was unable to grep stdout because xscreensaver nabs it. But I was able
+       # to output it to a file, and grep the file.
+-      TEMP_FILE=/tmp/xsc.$RANDOM
++      TEMP_FILE=$(mktemp /tmp/xsc.XXXXXX)
++      if ! [ $? -eq 0 ];then
++          echo "unable to create '$TEMP_FILE'"
++          exit -1
++      fi
++      chmod 0600 $TEMP_FILE
++      if ! [ $? -eq 0 ];then
++          echo "unable to protect '$TEMP_FILE'"
++          exit -1
++      fi
+       /usr/X11R6/bin/xscreensaver -no-splash -verbose -no-capture-stderr 2> $TEMP_FILE &
+       /usr/X11R6/bin/xscreensaver-command -activate
+       while true; do
+@@ -73,6 +82,7 @@
+         fi
+         sleep 1
+       done
++      rm $TEMP_FILE
+       exit	# It should never get this far.
+       ;;
+
+diff -ru xscreensaver-4.14/hacks/vidwhacker xscreensaver-4.14.fix/hacks/vidwhacker
+--- xscreensaver-4.14/hacks/vidwhacker	2003-08-25 03:04:57.000000000 +0200
++++ xscreensaver-4.14.fix/hacks/vidwhacker	2003-11-13 15:40:30.000000000 +0100
+@@ -217,8 +217,7 @@
+   my ($width, $height) = m/^P\d\n(\d+) (\d+)\n/s;
+   error "got a bogus PPM" unless ($width && $height);
+
+-  my $tmpdir = $ENV{TMPDIR};
+-  $tmpdir = "/tmp" unless $tmpdir;
++  my $tmpdir = $ENV{TMPDIR} ? mkdtemp($ENV{TMPDIR} . "/vidwhacker.XXXXXX") : mkdtemp("/tmp/vidwhacker.XXXXXX");
+   my $fn = sprintf("$tmpdir/vw.%04x", $$);
+   my @files = ( "$fn", "$fn.1", "$fn.2", "$fn.3" );
+
+@@ -255,6 +254,7 @@
+   close IN;
+
+   unlink @files;
++  rmtree([ $tmpdir ], 0, 1);
+   return $ppm_data;
+ }
+
+@@ -387,8 +387,7 @@
+   } else {
+     my $displayer = pick_displayer();
+
+-    my $tmpdir = $ENV{TMPDIR};
+-    $tmpdir = "/tmp" unless $tmpdir;
++    my $tmpdir = $ENV{TMPDIR} ? mkdtemp($ENV{TMPDIR} . "/vidwhacker.XXXXXX") : mkdtemp("/tmp/vidwhacker.XXXXXX");
+     my $fn = sprintf("$tmpdir/vw.%04x", $$);
+     local *OUT;
+     unlink $fn;
+@@ -402,6 +401,7 @@
+       if ($verbose);
+     system (@cmd);
+
++    rmtree([ $tmpdir ], 0, 1);
+     unlink $fn;
+   }
+ }
+diff -ru xscreensaver-4.14/hacks/webcollage xscreensaver-4.14.fix/hacks/webcollage
+--- xscreensaver-4.14/hacks/webcollage	2003-09-04 04:04:05.000000000 +0200
++++ xscreensaver-4.14.fix/hacks/webcollage	2003-11-13 15:44:58.000000000 +0100
+@@ -45,6 +45,8 @@
+ require Time::Local;
+ require POSIX;
+ use Fcntl ':flock'; # import LOCK_* constants
++use File::Temp qw(:mktemp);
++use File::Path;
+ use POSIX qw(strftime);
+ 
+ use bytes;  # Larry can take Unicode and shove it up his ass sideways.
+@@ -1967,7 +1970,8 @@
+ #
+ ##############################################################################
+ 
+-my $image_ppm   = ($ENV{TMPDIR} ? $ENV{TMPDIR} : "/tmp") . "/webcollage." . $$;
++my $tmpdir      = $ENV{TMPDIR} ? mkdtemp($ENV{TMPDIR} . "/webcollage.XXXXXX") : mkdtemp("/tmp/webcollage.XXXXXX");
++my $image_ppm   = $tmpdir . "/webcollage." . $$;
+ my $image_tmp1  = $image_ppm . "-1";
+ my $image_tmp2  = $image_ppm . "-2";
+ 
+@@ -2489,6 +2493,7 @@
+     print STDERR blurb() . "$image_ppm has zero size\n";
+     showlog();
+     print STDERR "\n\n";
++    rmtree([ $tmpdir ], 0, 1);
+     exit (1);
+   }
+ 
+@@ -2675,6 +2680,7 @@
+                  "\t\t  [-delay secs] [-filter cmd] [-filter2 cmd]\n" .
+                  "\t\t  [-dictionary dictionary-file]\n" .
+                  "\t\t  [-http-proxy host[:port]]\n";
++      rmtree([ $tmpdir ], 0, 1);
+       exit 1;
+     }
+   }
+@@ -2766,4 +2772,5 @@
+ }
+ 
+ main;
++rmtree([ $tmpdir ], 0, 1);
+ exit (0);
