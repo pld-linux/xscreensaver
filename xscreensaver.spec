@@ -9,11 +9,11 @@ Group(pl):	X11/Narzêdzia
 Copyright:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 URL:		http://www.jwz.org/xscreensaver/
-BuildPrereq:	XFree86-devel
-BuildPrereq:	Mesa-devel
-BuildPrereq:	gtk+-devel
-BuildPrereq:	glib-devel
-BuildPrereq:    xpm-devel
+BuildRequires:	XFree86-devel
+BuildRequires:	Mesa-devel
+BuildRequires:	gtk+-devel
+BuildRequires:	glib-devel
+BuildRequires:    xpm-devel
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %define		_prefix		/usr/X11R6
