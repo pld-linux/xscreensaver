@@ -27,7 +27,7 @@ Release:	3
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
-Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	18f54fb8b86775a41a0b5fbfbf8a17f1
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
