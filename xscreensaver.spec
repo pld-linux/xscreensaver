@@ -70,7 +70,7 @@ Requires:	OpenGL
 %description GL
 Screen savers which uses OpenGL libraries.
 
-%description -l pl GL
+%description GL -l pl
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
 
 %package GLE
@@ -82,7 +82,7 @@ Requires:	%{name} = %{version}
 %description GLE
 Screen savers which uses OpenGL and GLE libraries.
 
-%description -l pl GLE
+%description GLE -l pl
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
 
 %prep
