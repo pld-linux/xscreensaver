@@ -3,8 +3,8 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.25
-Release:	7
+Version:	3.27
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -213,6 +213,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/halo
 %{_libdir}/xscreensaver/helix
 %{_libdir}/xscreensaver/hopalong
+%{_libdir}/xscreensaver/hyperball
 %{_libdir}/xscreensaver/hypercube
 %{_libdir}/xscreensaver/ifs
 %{_libdir}/xscreensaver/imsmap
@@ -241,9 +242,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/phosphor
 %{_libdir}/xscreensaver/pyro
 %{_libdir}/xscreensaver/qix
+%{_libdir}/xscreensaver/ripples
 %{_libdir}/xscreensaver/rd-bomb
 %{_libdir}/xscreensaver/rocks
-%{_libdir}/xscreensaver/ripples
 %{_libdir}/xscreensaver/rorschach
 %{_libdir}/xscreensaver/rotor
 %{_libdir}/xscreensaver/sierpinski
@@ -265,15 +266,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/vines
 %{_libdir}/xscreensaver/wander
 %{_libdir}/xscreensaver/webcollage
+%{_libdir}/xscreensaver/whirlwindwarp
 %{_libdir}/xscreensaver/worm
 %{_libdir}/xscreensaver/xflame
 %{_libdir}/xscreensaver/xjack
 %{_libdir}/xscreensaver/xlyap
 %{_libdir}/xscreensaver/xmatrix
+%{_libdir}/xscreensaver/xrayswarm
 %{_libdir}/xscreensaver/xroger
 %{_libdir}/xscreensaver/xspirograph
 %{_libdir}/xscreensaver/xsublim
 %{_libdir}/xscreensaver/xteevee
+%{_libdir}/xscreensaver/zoom
 
 %files GL
 %defattr(755,root,root)
@@ -282,6 +286,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/cage
 %{_libdir}/xscreensaver/gears
 %{_libdir}/xscreensaver/glplanet
+%{_libdir}/xscreensaver/gflux
 %{_libdir}/xscreensaver/lament
 %{_libdir}/xscreensaver/moebius
 %{_libdir}/xscreensaver/morph3d
@@ -292,6 +297,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/sproingies
 %{_libdir}/xscreensaver/stairs
 %{_libdir}/xscreensaver/superquadrics
+%{_libdir}/xscreensaver/xscreensaver-gl-helper
 
 %files gnome
 %defattr(644,root,root,755)
