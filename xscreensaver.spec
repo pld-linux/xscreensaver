@@ -3,7 +3,7 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.27
+Version:	3.28
 Release:	1
 Epoch:		1
 Group:		X11/Applications
@@ -296,6 +296,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/sierpinski3d
 %{_libdir}/xscreensaver/sproingies
 %{_libdir}/xscreensaver/stairs
+%{_libdir}/xscreensaver/starwars
+%{_libdir}/xscreensaver/stonerview
 %{_libdir}/xscreensaver/superquadrics
 %{_libdir}/xscreensaver/xscreensaver-gl-helper
 
