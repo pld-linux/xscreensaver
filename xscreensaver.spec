@@ -3,8 +3,8 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.31
-Release:	2
+Version:	3.32
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -29,7 +29,7 @@ BuildRequires:	binutils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xscreensaver-gnome
 
-%define 	_noautoreqdep	libGL.so.1 libGLU.so.1
+%define 	_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
 
@@ -201,18 +201,18 @@ rm -rf $RPM_BUILD_ROOT
 %doc {README,README.debugging,screenblank.txt}.gz
 %config %{_libdir}/X11/app-defaults/*
 %{_applnkdir}/System/*
+%{_pixmapsdir}/*.xpm
 %attr(644,root,root) %config %verify(not size mtime md5) /etc/pam.d/xscreensaver
-
-%attr(0755,root,root) %{_bindir}/xscreensaver
-%attr(0755,root,root) %{_bindir}/xscreensaver-command
-%attr(0755,root,root) %{_bindir}/xscreensaver-demo
-
+%attr(755,root,root) %{_bindir}/xscreensaver
+%attr(755,root,root) %{_bindir}/xscreensaver-command
+%attr(755,root,root) %{_bindir}/xscreensaver-demo
+%attr(755,root,root) %{_bindir}/xscreensaver-getimage*
 %{_mandir}/man1/*
-
 %dir %{_libdir}/xscreensaver
 
 %files GL -f files.gl
 %defattr(755,root,root)
+%attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
 
 %files GLE -f files.gle
 %defattr(755,root,root)
