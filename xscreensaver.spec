@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.25
-Release:	1
+Release:	2
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 License:	BSD
@@ -230,6 +230,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/moire2
 %{_libdir}/xscreensaver/mountain
 %{_libdir}/xscreensaver/munch
+%{_libdir}/xscreensaver/nerverot
 %{_libdir}/xscreensaver/noseguy
 %{_libdir}/xscreensaver/pedal
 %{_libdir}/xscreensaver/penetrate
