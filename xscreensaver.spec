@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.33
-Release:	2
+Release:	3
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -12,7 +12,8 @@ Group(pl):	X11/Aplikacje
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
-Source2:	%{name}.pamd
+Source2:	%{name}-lock.desktop
+Source3:	%{name}.pamd
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	gle-devel
@@ -147,12 +148,13 @@ export KDEDIR=%{_prefix}
 	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/System
+install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/System
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 mv -f $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
 install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo
 %{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 
 gzip -9nf README README.debugging screenblank.txt
 
