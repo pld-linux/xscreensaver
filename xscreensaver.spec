@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.25
-Release:	6
+Release:	7
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -129,14 +129,14 @@ cd ..
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
-	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/Desktop,System},%{_datadir}/control-center/Desktop}
+	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/GNOME/Desktop,System},%{_datadir}/control-center/Desktop}
 
 export KDEDIR=%{_prefix}
 %{__make} install install_prefix=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
 	PAM_DIR=/etc/pam.d \
 	GNOME_CCDIR=%{_datadir}/control-center/Desktop \
-	GNOME_PANELDIR=%{_applnkdir}/Settings/Desktop
+	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/System
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
@@ -158,7 +158,7 @@ correct_desktop()
 
 correct_desktop $RPM_BUILD_ROOT%{_datadir}/control-center/Desktop/screensaver-properties.desktop
 
-correct_desktop $RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop/screensaver-properties.desktop
+correct_desktop $RPM_BUILD_ROOT%{_applnkdir}/Settings/GNOME/Desktop/screensaver-properties.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -296,5 +296,5 @@ rm -rf $RPM_BUILD_ROOT
 %files gnome
 %defattr(644,root,root,755)
 %{_datadir}/control-center/Desktop/*
-%{_applnkdir}/Settings/Desktop/*
+%{_applnkdir}/Settings/GNOME/Desktop/*
 %attr(0755,root,root) %{_bindir}/xscreensaver-demo-gnome
