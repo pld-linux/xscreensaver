@@ -16,7 +16,7 @@ BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gtk+-devel
 BuildRequires:	glib-devel
 BuildRequires:	xpm-devel
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -31,7 +31,6 @@ Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner.
 Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm wirklich
 schonen möchten, gibt's den alten Klassiker, den einfachen schwarzen
 Bildschirm.
-
 
 %description -l fr
 Des économiseurs d'écran de chaque sorte sont inclus dans ce paquet,
