@@ -82,12 +82,12 @@ konfiguracjê wygaszacza ekranu.
 %setup  -q
 
 %build
+autoconf
 LDFLAGS="-s"; export LDFLAGS
-
 # Build GNOME-free version.
 %configure \
 %ifarch alpha
-	--without-xshm-ext" \
+	--without-xshm-ext \
 %endif
 	--without-motif \
 	--with-gtk \
@@ -109,7 +109,7 @@ rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
 
 %configure \
 %ifarch alpha
-	--without-xshm-ext" \
+	--without-xshm-ext \
 %endif
 	--without-motif \
 	--with-gtk \
