@@ -273,7 +273,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/xlyap
 %{_libdir}/xscreensaver/xmatrix
 %{_libdir}/xscreensaver/xrayswarm
-%{_libdir}/xscreensaver/xroger
+#%{_libdir}/xscreensaver/xroger
 %{_libdir}/xscreensaver/xspirograph
 %{_libdir}/xscreensaver/xsublim
 %{_libdir}/xscreensaver/xteevee
