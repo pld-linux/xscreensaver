@@ -38,11 +38,11 @@ Patch3:		%{name}-icon.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf >= 2.53
-BuildRequires:	awk
 BuildRequires:	bc
 BuildRequires:	binutils
-BuildRequires:	control-center-devel
+#BuildRequires:	control-center-devel
 BuildRequires:	esound-devel
+BuildRequires:	gettext-devel
 BuildRequires:	gle-devel
 BuildRequires:	glut-devel
 BuildRequires:	libxml2-devel >= 2.4.22
@@ -154,6 +154,8 @@ intltoolize --copy --force
 	--with-xinerama-ext \
 	--with-xf86vmode-ext \
 	--with-xf86gamma-ext \
+	--with-dpms-ext \
+	--with-mit-ext \
 	--with-proc-interrupts \
 	--with-pam \
 	--without-motif \
@@ -165,11 +167,9 @@ intltoolize --copy --force
 	--with-xdbe-ext \
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
 	--with-configdir=%{_sysconfdir}/xscreensaver
-#	--with-dpms-ext \
 #	--with-gtk \
 #	--without-gnome \
 #	--without-pixbuf \
-#	--with-mit-ext \
 
 %{__make} all
 
@@ -178,7 +178,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
 	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/GNOME/Desktop,System},%{_datadir}/control-center/Desktop}
 
-export KDEDIR=%{_prefix}
+KDEDIR=%{_prefix}; export KDEDIR
 %{__make} install install_prefix=$RPM_BUILD_ROOT \
 	DESTDIR=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
