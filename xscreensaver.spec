@@ -3,7 +3,7 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.23
+Version:	3.24
 Release:	1
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
@@ -14,6 +14,7 @@ URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gtk+-devel
 BuildRequires:	xpm-devel
+BuildRequires:	bc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -38,7 +39,7 @@ tout noir.
 
 %description -l pl
 Ka¿dy wygaszacz ekranu od³±czony do tego pakietu zapewnia godziny
-zadowolenia oszczêdzania monitora. Je¶li bardzo Ci zale¿y na oszczêdzaniu
+zadowolenia i oszczêdzania monitora. Je¶li bardzo Ci zale¿y na oszczêdzaniu
 monitora to jest te¿ dostêpny klasyczny "czysty" czarny wygaszacz.
 
 %package GL
@@ -52,7 +53,7 @@ Requires:	%{name} = %{version}
 Screen savers which uses OpenGL libraries.
 
 %description -l pl GL
-Wygaszacz ekranu pod X Window u¿ywaj±ce OpenGL.
+Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
 
 %prep
 %setup  -q
@@ -92,7 +93,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	README README.debugging screenblank.txt
 
 %clean
-rm -r $RPM_BUILD_ROOT
+#rm -r $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
@@ -201,7 +202,9 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/xlyap
 %{_libdir}/xscreensaver/xmatrix
 %{_libdir}/xscreensaver/xroger
+%{_libdir}/xscreensaver/xspirograph
 %{_libdir}/xscreensaver/xsublim
+%{_libdir}/xscreensaver/xteevee
 
 %files GL
 %defattr(755,root,root)
