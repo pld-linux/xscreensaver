@@ -91,6 +91,7 @@ Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
 %setup  -q
 
 %build
+aclocal
 autoconf
 # Build GNOME-free version.
 %configure \
