@@ -3,16 +3,13 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.19
+Version:	3.20
 Release:	1
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 Copyright:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver.desktop
-Patch0:		xscreensaver-bsod.patch
-Patch1:		xscreensaver-noseguy.patch
-Patch2:		xscreensaver-petri.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	XFree86-devel
 BuildRequires:	Mesa-devel
@@ -62,9 +59,6 @@ Wygaszacz ekranu pod X Window u¿ywaj±ce OpenGL.
 
 %prep
 %setup  -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 LDFLAGS="-s"; export LDFLAGS
@@ -173,6 +167,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/moire2
 %{_libdir}/xscreensaver/mountain
 %{_libdir}/xscreensaver/munch
+%{_libdir}/xscreensaver/noseguy
 %{_libdir}/xscreensaver/pedal
 %{_libdir}/xscreensaver/penetrate
 %{_libdir}/xscreensaver/penrose
@@ -182,6 +177,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/qix
 %{_libdir}/xscreensaver/rd-bomb
 %{_libdir}/xscreensaver/rocks
+%{_libdir}/xscreensaver/ripples
 %{_libdir}/xscreensaver/rorschach
 %{_libdir}/xscreensaver/rotor
 %{_libdir}/xscreensaver/sierpinski
@@ -223,6 +219,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/pipes
 %{_libdir}/xscreensaver/pulsar
 %{_libdir}/xscreensaver/rubik
+%{_libdir}/xscreensaver/sierpinski3d
 %{_libdir}/xscreensaver/sproingies
 %{_libdir}/xscreensaver/stairs
 %{_libdir}/xscreensaver/superquadrics
