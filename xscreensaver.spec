@@ -10,6 +10,8 @@ Copyright:	BSD
 Source0:	%{name}-%{version}.tar.gz
 URL:		http://www.jwz.org/xscreensaver
 BuildPrereq:	XFree86-devel
+BuildPrereq:	lesstif-devel
+BuildPrereq:    xpm-devel
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -38,7 +40,7 @@ CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 	--prefix=/usr/X11R6 \
 	--with-motif \
 	--with-pam \
-	--enable-subdir=../libexec/xscreensaver
+	--enable-subdir=../lib/xscreensaver
 
 make
 
@@ -78,8 +80,8 @@ rm -r $RPM_BUILD_ROOT
 %attr(0755,root,root) /usr/X11R6/bin/xscreensaver-command
 %attr(0755,root,root) /usr/X11R6/bin/xscreensaver-demo
 
-%dir /usr/X11R6/libexec/xscreensaver
-%attr(0755,root,root) /usr/X11R6/libexec/xscreensaver/*
+%dir /usr/X11R6/lib/xscreensaver
+%attr(0755,root,root) /usr/X11R6/lib/xscreensaver/*
 
 /usr/X11R6/share/man/man1/*
 
