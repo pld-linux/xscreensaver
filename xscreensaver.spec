@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.25
-Release:	5
+Release:	6
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -276,7 +276,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/xteevee
 
 %files GL
-%defattr(644,root,root,755)
+%defattr(755,root,root)
 %{_libdir}/xscreensaver/atlantis
 %{_libdir}/xscreensaver/bubble3d
 %{_libdir}/xscreensaver/cage
