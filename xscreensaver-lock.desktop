@@ -1,9 +1,10 @@
 [Desktop Entry]
+Encoding=UTF-8
 Name=Lock screen
 Name[pl]=Zablokuj ekran
 Comment=Enable screensaver and lock screen.
 Comment[pl]=Włącza wygaszacz i blokuje ekran
 Exec=/usr/X11R6/bin/xscreensaver-command -lock
-Terminal=0
+Terminal=false
 Type=Application
 # vi: encoding=utf-8
