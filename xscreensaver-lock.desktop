@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Lock screen
 Name[pl]=Zablokuj ekran
-Comment=Enable screensaver and lock screen.
+Comment=Enable screensaver and lock screen
 Comment[pl]=Włącza wygaszacz i blokuje ekran
 Exec=xscreensaver-command -lock
 Terminal=false
