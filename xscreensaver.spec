@@ -147,7 +147,7 @@ Requires:	%{name} = %{version}
 install -m755 %{SOURCE4} mkinstalldirs
 
 %build
-gettextize --copy --force
+%{__gettextize}
 sed 's/@PACKAGE@/@GETTEXT_PACKAGE@/' po/Makefile.in.in >po/Makefile.in.in.fixed
 mv po/Makefile.in.in.fixed po/Makefile.in.in
 aclocal
