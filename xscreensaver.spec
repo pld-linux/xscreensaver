@@ -242,7 +242,7 @@ find_config_and_man()
 		echo %{_mandir}/man1/xscreensaver-${1}.1'*'
 		# these two conflict with other packages
 		if [ ${1} != barcode -a ${1} != flame ]; then
-			echo ".so xscreensaver-${1}.1" > %{_mandir}/man1/${1}.1
+			echo ".so xscreensaver-${1}.1" > $RPM_BUILD_ROOT%{_mandir}/man1/${1}.1
 			echo %{_mandir}/man1/${1}.1'*'
 		fi
 	fi
