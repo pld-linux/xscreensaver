@@ -14,8 +14,13 @@
 # make package for KDE with /usr/X11R6/bin/xscreensaver.kss
 Summary:	X screen savers
 Summary(de):	X-Bildschirmschoner
+Summary(es):	Protectores de pantalla X
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
+Summary(pt_BR):	Salvadores de tela X
+Summary(ru):	îÁÂÏÒ ĞÒÏÇÒÁÍÍ ÈÒÁÎÅÎÉÑ ÜËÒÁÎÁ ÄÌÑ X Window
+Summary(uk):	îÁÂ¦Ò ĞÒÏÇÒÁÍ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ ÄÌÑ X Window
+Summary(zh_CN):	X ´°¿ÚÏµÍ³±£»¤Æ÷
 Name:		xscreensaver
 Version:	4.02
 Release:	1
@@ -63,6 +68,12 @@ Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm
 wirklich schonen möchten, gibt's den alten Klassiker, den einfachen
 schwarzen Bildschirm.
 
+%description -l es
+En este paquete están incluidos protectores de pantalla, de todos los
+tipos, garantizando horas de diversión para tu monitor. Y si realmente
+estás inclinado a la protección de tu monitor, existe aquel antiguo y
+clásico protector, la "pantalla negra".
+
 %description -l fr
 Des économiseurs d'écran de chaque sorte sont inclus dans ce paquet,
 guarantissant des heures de plaisir et d'économies d'écran. Et si vous
@@ -75,9 +86,23 @@ zadowolenia i oszczêdzania monitora. Je¶li bardzo Ci zale¿y na
 oszczêdzaniu monitora to jest te¿ dostêpny klasyczny "czysty" czarny
 wygaszacz.
 
+%description -l pt_BR
+Protetores de tela de todos os tipos estão incluídos neste pacote,
+garantindo horas de divertimento para o seu monitor. E se você
+realmente está inclinado à proteção do seu monitor, existe aquele
+velho clássico, a "tela preta".
+
+%description -l ru
+ğÁËÅÔ xscreensaver ÓÏÄÅÒÖÉÔ ÒÁÚÎÏÏÂÒÁÚÎÙÅ ĞÒÏÇÒÁÍÍÙ ÈÒÁÎÅÎÉÑ ÜËÒÁÎÁ.
+
+%description -l uk
+ğÁËÅÔ xscreensaver Í¦ÓÔÉÔØ Ò¦ÚÎÏÍÁÎ¦ÔÎ¦ ĞÒÏÇÒÁÍÉ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ.
+
 %package GL
 Summary:	OpenGL X screen savers
+Summary(es):	A set of GL screensavers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
+Summary(pt_BR):	Protetores de tela GL
 Group:		X11/Applications
 Requires:	%{name} = %{version}
 Requires:	OpenGL
@@ -85,8 +110,16 @@ Requires:	OpenGL
 %description GL
 Screen savers which uses OpenGL libraries.
 
+%description GL -l es
+The xscreensaver-gl package contains even more screensavers for your
+mind-numbing, ambition-eroding, time-wasting, hypnotized viewing
+pleasure. These screensavers require OpenGL or Mesa support.
+
 %description GL -l pl
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
+
+%description GL -l pt_BR
+Ainda mais protetores de tela, usando a biblioteca 3D OpenGL.
 
 %package GLE
 Summary:	OpenGL && GLE X screen savers
@@ -139,7 +172,7 @@ autoconf
 	--with-gl \
 	--with-gle \
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
-	--with-configdir=%{_sysconfdir}/xscreensaver 
+	--with-configdir=%{_sysconfdir}/xscreensaver
 
 %{__make}
 
@@ -171,7 +204,7 @@ rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
 	--with-gl \
 	--with-gle \
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
-	--with-configdir=%{_sysconfdir}/xscreensaver 
+	--with-configdir=%{_sysconfdir}/xscreensaver
 
 cd driver
 %{__make} xscreensaver-demo
