@@ -1,0 +1,14 @@
+diff -urN aa/xscreensaver-4.16/driver/screensaver-properties.desktop.in xscreensaver-4.16/driver/screensaver-properties.desktop.in
+--- aa/xscreensaver-4.16/driver/screensaver-properties.desktop.in	2003-12-15 11:21:33.000000000 +0100
++++ xscreensaver-4.16/driver/screensaver-properties.desktop.in	2004-07-26 13:22:53.782230112 +0200
+@@ -1,8 +1,9 @@
+ [Desktop Entry]
++Encoding=UTF-8
+ Exec=xscreensaver-demo
+ Icon=xscreensaver.xpm
+ Terminal=false
+ _Name=Screensaver
+ _Comment=Change screensaver properties
+ Type=Application
+-Categories=Application;Settings;Appearance;AdvancedSettings;
++Categories=GTK;GNOME;Settings;Appearance;AdvancedSettings;
