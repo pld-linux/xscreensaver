@@ -43,7 +43,7 @@ BuildRequires:	libglade2-devel >= 2.0.0
 BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	OpenGL-devel
 BuildRequires:	pam-devel
-BuildRequires:	perl
+BuildRequires:	perl-base
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xscreensaver-gnome
 
@@ -159,6 +159,7 @@ install -m755 %{SOURCE4} .
 
 %build
 %configure \
+	PERL=%{__perl} \
 %ifarch alpha
 	--without-xshm-ext \
 %endif
