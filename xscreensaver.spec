@@ -151,7 +151,7 @@ gettextize --copy --force
 sed 's/@PACKAGE@/@GETTEXT_PACKAGE@/' po/Makefile.in.in >po/Makefile.in.in.fixed
 mv po/Makefile.in.in.fixed po/Makefile.in.in
 aclocal
-autoconf
+%{__autoconf}
 # Build GNOME-free version.
 %configure \
 %ifarch alpha
