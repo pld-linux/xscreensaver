@@ -8,4 +8,5 @@ Terminal=0
 Type=Application
 Categories=Application;Settings;
 OnlyShowIn=Old;
+Encoding=UTF-8
 # vi: encoding=utf-8
