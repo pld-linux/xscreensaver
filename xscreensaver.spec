@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.34
-Release:	2
+Release:	3
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -211,7 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_libdir}/X11/app-defaults/*
 %{_applnkdir}/System/*
 %{_pixmapsdir}/*.xpm
-%attr(644,root,root) %config %verify(not size mtime md5) /etc/pam.d/xscreensaver
+%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
 %attr(755,root,root) %{_bindir}/xscreensaver-demo
