@@ -49,7 +49,7 @@ Obsoletes:	xscreensaver-gnome
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
 %define		_sysconfdir	/etc/X11
-%define		_g1datadir	/usr/X11R6/share
+%define		_xprefix	/usr/X11R6
 
 %description
 Screen savers of every sort are included in this package, guaranteeing
@@ -188,10 +188,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	install_prefix=$RPM_BUILD_ROOT \
-	AD_DIR=%{_libdir}/X11/app-defaults \
 	PAM_DIR=/etc/pam.d \
-	GNOME_CCDIR_1=%{_g1datadir}/control-center/Desktop \
-	GNOME_CCDIR_2=%{_g1datadir}/control-center/capplets \
+	GNOME_CCDIR_1=%{_xprefix}/share/control-center/Desktop \
+	GNOME_CCDIR_2=%{_xprefix}/share/control-center/capplets \
 	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
 	
 install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_applnkdir}/Settings/Xscreensaver}
@@ -262,7 +261,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/%{name}
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
 %dir %{_libdir}/xscreensaver
-%config %{_libdir}/X11/app-defaults/*
+%{_xprefix}/lib/X11/app-defaults/*
 %{_datadir}/%{name}
 %{_applnkdir}/Settings/Xscreensaver
 %{_mandir}/man1/xscreensaver*
@@ -277,8 +276,8 @@ rm -rf $RPM_BUILD_ROOT
 %files gnome1
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/screensaver-properties-capplet
-%{_g1datadir}/control-center/Desktop/*
-%{_g1datadir}/control-center/capplets/*
+%{_xprefix}/share/control-center/Desktop/*
+%{_xprefix}/share/control-center/capplets/*
 %{_applnkdir}/Settings/GNOME/Desktop/*
 
 %files gnome2
