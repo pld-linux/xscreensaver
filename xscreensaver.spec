@@ -1,16 +1,4 @@
 # TODO:
-# make packages with additionals hacks:
-# - cosmos
-# - electricsheep
-# - goban
-# - sphereEversion
-# - ssystem
-# - xaos
-# - xdaliclock
-# - xearth
-# - xfishtank
-# - xmountains
-# - xsnow (partialy done)
 # make package for KDE with /usr/X11R6/bin/xscreensaver.kss
 #
 # Conditional build:
@@ -26,13 +14,13 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.18
-Release:	2
+Version:	4.19
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
 Source0:	http://www.jwz.org/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	24847c37e2eb54e590997878232530ce
+# Source0-md5:	3ef2b585cd1185a9f277d53f24e13142
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
@@ -187,6 +175,7 @@ cp -f /usr/share/automake/config.sub .
 	--without-xshm-ext \
 %endif
 	--with-xinerama-ext \
+	--with-randr-ext \
 	--with-xf86vmode-ext \
 	--with-xf86gamma-ext \
 	--with-dpms-ext \
@@ -301,6 +290,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/*.desktop
 %{_mandir}/man1/xscreensaver*
 %{_pixmapsdir}/*.xpm
+
+%{_sysconfdir}/%{name}/cosmos.xml
+%{_sysconfdir}/%{name}/electricsheep.xml
+%{_sysconfdir}/%{name}/fireflies.xml
+%{_sysconfdir}/%{name}/goban.xml
+%{_sysconfdir}/%{name}/sphereeversion.xml
+%{_sysconfdir}/%{name}/ssystem.xml
+%{_sysconfdir}/%{name}/xaos.xml
+%{_sysconfdir}/%{name}/xdaliclock.xml
+%{_sysconfdir}/%{name}/xearth.xml
+%{_sysconfdir}/%{name}/xfishtank.xml
+%{_sysconfdir}/%{name}/xmountains.xml
+%{_sysconfdir}/%{name}/xplanet.xml
+%{_sysconfdir}/%{name}/xsnow.xml
 
 %files GL -f files.gl
 %defattr(644,root,root,755)
