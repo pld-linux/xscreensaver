@@ -129,30 +129,30 @@ Screen savers which uses OpenGL and GLE libraries.
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
 
 %package gnome1
-Summary:	Gnome1 support
-Summary(pl):	Wsparcie dla Gnome1
+Summary:	GNOME1 support
+Summary(pl):	Wsparcie dla GNOME1
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}
 Requires:	control-center < 2.0
 
 %description gnome1
-Gnome1 support.
+GNOME1 support.
 
 %description gnome1 -l pl
-Wsparcie dla Gnome1.
+Wsparcie dla GNOME1.
 
 %package gnome2
-Summary:	Gnome2 support
-Summary(pl):	Wsparcie dla Gnome2
+Summary:	GNOME2 support
+Summary(pl):	Wsparcie dla GNOME2
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}
 Requires:	control-center >= 2.0
 
 %description gnome2
-Gnome2 support.
+GNOME2 support.
 
 %description gnome2 -l pl
-Wsparcie dla Gnome2.
+Wsparcie dla GNOME2.
 
 %prep
 %setup  -q
