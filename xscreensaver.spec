@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.24
-Release:	5
+Release:	6
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 License:	BSD
@@ -54,6 +54,7 @@ Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 Requires:	%{name} = %{version}
+Obsoletes:	xscreensaver-GL
 
 %description GL
 Screen savers which uses OpenGL libraries.
