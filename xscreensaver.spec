@@ -13,7 +13,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	Mesa-devel
 BuildRequires:	gtk+-devel
 BuildRequires:	glib-devel
-BuildRequires:    xpm-devel
+BuildRequires:	xpm-devel
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %define		_prefix		/usr/X11R6
