@@ -4,13 +4,13 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.25
-Release:	2
+Release:	3
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-Source1:	xscreensaver.desktop
-Source2:	xscreensaver.pamd
+Source1:	%{name}.desktop
+Source2:	%{name}.pamd
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	gnome-libs-devel
@@ -28,25 +28,26 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Screen savers of every sort are included in this package, guaranteeing
-hours of enjoyment and monitor saving. And if you are bent on really saving
-your monitor, there's that old classic, the plain black screen.
+hours of enjoyment and monitor saving. And if you are bent on really
+saving your monitor, there's that old classic, the plain black screen.
 
 %description -l de
 Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner.
-Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm wirklich
-schonen möchten, gibt's den alten Klassiker, den einfachen schwarzen
-Bildschirm.
+Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm
+wirklich schonen möchten, gibt's den alten Klassiker, den einfachen
+schwarzen Bildschirm.
 
 %description -l fr
 Des économiseurs d'écran de chaque sorte sont inclus dans ce paquet,
-guarantissant des heures de plaisir et d'économies d'écran. Et si vous êtes
-voulez vraiment économiser votre écran, il y a ce vieux classique, l'écran
-tout noir.
+guarantissant des heures de plaisir et d'économies d'écran. Et si vous
+êtes voulez vraiment économiser votre écran, il y a ce vieux
+classique, l'écran tout noir.
 
 %description -l pl
 Ka¿dy wygaszacz ekranu do³±czony do tego pakietu zapewnia godziny
-zadowolenia i oszczêdzania monitora. Je¶li bardzo Ci zale¿y na oszczêdzaniu
-monitora to jest te¿ dostêpny klasyczny "czysty" czarny wygaszacz.
+zadowolenia i oszczêdzania monitora. Je¶li bardzo Ci zale¿y na
+oszczêdzaniu monitora to jest te¿ dostêpny klasyczny "czysty" czarny
+wygaszacz.
 
 %package GL
 Summary:	OpenGL X screen savers
@@ -99,7 +100,7 @@ LDFLAGS="-s"; export LDFLAGS
 
 %{__make}
 
-mv driver/xscreensaver-demo{,-gnomefree}
+mv -f driver/xscreensaver-demo{,-gnomefree}
 
 # Build GNOME version.
 # This version has to be build last in order for "make install" to install
@@ -128,7 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
 	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/Desktop,System},%{_datadir}/control-center/Desktop}
 
-export KDEDIR=/usr/X11R6
+export KDEDIR=%{_prefix}
 %{__make} install install_prefix=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
 	PAM_DIR=/etc/pam.d \
@@ -137,11 +138,11 @@ export KDEDIR=/usr/X11R6
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/System
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
-mv $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
+mv -f $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
 install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo
 %{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
-install -m644 %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 #strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
 strip $RPM_BUILD_ROOT%{_bindir}/* || :
@@ -152,9 +153,9 @@ gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 # Correct desktop files.
 correct_desktop()
 {
-	mv "$1" "$1.tmp"
+	mv -f "$1" "$1.tmp"
 	sed -e "s#$RPM_BUILD_ROOT##" -e s/xscreensaver-demo/xscreensaver-demo-gnome/ "$1.tmp" > "$1"
-	rm "$1.tmp"
+	rm -f "$1.tmp"
 }
 
 correct_desktop $RPM_BUILD_ROOT%{_datadir}/control-center/Desktop/screensaver-properties.desktop
@@ -162,7 +163,7 @@ correct_desktop $RPM_BUILD_ROOT%{_datadir}/control-center/Desktop/screensaver-pr
 correct_desktop $RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop/screensaver-properties.desktop
 
 %clean
-rm -r $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
@@ -277,7 +278,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/xteevee
 
 %files GL
-%defattr(755,root,root)
+%defattr(644,root,root,755)
 %{_libdir}/xscreensaver/atlantis
 %{_libdir}/xscreensaver/bubble3d
 %{_libdir}/xscreensaver/cage
@@ -295,7 +296,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/superquadrics
 
 %files gnome
-%defattr(644,root,root)
+%defattr(644,root,root,755)
 %{_datadir}/control-center/Desktop/*
 %{_applnkdir}/Settings/Desktop/*
 %attr(0755,root,root) %{_bindir}/xscreensaver-demo-gnome
