@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.29
-Release:	1
+Release:	2
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -304,6 +304,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gnome
 %defattr(644,root,root,755)
-%{_datadir}/control-center/Desktop/*
-%{_applnkdir}/Settings/GNOME/Desktop/*
 %attr(0755,root,root) %{_bindir}/xscreensaver-demo-gnome
