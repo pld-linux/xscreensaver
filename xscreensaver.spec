@@ -72,7 +72,7 @@ rm -r $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
-%config /etc/X11/wmconfig/xscreensaver
+/etc/X11/wmconfig/xscreensaver
 %config /usr/X11R6/lib/X11/app-defaults/XScreenSaver
 %config /etc/pam.d/xscreensaver
 
