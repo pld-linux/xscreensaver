@@ -141,7 +141,10 @@ mv $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
 install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo
 %{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
+install -m644 %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 #strip $RPM_BUILD_ROOT%{_bindir}/* || :
+
+strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	README README.debugging screenblank.txt
