@@ -99,7 +99,7 @@ Summary(es):	A set of GL screensavers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
 Summary(pt_BR):	Protetores de tela GL
 Group:		X11/Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 Requires:	OpenGL
 
 %description GL
@@ -120,7 +120,7 @@ Ainda mais protetores de tela, usando a biblioteca 3D OpenGL.
 Summary:	OpenGL && GLE X screen savers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL && GLE
 Group:		X11/Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description GLE
 Screen savers which uses OpenGL and GLE libraries.
@@ -132,7 +132,7 @@ Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
 Summary:	Gnome1 support
 Summary(pl):	Wsparcie dla Gnome1
 Group:		X11/Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 Requires:	control-center < 2.0
 
 %description gnome1
@@ -145,7 +145,7 @@ Wsparcie dla Gnome1.
 Summary:	Gnome2 support
 Summary(pl):	Wsparcie dla Gnome2
 Group:		X11/Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 Requires:	control-center >= 2.0
 
 %description gnome2
