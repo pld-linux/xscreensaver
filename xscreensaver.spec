@@ -175,6 +175,7 @@ install -m755 %{SOURCE4} .
 mv po/{no,nb}.po
 
 %build
+cp -f /usr/share/automake/config.sub .
 %{__aclocal}
 %{__autoconf}
 %configure \
