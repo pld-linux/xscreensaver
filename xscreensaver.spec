@@ -45,6 +45,7 @@ BuildRequires:	libglade2-devel >= 2.0.0
 BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	pam-devel
 BuildRequires:	perl-base
+Requires:	pam >= 0.77.3
 Obsoletes:	xscreensaver-gnome
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
