@@ -265,8 +265,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xscreensaver
 %config %{_libdir}/X11/app-defaults/*
 %{_datadir}/%{name}
-%dir %{_applnkdir}/Settings
-%{_applnkdir}/Settings/*
+%{_applnkdir}/Settings/Xscreensaver
 %{_mandir}/man1/xscreensaver*
 
 %files GL -f files.gl
