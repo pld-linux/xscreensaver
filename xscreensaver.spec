@@ -179,7 +179,8 @@ install -m755 %{SOURCE4} .
 	--with-xshm-ext \
 	--with-xdbe-ext \
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
-	--with-configdir=%{_sysconfdir}/xscreensaver
+	--with-configdir=%{_sysconfdir}/xscreensaver \
+	--with-fortune=%{_bindir}/fortune
 
 %{__make} all
 
