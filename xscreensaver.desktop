@@ -40,4 +40,6 @@ Comment[wa]=Apontiaedje do spårgneu di waitroûle
 Exec=xscreensaver-demo
 Terminal=0
 Type=Application
+Categories=Application;Settings;
+OnlyShowIn=Old;
 # vi: encoding=utf-8

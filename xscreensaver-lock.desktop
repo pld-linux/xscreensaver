@@ -6,4 +6,6 @@ Comment[pl]=Włącza wygaszacz i blokuje ekran
 Exec=xscreensaver-command -lock
 Terminal=0
 Type=Application
+Categories=Application;Settings;
+OnlyShowIn=Old;
 # vi: encoding=utf-8
