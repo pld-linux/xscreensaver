@@ -11,4 +11,4 @@ diff -urN aa/xscreensaver-4.16/driver/screensaver-properties.desktop.in xscreens
  _Comment=Change screensaver properties
  Type=Application
 -Categories=Application;Settings;Appearance;AdvancedSettings;
-+Categories=GTK;GNOME;Settings;Appearance;AdvancedSettings;Capplet;
++Categories=GTK;GNOME;Settings;Appearance;AdvancedSettings;X-Capplet;
