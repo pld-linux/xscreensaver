@@ -96,7 +96,7 @@ LDFLAGS="-s"; export LDFLAGS
 	--with-gle \
 	--enable-subdir=../lib/xscreensaver
 
-make
+%{__make}
 
 mv driver/xscreensaver-demo{,-gnomefree}
 
