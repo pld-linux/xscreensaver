@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=XScreenSaver
+Comment=X Screen Saver
+Exec=/usr/X11R6/bin/xscreensaver &
+Icon=x_app.xpm
+Terminal=0
+Type=Application
