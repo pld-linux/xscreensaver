@@ -15,7 +15,7 @@ Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
 Version:	4.19
-Release:	3
+Release:	4
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -270,8 +270,8 @@ cd $_DIR
 %find_lang %{name} --all-name
 cat %{name}.lang >> files.normal
 
-install -d $RPM_BUILD_ROOT%{_datadir}/gnome/capplets
-mv $RPM_BUILD_ROOT%{_datadir}/control-center-2.0/capplets/* $RPM_BUILD_ROOT%{_datadir}/gnome/capplets
+install -d $RPM_BUILD_ROOT%{_desktopdir}
+mv $RPM_BUILD_ROOT%{_datadir}/control-center-2.0/capplets/* $RPM_BUILD_ROOT%{_desktopdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -326,4 +326,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gnome2
 %defattr(644,root,root,755)
-%{_datadir}/gnome/capplets/*
+%{_desktopdir}/screensaver-properties.desktop
