@@ -267,6 +267,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 %{_applnkdir}/Settings/Xscreensaver
 %{_mandir}/man1/xscreensaver*
+%{_pixmapsdir}/*.xpm
 
 %files GL -f files.gl
 %defattr(644,root,root,755)
