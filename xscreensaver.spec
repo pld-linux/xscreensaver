@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.21
-Release:	1
+Release:	2
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 Copyright:	BSD
@@ -12,7 +12,7 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver.desktop
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	XFree86-devel
-BuildRequires:	Mesa-devel
+BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gtk+-devel
 BuildRequires:	glib-devel
 BuildRequires:	xpm-devel
@@ -141,7 +141,6 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/flow
 %{_libdir}/xscreensaver/forest
 %{_libdir}/xscreensaver/galaxy
-%{_libdir}/xscreensaver/glplanet
 %{_libdir}/xscreensaver/goop
 %{_libdir}/xscreensaver/grav
 %{_libdir}/xscreensaver/greynetic
@@ -213,6 +212,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/bubble3d
 %{_libdir}/xscreensaver/cage
 %{_libdir}/xscreensaver/gears
+%{_libdir}/xscreensaver/glplanet
 %{_libdir}/xscreensaver/lament
 %{_libdir}/xscreensaver/moebius
 %{_libdir}/xscreensaver/morph3d
