@@ -93,7 +93,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	README README.debugging screenblank.txt
 
 %clean
-#rm -r $RPM_BUILD_ROOT
+rm -r $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
