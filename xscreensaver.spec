@@ -1,13 +1,19 @@
 Summary:	X screen savers
+Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.16
+Version:	3.17
 Release:	1
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 Copyright:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
+Source1:	xscreensaver.desktop
+Patch0:		xscreensaver-bsod.patch
+Patch1:		xscreensaver-noseguy.patch
+Patch2:		xscreensaver-webcollage.patch
+PAtch3:		xscreensaver-petri.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	XFree86-devel
 BuildRequires:	Mesa-devel
@@ -23,6 +29,13 @@ Buildroot:	/tmp/%{name}-%{version}-root
 Screen savers of every sort are included in this package, guaranteeing hours
 of enjoyment and monitor saving. And if you are bent on really saving your
 monitor, there's that old classic, the plain black screen.
+
+%description -l de
+Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner. 
+Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm wirklich
+schonen möchten, gibt's den alten Klassiker, den einfachen schwarzen
+Bildschirm.
+
 
 %description -l fr
 Des économiseurs d'écran de chaque sorte sont inclus dans ce paquet,
@@ -49,14 +62,18 @@ Screen savers which uses OpenGL libraries.
 Wygaszacz ekranu pod X Window u¿ywaj±ce OpenGL.
 
 %prep
-%setup -q
+%setup  -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
-autoconf
-CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
-./configure %{_target_platform} \
-	--prefix=%{_prefix} \
-	--mandir=%{_mandir} \
+LDFLAGS="-s"; export LDFLAGS
+%configure \
+%ifarch alpha
+	--without-xshm-ext" \
+%endif
 	--without-motif \
 	--with-gtk \
 	--with-pam \
@@ -66,28 +83,24 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/{pam.d,X11/wmconfig}
+install -d $RPM_BUILD_ROOT/{etc/pam.d,usr/X11R6/share/applnk/Utilities}
 
 make install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
+	mandir=$RPM_BUILD_ROOT%{_mandir} \
+	bindir=$RPM_BUILD_ROOT%{_bindir} \
 	AD_DIR=$RPM_BUILD_ROOT%{_libdir}/X11/app-defaults \
-	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d \
-	mandir=$RPM_BUILD_ROOT%{_mandir}
+	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
 
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 make -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
+
+install %{SOURCE1} $RPM_BUILD_ROOT/usr/X11R6/share/applnk/Utilities
 
 strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	README README.debugging screenblank.txt
-
-cat > $RPM_BUILD_ROOT/etc/X11/wmconfig/xscreensaver <<EOF
-xscreensaver name "xscreensaver (1min timeout)"
-xscreensaver description "xscreensaver"
-xscreensaver group "Amusements/Screen Savers"
-xscreensaver exec "xscreensaver -timeout 1 -cycle 1 &"
-EOF
 
 %clean
 rm -r $RPM_BUILD_ROOT
@@ -95,8 +108,8 @@ rm -r $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
-/etc/X11/wmconfig/xscreensaver
-%config %{_libdir}/X11/app-defaults/XScreenSaver
+/usr/X11R6/share/applnk/Utilities/xscreensaver.desktop
+%{_libdir}/X11/app-defaults/XScreenSaver
 %config /etc/pam.d/xscreensaver
 
 %attr(0755,root,root) %{_bindir}/xscreensaver
@@ -159,10 +172,10 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/moire2
 %{_libdir}/xscreensaver/mountain
 %{_libdir}/xscreensaver/munch
-%{_libdir}/xscreensaver/noseguy
 %{_libdir}/xscreensaver/pedal
 %{_libdir}/xscreensaver/penetrate
 %{_libdir}/xscreensaver/penrose
+%{_libdir}/xscreensaver/petri
 %{_libdir}/xscreensaver/phosphor
 %{_libdir}/xscreensaver/pyro
 %{_libdir}/xscreensaver/qix
@@ -171,6 +184,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/rorschach
 %{_libdir}/xscreensaver/rotor
 %{_libdir}/xscreensaver/sierpinski
+%{_libdir}/xscreensaver/shadebobs
 %{_libdir}/xscreensaver/slidescreen
 %{_libdir}/xscreensaver/slip
 %{_libdir}/xscreensaver/sonar
@@ -184,14 +198,17 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/t3d
 %{_libdir}/xscreensaver/triangle
 %{_libdir}/xscreensaver/truchet
+%{_libdir}/xscreensaver/vidwhacker
 %{_libdir}/xscreensaver/vines
 %{_libdir}/xscreensaver/wander
+%{_libdir}/xscreensaver/webcollage
 %{_libdir}/xscreensaver/worm
 %{_libdir}/xscreensaver/xflame
 %{_libdir}/xscreensaver/xjack
 %{_libdir}/xscreensaver/xlyap
 %{_libdir}/xscreensaver/xmatrix
 %{_libdir}/xscreensaver/xroger
+%{_libdir}/xscreensaver/xsublim
 
 %files GL
 %defattr(755,root,root)
