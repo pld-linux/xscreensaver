@@ -205,10 +205,10 @@ rm -rf $RPM_BUILD_ROOT
 	GNOME_CCDIR_2=%{_datadir}/control-center/capplets \
 	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
 
-install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_applnkdir}/Settings/Xscreensaver}
+install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_desktopdir}}
 
 install %{SOURCE1} %{SOURCE2} \
-	$RPM_BUILD_ROOT%{_applnkdir}/Settings/Xscreensaver
+	$RPM_BUILD_ROOT%{_desktopdir}
 
 %{__make} -C driver install-pam \
 	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
@@ -278,7 +278,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xscreensaver
 %{_appdefsdir}/*
 %{_datadir}/%{name}
-%{_applnkdir}/Settings/Xscreensaver
+%{_desktopdir}/*.desktop
 %{_mandir}/man1/xscreensaver*
 %{_pixmapsdir}/*.xpm
 
