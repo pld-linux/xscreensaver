@@ -1,9 +1,6 @@
 # TODO:
 # make package for KDE with /usr/X11R6/bin/xscreensaver.kss
 #
-# Conditional build:
-#%%bcond_with gnome1		# build package with gnome1 support
-#
 Summary:	X screen savers
 Summary(de):	X-Bildschirmschoner
 Summary(es):	Protectores de pantalla X
@@ -47,6 +44,7 @@ BuildRequires:	pkgconfig
 Requires:	pam >= 0.77.3
 Requires:	perl-perldoc
 Obsoletes:	xscreensaver-gnome
+Obsoletes:	xscreensaver-gnome1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
