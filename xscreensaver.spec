@@ -22,7 +22,7 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.05
+Version:	4.06
 Release:	0.1
 Epoch:		1
 Group:		X11/Applications
@@ -32,9 +32,7 @@ Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Source4:	mkinstalldirs
-Patch1:		%{name}-c++.patch
-Patch2:		%{name}-xml.patch
-Patch3:		%{name}-icon.patch
+Patch1:		%{name}-pofix.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf >= 2.53
@@ -138,15 +136,15 @@ Wygaszacze ekranu pod X Window u©ywaj╠ce OpenGL oraz GLE.
 
 %prep
 %setup  -q 
+%patch1 -p1
 install -m755 %{SOURCE4} .
 
 %build
-glib-gettextize --copy --force
-intltoolize --copy --force
-%{__libtoolize}
-%{__aclocal}
-#%{__automake}
-%{__autoconf}
+#glib-gettextize --copy --force
+#intltoolize --copy --force
+#%{__libtoolize}
+#%{__aclocal}
+#%{__autoconf}
 %configure \
 %ifarch alpha
 	--without-xshm-ext \
@@ -167,9 +165,7 @@ intltoolize --copy --force
 	--with-xdbe-ext \
 	--with-hackdir=%{_prefix}/lib/xscreensaver \
 	--with-configdir=%{_sysconfdir}/xscreensaver
-#	--with-gtk \
-#	--without-gnome \
-#	--without-pixbuf \
+
 
 %{__make} all
 
@@ -192,17 +188,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/System
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 
-# Correct desktop files.
-correct_desktop()
-{
-	mv -f "$1" "$1.tmp"
-	sed -e "s#$RPM_BUILD_ROOT##" "$1.tmp" > "$1"
-	rm -f "$1.tmp"
-}
-
-#correct_desktop $RPM_BUILD_ROOT%{_datadir}/control-center/Desktop/screensaver-properties.desktop
-
-#correct_desktop $RPM_BUILD_ROOT%{_applnkdir}/Settings/GNOME/Desktop/screensaver-properties.desktop
+rm -f $RPM_BUILD_ROOT%{_bindir}/screensaver-properties-capplet
 
 _DIR=$(pwd)
 cd $RPM_BUILD_ROOT%{_libdir}/%{name}
@@ -258,7 +244,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_sysconfdir}/%{name}/README
 %config %{_libdir}/X11/app-defaults/*
 %{_applnkdir}/System/*
-#%{_pixmapsdir}/*.xpm
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
@@ -266,10 +251,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-getimage*
 %{_mandir}/man1/xscreensaver*
 %dir %{_libdir}/xscreensaver
-#%attr(755,root,root) %{_bindir}/xscreensaver-demo-gnome
-#%attr(755,root,root) %{_bindir}/screensaver-properties-capplet
-#%{_applnkdir}/Settings/GNOME/Desktop/*
-#%{_datadir}/control-center/Desktop/*
+%{_applnkdir}/Settings/GNOME/Desktop/*
+%{_datadir}/control-center-2.0/capplets/*
 %{_datadir}/%{name}
 
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
