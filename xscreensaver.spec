@@ -22,18 +22,19 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.11
+Version:	4.12
 Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
-Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	fda86c57130f03f887725fad33807d63
+Source0:	http://www.jwz.org/%{name}/%{name}-%{version}.tar.gz
+# Source0-md5:	5c82e689c9307d89001ba6485fb6386a
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Source4:	mkinstalldirs
 URL:		http://www.jwz.org/xscreensaver/
+BuildRequires:	OpenGL-devel
 BuildRequires:	bc
 BuildRequires:	esound-devel
 BuildRequires:	gettext-devel
@@ -42,11 +43,10 @@ BuildRequires:	glut-devel
 BuildRequires:	gtk+2-devel >= 2.0.3
 BuildRequires:	libglade2-devel >= 2.0.0
 BuildRequires:	libxml2-devel >= 2.4.22
-BuildRequires:	OpenGL-devel
 BuildRequires:	pam-devel
 BuildRequires:	perl-base
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	xscreensaver-gnome
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
 %define		_sysconfdir	/etc/X11
