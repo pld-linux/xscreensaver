@@ -14,8 +14,8 @@
 # make package for KDE with /usr/X11R6/bin/xscreensaver.kss
 #
 # Conditional build:
-%bcond_with gnome1		# build with gnome1
-
+%bcond_with gnome1		# build package with gnome1 support
+#
 Summary:	X screen savers
 Summary(de):	X-Bildschirmschoner
 Summary(es):	Protectores de pantalla X
@@ -40,22 +40,27 @@ Source4:	mkinstalldirs
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	bc
+%{?with_gnome1:BuildRequires:	control-center1-devel}
 BuildRequires:	esound-devel
 BuildRequires:	gettext-devel
+%{?with_gnome1:BuildRequires:	gdk-pixbuf-devel >= 0.1}
 BuildRequires:	gle-devel
 BuildRequires:	glut-devel
+%{?with_gnome1:BuildRequires:	gnome-libs-devel >= 1.2}
+%{?with_gnome1:BuildRequires:	gtk+-devel >= 1.2}
 BuildRequires:	gtk+2-devel >= 2.0.3
 BuildRequires:	libglade2-devel >= 2.0.0
 BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	pam-devel
 BuildRequires:	perl-base
+BuildRequires:	pkgconfig
 Requires:	pam >= 0.77.3
 Obsoletes:	xscreensaver-gnome
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
 %define		_sysconfdir	/etc/X11
-%define		_xprefix	/usr/X11R6
+%define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
 
 %description
 Screen savers of every sort are included in this package, guaranteeing
@@ -183,7 +188,7 @@ install -m755 %{SOURCE4} .
 	--with-jpeg \
 	--with-xshm-ext \
 	--with-xdbe-ext \
-	--with-hackdir=%{_prefix}/lib/xscreensaver \
+	--with-hackdir=%{_libdir}/xscreensaver \
 	--with-configdir=%{_sysconfdir}/xscreensaver \
 	--with-fortune=%{_bindir}/fortune
 
@@ -196,8 +201,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	install_prefix=$RPM_BUILD_ROOT \
 	PAM_DIR=/etc/pam.d \
-	GNOME_CCDIR_1=%{_xprefix}/share/control-center/Desktop \
-	GNOME_CCDIR_2=%{_xprefix}/share/control-center/capplets \
+	GNOME_CCDIR_1=%{_datadir}/control-center/Desktop \
+	GNOME_CCDIR_2=%{_datadir}/control-center/capplets \
 	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
 
 install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_applnkdir}/Settings/Xscreensaver}
@@ -205,8 +210,8 @@ install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_applnkdir}/Settings/Xscreensaver}
 install %{SOURCE1} %{SOURCE2} \
 	$RPM_BUILD_ROOT%{_applnkdir}/Settings/Xscreensaver
 
-%{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
-
+%{__make} -C driver install-pam \
+	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 
 _DIR=$(pwd)
@@ -253,8 +258,8 @@ cd $_DIR
 %find_lang %{name} --all-name
 cat %{name}.lang >> files.normal
 
-install -d $RPM_BUILD_ROOT/%{_datadir}/gnome/capplets/
-cp -f $RPM_BUILD_ROOT/%{_datadir}/control-center-2.0/capplets/* $RPM_BUILD_ROOT/%{_datadir}/gnome/capplets/
+install -d $RPM_BUILD_ROOT%{_datadir}/gnome/capplets
+mv $RPM_BUILD_ROOT%{_datadir}/control-center-2.0/capplets/* $RPM_BUILD_ROOT%{_datadir}/gnome/capplets
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -271,7 +276,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/%{name}
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
 %dir %{_libdir}/xscreensaver
-%{_xprefix}/lib/X11/app-defaults/*
+%{_appdefsdir}/*
 %{_datadir}/%{name}
 %{_applnkdir}/Settings/Xscreensaver
 %{_mandir}/man1/xscreensaver*
@@ -288,8 +293,8 @@ rm -rf $RPM_BUILD_ROOT
 %files gnome1
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/screensaver-properties-capplet
-%{_xprefix}/share/control-center/Desktop/*
-%{_xprefix}/share/control-center/capplets/*
+%{_datadir}/control-center/Desktop/*
+%{_datadir}/control-center/capplets/*
 %{_applnkdir}/Settings/GNOME/Desktop/*
 %endif 
 
