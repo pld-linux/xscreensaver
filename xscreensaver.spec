@@ -38,15 +38,14 @@ Patch3:		%{name}-icon.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf >= 2.53
-BuildRequires:	awk
+BuildRequires:	automake
 BuildRequires:	bc
-BuildRequires:	binutils
 BuildRequires:	control-center-devel
 BuildRequires:	esound-devel
+BuildRequires:	gettext-devel
 BuildRequires:	gle-devel
 BuildRequires:	glut-devel
 BuildRequires:	gnome-libs-devel
-BuildRequires:	grep
 BuildRequires:	gtk+-devel
 BuildRequires:	pam-devel
 BuildRequires:	perl
@@ -155,7 +154,7 @@ install -m755 %{SOURCE4} mkinstalldirs
 %{__gettextize}
 sed 's/@PACKAGE@/@GETTEXT_PACKAGE@/' po/Makefile.in.in >po/Makefile.in.in.fixed
 mv po/Makefile.in.in.fixed po/Makefile.in.in
-aclocal
+%{__aclocal}
 %{__autoconf}
 # Build GNOME-free version.
 %configure \
@@ -222,7 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
 	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/GNOME/Desktop,System},%{_datadir}/control-center/Desktop}
 
-export KDEDIR=%{_prefix}
+KDEDIR=%{_prefix}; export KDEDIR
 %{__make} install install_prefix=$RPM_BUILD_ROOT \
 	DESTDIR=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
