@@ -3,39 +3,32 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.17
-Release:	1
+Version:	3.24
+Release:	4
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
-Copyright:	BSD
+License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-Source1:	xscreensaver.desktop
-Patch0:		xscreensaver-bsod.patch
-Patch1:		xscreensaver-noseguy.patch
-Patch2:		xscreensaver-webcollage.patch
-PAtch3:		xscreensaver-petri.patch
 URL:		http://www.jwz.org/xscreensaver/
-BuildRequires:	XFree86-devel
-BuildRequires:	Mesa-devel
+BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gtk+-devel
-BuildRequires:	glib-devel
 BuildRequires:	xpm-devel
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRequires:	bc
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
 
 %description
-Screen savers of every sort are included in this package, guaranteeing hours
-of enjoyment and monitor saving. And if you are bent on really saving your
-monitor, there's that old classic, the plain black screen.
+Screen savers of every sort are included in this package, guaranteeing
+hours of enjoyment and monitor saving. And if you are bent on really saving
+your monitor, there's that old classic, the plain black screen.
 
 %description -l de
-Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner. 
+Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner.
 Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm wirklich
 schonen möchten, gibt's den alten Klassiker, den einfachen schwarzen
 Bildschirm.
-
 
 %description -l fr
 Des économiseurs d'écran de chaque sorte sont inclus dans ce paquet,
@@ -45,7 +38,7 @@ tout noir.
 
 %description -l pl
 Ka¿dy wygaszacz ekranu od³±czony do tego pakietu zapewnia godziny
-zadowolenia oszczêdzania monitora. Je¶li bardzo Ci zale¿y na oszczêdzaniu
+zadowolenia i oszczêdzania monitora. Je¶li bardzo Ci zale¿y na oszczêdzaniu
 monitora to jest te¿ dostêpny klasyczny "czysty" czarny wygaszacz.
 
 %package GL
@@ -59,14 +52,10 @@ Requires:	%{name} = %{version}
 Screen savers which uses OpenGL libraries.
 
 %description -l pl GL
-Wygaszacz ekranu pod X Window u¿ywaj±ce OpenGL.
+Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
 
 %prep
 %setup  -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 LDFLAGS="-s"; export LDFLAGS
@@ -83,19 +72,20 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{etc/pam.d,usr/X11R6/share/applnk/Utilities}
+install -d $RPM_BUILD_ROOT/etc/pam.d \
+	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/Desktop,%{_datadir}/control-center/Desktop}
 
 make install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	mandir=$RPM_BUILD_ROOT%{_mandir} \
 	bindir=$RPM_BUILD_ROOT%{_bindir} \
 	AD_DIR=$RPM_BUILD_ROOT%{_libdir}/X11/app-defaults \
-	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
+	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d \
+	GNOME_CCDIR=$RPM_BUILD_ROOT%{_datadir}/control-center/Desktop \
+	GNOME_PANELDIR=$RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop
 
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 make -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
-
-install %{SOURCE1} $RPM_BUILD_ROOT/usr/X11R6/share/applnk/Utilities
 
 strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
@@ -108,9 +98,9 @@ rm -r $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
-/usr/X11R6/share/applnk/Utilities/xscreensaver.desktop
-%{_libdir}/X11/app-defaults/XScreenSaver
-%config /etc/pam.d/xscreensaver
+%{_datadir}/control-center/Desktop/*
+%{_applnkdir}/Settings/Desktop/*
+%attr(640,root,root) %config %verify(not size mtime md5) /etc/pam.d/xscreensaver
 
 %attr(0755,root,root) %{_bindir}/xscreensaver
 %attr(0755,root,root) %{_bindir}/xscreensaver-command
@@ -122,11 +112,14 @@ rm -r $RPM_BUILD_ROOT
 %defattr(755,root,root)
 %{_libdir}/xscreensaver/ant
 %{_libdir}/xscreensaver/attraction
+%{_libdir}/xscreensaver/blaster
 %{_libdir}/xscreensaver/blitspin
 %{_libdir}/xscreensaver/bouboule
 %{_libdir}/xscreensaver/braid
 %{_libdir}/xscreensaver/bsod
 %{_libdir}/xscreensaver/bubbles
+%{_libdir}/xscreensaver/bumps
+%{_libdir}/xscreensaver/ccurve
 %{_libdir}/xscreensaver/compass
 %{_libdir}/xscreensaver/coral
 %{_libdir}/xscreensaver/critical
@@ -146,7 +139,6 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/flow
 %{_libdir}/xscreensaver/forest
 %{_libdir}/xscreensaver/galaxy
-%{_libdir}/xscreensaver/glplanet
 %{_libdir}/xscreensaver/goop
 %{_libdir}/xscreensaver/grav
 %{_libdir}/xscreensaver/greynetic
@@ -172,6 +164,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/moire2
 %{_libdir}/xscreensaver/mountain
 %{_libdir}/xscreensaver/munch
+%{_libdir}/xscreensaver/noseguy
 %{_libdir}/xscreensaver/pedal
 %{_libdir}/xscreensaver/penetrate
 %{_libdir}/xscreensaver/penrose
@@ -181,6 +174,7 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/qix
 %{_libdir}/xscreensaver/rd-bomb
 %{_libdir}/xscreensaver/rocks
+%{_libdir}/xscreensaver/ripples
 %{_libdir}/xscreensaver/rorschach
 %{_libdir}/xscreensaver/rotor
 %{_libdir}/xscreensaver/sierpinski
@@ -208,7 +202,9 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/xlyap
 %{_libdir}/xscreensaver/xmatrix
 %{_libdir}/xscreensaver/xroger
+%{_libdir}/xscreensaver/xspirograph
 %{_libdir}/xscreensaver/xsublim
+%{_libdir}/xscreensaver/xteevee
 
 %files GL
 %defattr(755,root,root)
@@ -216,12 +212,14 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/bubble3d
 %{_libdir}/xscreensaver/cage
 %{_libdir}/xscreensaver/gears
+%{_libdir}/xscreensaver/glplanet
 %{_libdir}/xscreensaver/lament
 %{_libdir}/xscreensaver/moebius
 %{_libdir}/xscreensaver/morph3d
 %{_libdir}/xscreensaver/pipes
 %{_libdir}/xscreensaver/pulsar
 %{_libdir}/xscreensaver/rubik
+%{_libdir}/xscreensaver/sierpinski3d
 %{_libdir}/xscreensaver/sproingies
 %{_libdir}/xscreensaver/stairs
 %{_libdir}/xscreensaver/superquadrics
