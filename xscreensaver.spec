@@ -16,6 +16,7 @@ Source2:	%{name}.pamd
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	gle-devel
+BuildRequires:	glut-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	control-center-devel
 BuildRequires:	esound-devel
