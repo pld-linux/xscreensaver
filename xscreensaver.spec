@@ -119,7 +119,7 @@ rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
 	--enable-subdir=../lib/xscreensaver
 
 cd driver
-make xscreensaver-demo
+%{__make} xscreensaver-demo
 cd ..
 
 %install
@@ -127,7 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
 	$RPM_BUILD_ROOT{%{_applnkdir}{/Settings/Desktop,/System},%{_datadir}/control-center/Desktop}
 
-make install \
+%{__make} install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
 	mandir=$RPM_BUILD_ROOT%{_mandir} \
 	bindir=$RPM_BUILD_ROOT%{_bindir} \
@@ -140,7 +140,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/System
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
 mv $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
 install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo
-make -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
+%{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
 strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
