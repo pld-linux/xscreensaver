@@ -12,6 +12,10 @@
 # - xmountains
 # - xsnow (partialy done)
 # make package for KDE with /usr/X11R6/bin/xscreensaver.kss
+#
+# Conditional build:
+%bcond_with gnome1		# build with gnome1
+
 Summary:	X screen savers
 Summary(de):	X-Bildschirmschoner
 Summary(es):	Protectores de pantalla X
@@ -23,7 +27,7 @@ Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
 Version:	4.14
-Release:	1
+Release:	2
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -249,6 +253,9 @@ cd $_DIR
 %find_lang %{name} --all-name
 cat %{name}.lang >> files.normal
 
+install -d $RPM_BUILD_ROOT/%{_datadir}/gnome/capplets/
+cp -f $RPM_BUILD_ROOT/%{_datadir}/control-center-2.0/capplets/* $RPM_BUILD_ROOT/%{_datadir}/gnome/capplets/
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -277,13 +284,15 @@ rm -rf $RPM_BUILD_ROOT
 %files GLE -f files.gle
 %defattr(644,root,root,755)
 
+%if %{with gnome1}
 %files gnome1
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/screensaver-properties-capplet
 %{_xprefix}/share/control-center/Desktop/*
 %{_xprefix}/share/control-center/capplets/*
 %{_applnkdir}/Settings/GNOME/Desktop/*
+%endif 
 
 %files gnome2
 %defattr(644,root,root,755)
-%{_datadir}/control-center-2.0/capplets/*
+%{_datadir}/gnome/capplets/*
