@@ -1,10 +1,24 @@
+# TODO:
+# make packages with additionals hacks:
+# - cosmos
+# - electricsheep
+# - goban
+# - sphereEversion
+# - ssystem
+# - xaos
+# - xdaliclock
+# - xearth
+# - xfishtank
+# - xmountains
+# - xsnow
+# make package for KDE with /usr/X11R6/bin/xscreensaver.kss
 Summary:	X screen savers
 Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.34
-Release:	3
+Version:	4.02
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -14,6 +28,7 @@ Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Patch0:		%{name}-configure.in.patch
 Patch1:		%{name}-c++.patch
+Patch2:		%{name}-xml.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	gle-devel
@@ -31,11 +46,11 @@ BuildRequires:	binutils
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Obsoletes:	xscreensaver-gnome
 
 %define 	_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
+%define		_sysconfdir	/etc/X11
 
 %description
 Screen savers of every sort are included in this package, guaranteeing
@@ -85,10 +100,19 @@ Screen savers which uses OpenGL and GLE libraries.
 %description GLE -l pl
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
 
+%package gnome
+Summary:	xscreensaver - GNOME support files
+Group:		X11/Applications
+Requires:	%{name} = %{version}
+
+%description gnome
+.
+
 %prep
 %setup  -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 aclocal
@@ -100,12 +124,22 @@ autoconf
 %endif
 	--without-motif \
 	--with-gtk \
+	--with-xml \
 	--without-gnome \
+	--without-pixbuf \
+	--with-jpeg \
 	--with-pam \
 	--with-dpms-ext \
+	--with-xdbe-ext \
+	--with-mit-ext \
+	--with-xinerama-ext \
+	--with-xf86vmode-ext \
+	--with-xf86gamma-ext \
+	--with-proc-interrupts \
 	--with-gl \
 	--with-gle \
-	--enable-subdir=../lib/xscreensaver
+	--with-hackdir=%{_prefix}/lib/xscreensaver \
+	--with-configdir=%{_sysconfdir}/xscreensaver 
 
 %{__make}
 
@@ -122,12 +156,22 @@ rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
 %endif
 	--without-motif \
 	--with-gtk \
+	--with-xml \
 	--with-gnome \
+	--with-pixbuf \
+	--with-jpeg \
 	--with-pam \
 	--with-dpms-ext \
+	--with-xdbe-ext \
+	--with-mit-ext \
+	--with-xinerama-ext \
+	--with-xf86vmode-ext \
+	--with-xf86gamma-ext \
+	--with-proc-interrupts \
 	--with-gl \
 	--with-gle \
-	--enable-subdir=../lib/xscreensaver
+	--with-hackdir=%{_prefix}/lib/xscreensaver \
+	--with-configdir=%{_sysconfdir}/xscreensaver 
 
 cd driver
 %{__make} xscreensaver-demo
@@ -175,6 +219,16 @@ echo '%defattr(755,root,root)' > $_DIR/files.normal
 echo '%defattr(755,root,root)' > $_DIR/files.gl
 echo '%defattr(755,root,root)' > $_DIR/files.gle
 
+find_config_and_man()
+{
+	if test -e $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}/${1}.xml ; then
+		echo %{_sysconfdir}/%{name}/${1}.xml
+	fi
+	if test -e $RPM_BUILD_ROOT/%{_mandir}/man1/${1}.1 ; then
+		echo %{_mandir}/man1/${1}.1'*'
+	fi
+}
+
 for file in * ; do
 	_REQUIRES="`objdump -p $file 2> /dev/null | awk '
 		BEGIN { START=0; LIBNAME=""; }
@@ -187,10 +241,13 @@ for file in * ; do
 
 if (echo "$_REQUIRES" | grep -q "libgle.so"); then
 	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.gle
+	find_config_and_man $file >> $_DIR/files.gle
 elif (echo "$_REQUIRES" | grep -q "libGLU.so"); then
 	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.gl
+	find_config_and_man $file >> $_DIR/files.gl
 else
 	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.normal
+	find_config_and_man $file >> $_DIR/files.normal
 fi
 done
 
@@ -202,6 +259,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f files.normal
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
+%dir %{_sysconfdir}/%{name}
+%doc %{_sysconfdir}/%{name}/README
 %config %{_libdir}/X11/app-defaults/*
 %{_applnkdir}/System/*
 %{_pixmapsdir}/*.xpm
@@ -210,7 +269,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-command
 %attr(755,root,root) %{_bindir}/xscreensaver-demo
 %attr(755,root,root) %{_bindir}/xscreensaver-getimage*
-%{_mandir}/man1/*
+%{_mandir}/man1/xscreensaver*
 %dir %{_libdir}/xscreensaver
 
 %files GL -f files.gl
@@ -219,3 +278,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files GLE -f files.gle
 %defattr(644,root,root,755)
+
+%files gnome
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/xscreensaver-demo-gnome
+%attr(755,root,root) %{_bindir}/screensaver-properties-capplet
+%{_applnkdir}/Settings/GNOME/Desktop/*
+%{_datadir}/control-center/Desktop/*
+
+#%attr(755,root,root) %{_bindir}/xscreensaver.kss
