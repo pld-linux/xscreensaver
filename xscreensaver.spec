@@ -3,7 +3,7 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.17
+Version:	3.19
 Release:	1
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
@@ -12,8 +12,7 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver.desktop
 Patch0:		xscreensaver-bsod.patch
 Patch1:		xscreensaver-noseguy.patch
-Patch2:		xscreensaver-webcollage.patch
-PAtch3:		xscreensaver-petri.patch
+Patch2:		xscreensaver-petri.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	XFree86-devel
 BuildRequires:	Mesa-devel
@@ -66,7 +65,6 @@ Wygaszacz ekranu pod X Window u¿ywaj±ce OpenGL.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 LDFLAGS="-s"; export LDFLAGS
@@ -122,11 +120,14 @@ rm -r $RPM_BUILD_ROOT
 %defattr(755,root,root)
 %{_libdir}/xscreensaver/ant
 %{_libdir}/xscreensaver/attraction
+%{_libdir}/xscreensaver/blaster
 %{_libdir}/xscreensaver/blitspin
 %{_libdir}/xscreensaver/bouboule
 %{_libdir}/xscreensaver/braid
 %{_libdir}/xscreensaver/bsod
 %{_libdir}/xscreensaver/bubbles
+%{_libdir}/xscreensaver/bumps
+%{_libdir}/xscreensaver/ccurve
 %{_libdir}/xscreensaver/compass
 %{_libdir}/xscreensaver/coral
 %{_libdir}/xscreensaver/critical
