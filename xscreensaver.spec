@@ -15,7 +15,7 @@ Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
 Version:	4.19
-Release:	2
+Release:	3
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -27,6 +27,7 @@ Source3:	%{name}.pamd
 Source4:	mkinstalldirs
 Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-desktop.patch
+Patch2:		%{name}-fix-launch-with-kde.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf
@@ -162,6 +163,7 @@ Wsparcie dla GNOME2.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 install -m755 %{SOURCE4} .
 
 mv po/{no,nb}.po
