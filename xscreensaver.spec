@@ -208,31 +208,3 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/sproingies
 %{_libdir}/xscreensaver/stairs
 %{_libdir}/xscreensaver/superquadrics
-
-%changelog
-* Fri May 14 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [3.11-2]
-- added GL subpackage with screen savers which uses OpenGL libraries.
-
-* Mon May 10 1999 Piotr Czerwiñski <pius@pld.org.pl>
-  [3.11-1]
-- updated to 3.11,
-- added Group(pl),
-- added BuildPrereq: XFree86-devel,
-- removed man group from man pages,
-- added gzipping man pages and documetation,
-- simplifications in %install,
-- moved modules to /usr/X11R6/lib/xscreensaver,
-- minor changes,
-- recompiled on rpm 3,
-- package is now FHS 2.0 compliant.
-
-* Tue Nov 24 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [3.06-1]
-- configure now is runed with --with-motif (we have lesstif).
-
-* Mon Nov 16 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [3.04-1]
-- added pl translation,
-- added using $RPM_OPT_FLAGS during compile,
-- based on spec file maked by Fryguy_ <fryguy@falsehope.com>.
