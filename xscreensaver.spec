@@ -52,7 +52,7 @@ BuildRequires:	gle-devel
 BuildRequires:	glut-devel
 %{?with_gnome1:BuildRequires:	gnome-libs-devel >= 1.2}
 %{?with_gnome1:BuildRequires:	gtk+-devel >= 1.2}
-BuildRequires:	gtk+2-devel >= 2.0.3
+BuildRequires:	gtk+2-devel >= 1:2.0.3
 BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 2.0.0
 BuildRequires:	libxml2-devel >= 2.4.22
