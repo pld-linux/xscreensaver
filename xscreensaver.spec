@@ -58,8 +58,6 @@ BuildRequires:	pam-devel >= 0.77.3
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 Requires:	pam >= 0.77.3
-# man-pages collision: barcode.1, flame.1
-Conflicts:	man-pages-funny
 Obsoletes:	xscreensaver-gnome
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
