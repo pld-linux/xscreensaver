@@ -12,7 +12,7 @@ Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver.desktop
 Source2:	xscreensaver.pamd
 URL:		http://www.jwz.org/xscreensaver/
-BuildRequires:	Mesa-devel >= 3.1
+BuildRequires:	OpenGL-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	control-center-devel
 BuildRequires:	esound-devel
@@ -93,7 +93,7 @@ LDFLAGS="-s"; export LDFLAGS
 	--with-pam \
 	--with-dpms-ext \
 	--with-gl \
-	--with-gle \
+	--without-gle \
 	--enable-subdir=../lib/xscreensaver
 
 %{__make}
@@ -115,7 +115,7 @@ rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
 	--with-pam \
 	--with-dpms-ext \
 	--with-gl \
-	--with-gle \
+	--without-gle \
 	--enable-subdir=../lib/xscreensaver
 
 cd driver
@@ -127,12 +127,10 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
 	$RPM_BUILD_ROOT{%{_applnkdir}{/Settings/Desktop,/System},%{_datadir}/control-center/Desktop}
 
-%{__make} install \
-	prefix=$RPM_BUILD_ROOT%{_prefix} \
-	mandir=$RPM_BUILD_ROOT%{_mandir} \
-	bindir=$RPM_BUILD_ROOT%{_bindir} \
-	AD_DIR=$RPM_BUILD_ROOT%{_libdir}/X11/app-defaults \
-	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d \
+export KDEDIR=/usr/X11R6
+%{__make} install install_prefix=$RPM_BUILD_ROOT \
+	AD_DIR=%{_libdir}/X11/app-defaults \
+	PAM_DIR=/etc/pam.d \
 	GNOME_CCDIR=$RPM_BUILD_ROOT%{_datadir}/control-center/Desktop \
 	GNOME_PANELDIR=$RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop
 
