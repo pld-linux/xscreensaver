@@ -22,13 +22,13 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.10
+Version:	4.11
 Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	e12fd9a598feaa46b05ee7121e423330
+# Source0-md5:	fda86c57130f03f887725fad33807d63
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
