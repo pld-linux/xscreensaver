@@ -4,17 +4,24 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.24
-Release:	4
+Release:	5
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
+Source1:	xscreensaver.desktop
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	Mesa-devel >= 3.1
+BuildRequires:	gnome-libs-devel
+BuildRequires:	control-center-devel
+BuildRequires:	esound-devel
 BuildRequires:	gtk+-devel
 BuildRequires:	xpm-devel
 BuildRequires:	bc
+BuildRequires:	pam-devel
+BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Requires:	pam-pam_pwdb
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -37,7 +44,7 @@ voulez vraiment économiser votre écran, il y a ce vieux classique, l'écran
 tout noir.
 
 %description -l pl
-Ka¿dy wygaszacz ekranu od³±czony do tego pakietu zapewnia godziny
+Ka¿dy wygaszacz ekranu do³±czony do tego pakietu zapewnia godziny
 zadowolenia i oszczêdzania monitora. Je¶li bardzo Ci zale¿y na oszczêdzaniu
 monitora to jest te¿ dostêpny klasyczny "czysty" czarny wygaszacz.
 
@@ -54,26 +61,71 @@ Screen savers which uses OpenGL libraries.
 %description -l pl GL
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
 
+%package gnome
+Summary:	GNOME Control Center applet for setting up xscreensaver
+Summary(pl):	Applet dla Centrum Kontroli GNOME do konfiguracji xscreensaver
+Group:		X11/GNOME
+Group(pl):	X11/GNOME
+Requires:	%{name} = %{version}
+
+%description gnome
+This package includes GNOME Control Center applet which allows easy
+configuration of screen saver.
+
+%description -l pl gnome
+Pakiet zawiera applet dla Centrum Kontroli GNOME umo¿liwiaj±cy wygodn±
+konfiguracjê wygaszacza ekranu.
+
 %prep
 %setup  -q
 
 %build
 LDFLAGS="-s"; export LDFLAGS
+
+# Build GNOME-free version.
 %configure \
 %ifarch alpha
 	--without-xshm-ext" \
 %endif
 	--without-motif \
 	--with-gtk \
+	--without-gnome \
 	--with-pam \
+	--with-dpms-ext \
+	--with-gl \
+	--with-gle \
 	--enable-subdir=../lib/xscreensaver
 
 make
 
+mv driver/xscreensaver-demo{,-gnomefree}
+
+# Build GNOME version.
+# This version has to be build last in order for "make install" to install
+# desktop files.
+rm -f config.cache driver/xscreensaver-demo{,-Gtk} `find driver -name '*.o'`
+
+%configure \
+%ifarch alpha
+	--without-xshm-ext" \
+%endif
+	--without-motif \
+	--with-gtk \
+	--with-gnome \
+	--with-pam \
+	--with-dpms-ext \
+	--with-gl \
+	--with-gle \
+	--enable-subdir=../lib/xscreensaver
+
+cd driver
+make xscreensaver-demo
+cd ..
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
-	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/Desktop,%{_datadir}/control-center/Desktop}
+	$RPM_BUILD_ROOT{%{_applnkdir}{/Settings/Desktop,/System},%{_datadir}/control-center/Desktop}
 
 make install \
 	prefix=$RPM_BUILD_ROOT%{_prefix} \
@@ -84,7 +136,10 @@ make install \
 	GNOME_CCDIR=$RPM_BUILD_ROOT%{_datadir}/control-center/Desktop \
 	GNOME_PANELDIR=$RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop
 
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/System
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
+mv $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
+install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo
 make -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
 strip $RPM_BUILD_ROOT%{_bindir}/* || :
@@ -92,14 +147,26 @@ strip $RPM_BUILD_ROOT%{_bindir}/* || :
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	README README.debugging screenblank.txt
 
+# Correct desktop files.
+correct_desktop()
+{
+	mv "$1" "$1.tmp"
+	sed -e "s#$RPM_BUILD_ROOT##" -e s/xscreensaver-demo/xscreensaver-demo-gnome/ "$1.tmp" > "$1"
+	rm "$1.tmp"
+}
+
+correct_desktop $RPM_BUILD_ROOT%{_datadir}/control-center/Desktop/screensaver-properties.desktop
+
+correct_desktop $RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop/screensaver-properties.desktop
+
 %clean
 rm -r $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
 %doc {README,README.debugging,screenblank.txt}.gz
-%{_datadir}/control-center/Desktop/*
-%{_applnkdir}/Settings/Desktop/*
+%config %{_libdir}/X11/app-defaults/*
+%{_applnkdir}/System/*
 %attr(640,root,root) %config %verify(not size mtime md5) /etc/pam.d/xscreensaver
 
 %attr(0755,root,root) %{_bindir}/xscreensaver
@@ -223,3 +290,9 @@ rm -r $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/sproingies
 %{_libdir}/xscreensaver/stairs
 %{_libdir}/xscreensaver/superquadrics
+
+%files gnome
+%defattr(644,root,root)
+%{_datadir}/control-center/Desktop/*
+%{_applnkdir}/Settings/Desktop/*
+%attr(0755,root,root) %{_bindir}/xscreensaver-demo-gnome
