@@ -4,9 +4,11 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.25
-Release:	3
-Group:		X11/Utilities
-Group(pl):	X11/Narzêdzia
+Release:	5
+Epoch:		1
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
@@ -52,8 +54,9 @@ wygaszacz.
 %package GL
 Summary:	OpenGL X screen savers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
-Group:		X11/Utilities
-Group(pl):	X11/Narzêdzia
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 Obsoletes:	xscreensaver-GL
 
@@ -66,8 +69,9 @@ Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
 %package gnome
 Summary:	GNOME Control Center applet for setting up xscreensaver
 Summary(pl):	Applet dla Centrum Kontroli GNOME do konfiguracji xscreensaver
-Group:		X11/GNOME
-Group(pl):	X11/GNOME
+Group:		X11/Applications
+Group(de):	X11/Applikationen
+Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 
 %description gnome
@@ -83,7 +87,6 @@ konfiguracjê wygaszacza ekranu.
 
 %build
 autoconf
-LDFLAGS="-s"; export LDFLAGS
 # Build GNOME-free version.
 %configure \
 %ifarch alpha
@@ -143,12 +146,8 @@ install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensave
 %{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
-#strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
-strip $RPM_BUILD_ROOT%{_bindir}/* || :
-
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
-	README README.debugging screenblank.txt
+gzip -9nf README README.debugging screenblank.txt
 
 # Correct desktop files.
 correct_desktop()
