@@ -40,7 +40,8 @@ CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 	--prefix=/usr/X11R6 \
 	--with-motif \
 	--with-pam \
-	--enable-subdir=../lib/xscreensaver
+	--enable-subdir=../lib/xscreensaver \
+	--without-gl
 
 make
 
