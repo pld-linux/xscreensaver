@@ -1,9 +1,9 @@
 Summary:	X screen savers
 Summary(fr):	Economiseurs d'écran X
-Summary(pl):	Wygaszacz ekranu pod X Window
+Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.12
-Release:	1
+Release:	2
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 Copyright:	BSD
@@ -30,6 +30,19 @@ Ka¿dy wygaszacz ekranu od³±czony do tego pakietu zapewnia godziny
 zadowolenia oszczêdzania monitora. Je¶li bardzo Ci zale¿y na oszczêdzaniu
 monitora to jest te¿ dostêpny klasyczny "czysty" czarny wygaszacz.
 
+%package GL
+Summary:	OpenGL X screen savers
+Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
+Group:		X11/Utilities
+Group(pl):	X11/Narzêdzia
+Requires:	%{name} = %{version}
+
+%description GL
+Screen savers which uses OpenGL libraries.
+
+%description -l pl GL
+Wygaszacz ekranu pod X Window u¿ywaj±ce OpenGL.
+
 %prep
 %setup -q
 
@@ -40,8 +53,7 @@ CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="-s" \
 	--prefix=/usr/X11R6 \
 	--with-motif \
 	--with-pam \
-	--enable-subdir=../lib/xscreensaver \
-	--without-gl
+	--enable-subdir=../lib/xscreensaver
 
 make
 
@@ -81,12 +93,117 @@ rm -r $RPM_BUILD_ROOT
 %attr(0755,root,root) /usr/X11R6/bin/xscreensaver-command
 %attr(0755,root,root) /usr/X11R6/bin/xscreensaver-demo
 
-%dir /usr/X11R6/lib/xscreensaver
-%attr(0755,root,root) /usr/X11R6/lib/xscreensaver/*
-
 /usr/X11R6/share/man/man1/*
 
+%dir /usr/X11R6/lib/xscreensaver
+%defattr(755,root,root)
+/usr/X11R6/lib/xscreensaver/ant
+/usr/X11R6/lib/xscreensaver/attraction
+/usr/X11R6/lib/xscreensaver/blitspin
+/usr/X11R6/lib/xscreensaver/bouboule
+/usr/X11R6/lib/xscreensaver/braid
+/usr/X11R6/lib/xscreensaver/bsod
+/usr/X11R6/lib/xscreensaver/bubbles
+/usr/X11R6/lib/xscreensaver/compass
+/usr/X11R6/lib/xscreensaver/coral
+/usr/X11R6/lib/xscreensaver/critical
+/usr/X11R6/lib/xscreensaver/crystal
+/usr/X11R6/lib/xscreensaver/cynosure
+/usr/X11R6/lib/xscreensaver/decayscreen
+/usr/X11R6/lib/xscreensaver/deco
+/usr/X11R6/lib/xscreensaver/deluxe
+/usr/X11R6/lib/xscreensaver/demon
+/usr/X11R6/lib/xscreensaver/discrete
+/usr/X11R6/lib/xscreensaver/distort
+/usr/X11R6/lib/xscreensaver/drift
+/usr/X11R6/lib/xscreensaver/epicycle
+/usr/X11R6/lib/xscreensaver/fadeplot
+/usr/X11R6/lib/xscreensaver/flag
+/usr/X11R6/lib/xscreensaver/flame
+/usr/X11R6/lib/xscreensaver/flow
+/usr/X11R6/lib/xscreensaver/forest
+/usr/X11R6/lib/xscreensaver/galaxy
+/usr/X11R6/lib/xscreensaver/glplanet
+/usr/X11R6/lib/xscreensaver/goop
+/usr/X11R6/lib/xscreensaver/grav
+/usr/X11R6/lib/xscreensaver/greynetic
+/usr/X11R6/lib/xscreensaver/halo
+/usr/X11R6/lib/xscreensaver/helix
+/usr/X11R6/lib/xscreensaver/hopalong
+/usr/X11R6/lib/xscreensaver/hypercube
+/usr/X11R6/lib/xscreensaver/ifs
+/usr/X11R6/lib/xscreensaver/imsmap
+/usr/X11R6/lib/xscreensaver/interference
+/usr/X11R6/lib/xscreensaver/jigsaw
+/usr/X11R6/lib/xscreensaver/julia
+/usr/X11R6/lib/xscreensaver/kaleidescope
+/usr/X11R6/lib/xscreensaver/kumppa
+/usr/X11R6/lib/xscreensaver/laser
+/usr/X11R6/lib/xscreensaver/lightning
+/usr/X11R6/lib/xscreensaver/lisa
+/usr/X11R6/lib/xscreensaver/lissie
+/usr/X11R6/lib/xscreensaver/lmorph
+/usr/X11R6/lib/xscreensaver/loop
+/usr/X11R6/lib/xscreensaver/maze
+/usr/X11R6/lib/xscreensaver/moire
+/usr/X11R6/lib/xscreensaver/moire2
+/usr/X11R6/lib/xscreensaver/mountain
+/usr/X11R6/lib/xscreensaver/munch
+/usr/X11R6/lib/xscreensaver/noseguy
+/usr/X11R6/lib/xscreensaver/pedal
+/usr/X11R6/lib/xscreensaver/penetrate
+/usr/X11R6/lib/xscreensaver/penrose
+/usr/X11R6/lib/xscreensaver/phosphor
+/usr/X11R6/lib/xscreensaver/pyro
+/usr/X11R6/lib/xscreensaver/qix
+/usr/X11R6/lib/xscreensaver/rd-bomb
+/usr/X11R6/lib/xscreensaver/rocks
+/usr/X11R6/lib/xscreensaver/rorschach
+/usr/X11R6/lib/xscreensaver/rotor
+/usr/X11R6/lib/xscreensaver/sierpinski
+/usr/X11R6/lib/xscreensaver/slidescreen
+/usr/X11R6/lib/xscreensaver/slip
+/usr/X11R6/lib/xscreensaver/sonar
+/usr/X11R6/lib/xscreensaver/sphere
+/usr/X11R6/lib/xscreensaver/spiral
+/usr/X11R6/lib/xscreensaver/spotlight
+/usr/X11R6/lib/xscreensaver/squiral
+/usr/X11R6/lib/xscreensaver/starfish
+/usr/X11R6/lib/xscreensaver/strange
+/usr/X11R6/lib/xscreensaver/swirl
+/usr/X11R6/lib/xscreensaver/t3d
+/usr/X11R6/lib/xscreensaver/triangle
+/usr/X11R6/lib/xscreensaver/truchet
+/usr/X11R6/lib/xscreensaver/vines
+/usr/X11R6/lib/xscreensaver/wander
+/usr/X11R6/lib/xscreensaver/worm
+/usr/X11R6/lib/xscreensaver/xflame
+/usr/X11R6/lib/xscreensaver/xjack
+/usr/X11R6/lib/xscreensaver/xlyap
+/usr/X11R6/lib/xscreensaver/xmatrix
+/usr/X11R6/lib/xscreensaver/xroger
+
+%files GL
+%defattr(755,root,root)
+/usr/X11R6/lib/xscreensaver/atlantis
+/usr/X11R6/lib/xscreensaver/bubble3d
+/usr/X11R6/lib/xscreensaver/cage
+/usr/X11R6/lib/xscreensaver/gears
+/usr/X11R6/lib/xscreensaver/lament
+/usr/X11R6/lib/xscreensaver/moebius
+/usr/X11R6/lib/xscreensaver/morph3d
+/usr/X11R6/lib/xscreensaver/pipes
+/usr/X11R6/lib/xscreensaver/pulsar
+/usr/X11R6/lib/xscreensaver/rubik
+/usr/X11R6/lib/xscreensaver/sproingies
+/usr/X11R6/lib/xscreensaver/stairs
+/usr/X11R6/lib/xscreensaver/superquadrics
+
 %changelog
+* Fri May 14 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
+  [3.11-2]
+- added GL subpackage with screen savers which uses OpenGL libraries.
+
 * Mon May 10 1999 Piotr Czerwiñski <pius@pld.org.pl>
   [3.11-1]
 - updated to 3.11,
