@@ -2,7 +2,7 @@
 # make package for KDE with /usr/X11R6/bin/xscreensaver.kss
 #
 # Conditional build:
-%bcond_with gnome1		# build package with gnome1 support
+#%%bcond_with gnome1		# build package with gnome1 support
 #
 Summary:	X screen savers
 Summary(de):	X-Bildschirmschoner
@@ -14,13 +14,13 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.19
-Release:	4
+Version:	4.21
+Release:	0.1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
 Source0:	http://www.jwz.org/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	3ef2b585cd1185a9f277d53f24e13142
+# Source0-md5:	3ea7d0bc9b7159523855296e175d7ac7
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
@@ -33,14 +33,10 @@ BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bc
-%{?with_gnome1:BuildRequires:	control-center1-devel}
 BuildRequires:	esound-devel
 BuildRequires:	gettext-devel
-%{?with_gnome1:BuildRequires:	gdk-pixbuf-devel >= 0.1}
 BuildRequires:	gle-devel
 BuildRequires:	glut-devel
-%{?with_gnome1:BuildRequires:	gnome-libs-devel >= 1.2}
-%{?with_gnome1:BuildRequires:	gtk+-devel >= 1.2}
 BuildRequires:	gtk+2-devel >= 1:2.0.3
 BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 2.0.0
@@ -133,19 +129,6 @@ Screen savers which uses OpenGL and GLE libraries.
 %description GLE -l pl
 Wygaszacze ekranu pod X Window u©ywaj╠ce OpenGL oraz GLE.
 
-%package gnome1
-Summary:	GNOME1 support
-Summary(pl):	Wsparcie dla GNOME1
-Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	control-center < 2.0
-
-%description gnome1
-GNOME1 support.
-
-%description gnome1 -l pl
-Wsparcie dla GNOME1.
-
 %package gnome2
 Summary:	GNOME2 support
 Summary(pl):	Wsparcie dla GNOME2
@@ -163,7 +146,7 @@ Wsparcie dla GNOME2.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+#%%patch2 -p1
 install -m755 %{SOURCE4} .
 
 mv po/{no,nb}.po
@@ -194,7 +177,7 @@ cp -f /usr/share/automake/config.sub .
 	--with-xshm-ext \
 	--with-xdbe-ext \
 	--with-hackdir=%{_libdir}/xscreensaver \
-	--with-configdir=%{_sysconfdir}/xscreensaver \
+	--with-configdir=%{_datadir}/xscreensaver \
 	--with-fortune=%{_bindir}/fortune \
 	--enable-locking
 
@@ -271,7 +254,6 @@ cd $_DIR
 cat %{name}.lang >> files.normal
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}
-mv $RPM_BUILD_ROOT%{_datadir}/control-center-2.0/capplets/* $RPM_BUILD_ROOT%{_desktopdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -279,13 +261,14 @@ rm -rf $RPM_BUILD_ROOT
 %files -f files.normal
 %defattr(644,root,root,755)
 %doc README README.debugging
-%doc %{_sysconfdir}/%{name}/README
+%doc %{_datadir}/%{name}/README
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
 %attr(755,root,root) %{_bindir}/xscreensaver-demo
 %attr(755,root,root) %{_bindir}/xscreensaver-getimage*
+%attr(755,root,root) %{_bindir}/xscreensaver-text
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
-%dir %{_sysconfdir}/%{name}
+#%dir %{_datadir}/%{name}
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
 %dir %{_libdir}/xscreensaver
 %{_appdefsdir}/*
@@ -294,19 +277,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver*
 %{_pixmapsdir}/*.xpm
 
-%{_sysconfdir}/%{name}/cosmos.xml
-%{_sysconfdir}/%{name}/electricsheep.xml
-%{_sysconfdir}/%{name}/fireflies.xml
-%{_sysconfdir}/%{name}/goban.xml
-%{_sysconfdir}/%{name}/sphereeversion.xml
-%{_sysconfdir}/%{name}/ssystem.xml
-%{_sysconfdir}/%{name}/xaos.xml
-%{_sysconfdir}/%{name}/xdaliclock.xml
-%{_sysconfdir}/%{name}/xearth.xml
-%{_sysconfdir}/%{name}/xfishtank.xml
-%{_sysconfdir}/%{name}/xmountains.xml
-%{_sysconfdir}/%{name}/xplanet.xml
-%{_sysconfdir}/%{name}/xsnow.xml
+#%{_datadir}/%{name}/cosmos.xml
+#%{_datadir}/%{name}/electricsheep.xml
+#%{_datadir}/%{name}/fireflies.xml
+#%{_datadir}/%{name}/goban.xml
+#%{_datadir}/%{name}/sphereeversion.xml
+#%{_datadir}/%{name}/ssystem.xml
+#%{_datadir}/%{name}/xaos.xml
+#%{_datadir}/%{name}/xdaliclock.xml
+#%{_datadir}/%{name}/xearth.xml
+#%{_datadir}/%{name}/xfishtank.xml
+#%{_datadir}/%{name}/xmountains.xml
+#%{_datadir}/%{name}/xplanet.xml
+#%{_datadir}/%{name}/xsnow.xml
 
 %files GL -f files.gl
 %defattr(644,root,root,755)
@@ -315,15 +298,6 @@ rm -rf $RPM_BUILD_ROOT
 %files GLE -f files.gle
 %defattr(644,root,root,755)
 
-%if %{with gnome1}
-%files gnome1
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/screensaver-properties-capplet
-%{_datadir}/control-center/Desktop/*
-%{_datadir}/control-center/capplets/*
-%{_applnkdir}/Settings/GNOME/Desktop/*
-%endif 
-
 %files gnome2
 %defattr(644,root,root,755)
-%{_desktopdir}/screensaver-properties.desktop
+%{_desktopdir}/gnome-screensaver-properties.desktop
