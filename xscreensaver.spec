@@ -22,8 +22,8 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.06
-Release:	2
+Version:	4.07
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -32,7 +32,6 @@ Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Source4:	mkinstalldirs
-Patch1:		%{name}-pofix.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	bc
 BuildRequires:	esound-devel
@@ -156,7 +155,6 @@ Wsparcie dla Gnome2.
 
 %prep
 %setup  -q 
-%patch1 -p1
 install -m755 %{SOURCE4} .
 
 %build
