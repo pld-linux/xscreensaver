@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.34
-Release:	1
+Release:	2
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
