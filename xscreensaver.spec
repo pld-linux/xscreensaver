@@ -26,13 +26,13 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.16
-Release:	5
+Version:	4.18
+Release:	0.1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
 Source0:	http://www.jwz.org/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	e715ca402fc1218a078d65b7e7922082
+# Source0-md5:	24847c37e2eb54e590997878232530ce
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
@@ -53,6 +53,7 @@ BuildRequires:	glut-devel
 %{?with_gnome1:BuildRequires:	gnome-libs-devel >= 1.2}
 %{?with_gnome1:BuildRequires:	gtk+-devel >= 1.2}
 BuildRequires:	gtk+2-devel >= 2.0.3
+BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 2.0.0
 BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	pam-devel >= 0.77.3
