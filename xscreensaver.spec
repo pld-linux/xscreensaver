@@ -3,8 +3,8 @@ Summary(de):	X-Bildschirmschoner
 Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
-Version:	3.24
-Release:	7
+Version:	3.25
+Release:	1
 Group:		X11/Utilities
 Group(pl):	X11/Narzêdzia
 License:	BSD
@@ -126,14 +126,14 @@ cd ..
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/pam.d \
-	$RPM_BUILD_ROOT{%{_applnkdir}{/Settings/Desktop,/System},%{_datadir}/control-center/Desktop}
+	$RPM_BUILD_ROOT{%{_applnkdir}/{Settings/Desktop,System},%{_datadir}/control-center/Desktop}
 
 export KDEDIR=/usr/X11R6
 %{__make} install install_prefix=$RPM_BUILD_ROOT \
 	AD_DIR=%{_libdir}/X11/app-defaults \
 	PAM_DIR=/etc/pam.d \
-	GNOME_CCDIR=$RPM_BUILD_ROOT%{_datadir}/control-center/Desktop \
-	GNOME_PANELDIR=$RPM_BUILD_ROOT%{_applnkdir}/Settings/Desktop
+	GNOME_CCDIR=%{_datadir}/control-center/Desktop \
+	GNOME_PANELDIR=%{_applnkdir}/Settings/Desktop
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/System
 install driver/xscreensaver $RPM_BUILD_ROOT%{_bindir}
@@ -141,7 +141,7 @@ mv $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo{,-gnome}
 install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensaver-demo
 %{__make} -C driver PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d install-pam
 
-strip $RPM_BUILD_ROOT%{_bindir}/* || :
+#strip $RPM_BUILD_ROOT%{_bindir}/* || :
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/* \
 	README README.debugging screenblank.txt
