@@ -23,7 +23,7 @@ Summary(uk):	îÁÂ¦Ò ÐÒÏÇÒÁÍ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ ÄÌÑ X Window
 Summary(zh_CN):	X ´°¿ÚÏµÍ³±£»¤Æ÷
 Name:		xscreensaver
 Version:	4.03
-Release:	1
+Release:	2
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -36,22 +36,22 @@ Patch1:		%{name}-c++.patch
 Patch2:		%{name}-xml.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
+BuildRequires:	autoconf >= 2.53
+BuildRequires:	awk
+BuildRequires:	bc
+BuildRequires:	binutils
+BuildRequires:	control-center-devel
+BuildRequires:	esound-devel
 BuildRequires:	gle-devel
 BuildRequires:	glut-devel
 BuildRequires:	gnome-libs-devel
-BuildRequires:	control-center-devel
-BuildRequires:	esound-devel
+BuildRequires:	grep
 BuildRequires:	gtk+-devel
-BuildRequires:	bc
 BuildRequires:	pam-devel
 BuildRequires:	perl
-BuildRequires:	grep
-BuildRequires:	awk
-BuildRequires:	binutils
-BuildRequires:	autoconf >= 2.53
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define 	_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
+%define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
 %define		_sysconfdir	/etc/X11
@@ -138,10 +138,13 @@ Group:		X11/Applications
 Requires:	%{name} = %{version}
 
 %description gnome
-.
+Lets you to set up xscreensaver from within GNOME control center.
+
+%description gnome -l pl
+Pozwala skonfigurowaæ xscreensavera poprzez control center GNOME.
 
 %prep
-%setup  -q
+%setup	-q
 %patch1 -p1
 %patch2 -p1
 install -m755 %{SOURCE4} mkinstalldirs
@@ -234,8 +237,6 @@ install driver/xscreensaver-demo-gnomefree $RPM_BUILD_ROOT%{_bindir}/xscreensave
 
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 
-gzip -9nf README README.debugging screenblank.txt
-
 # Correct desktop files.
 correct_desktop()
 {
@@ -297,7 +298,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f files.normal
 %defattr(644,root,root,755)
-%doc {README,README.debugging,screenblank.txt}.gz
+%doc README README.debugging screenblank.txt
 %dir %{_sysconfdir}/%{name}
 %doc %{_sysconfdir}/%{name}/README
 %config %{_libdir}/X11/app-defaults/*
