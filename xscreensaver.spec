@@ -15,6 +15,7 @@ Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Patch0:		%{name}-configure.in.patch
+Patch1:		%{name}-c++.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	gle-devel
@@ -93,6 +94,7 @@ Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
 %prep
 %setup  -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 aclocal

@@ -1,0 +1,22 @@
+--- xscreensaver-3.34/configure.in~	Sun Nov 25 09:27:55 2001
++++ xscreensaver-3.34/configure.in	Sun Nov 25 09:28:36 2001
+@@ -2084,15 +2084,15 @@
+     if test "$ac_have_mesa_gl" = yes ; then
+       AC_CHECK_X_LIB(MesaGL, glXCreateContext, 
+                      [gl_lib_1="MesaGL"
+-                      GL_LIBS="-lMesaGL -lMesaGLU $GL_LIBS"],
+-                     [], -lMesaGLU $GL_LIBS -lX11 -lXext -lm)
++                      GL_LIBS="-lMesaGL -lMesaGLU $GL_LIBS -lstdc++"],
++                     [], -lMesaGLU $GL_LIBS -lX11 -lXext -lm -lstdc++)
+     fi
+ 
+     if test "$gl_lib_1" = "" ; then
+       AC_CHECK_X_LIB(GL, glXCreateContext, 
+                      [gl_lib_1="GL"
+-                      GL_LIBS="-lGL -lGLU $GL_LIBS"],
+-                     [], -lGLU $GL_LIBS -lX11 -lXext -lm)
++                      GL_LIBS="-lGL -lGLU $GL_LIBS -lstdc++"],
++                     [], -lGLU $GL_LIBS -lX11 -lXext -lm -lstdc++)
+     fi
+ 
+     if test "$gl_lib_1" = "" ; then
