@@ -4,7 +4,7 @@ Summary(fr):	Economiseurs d'écran X
 Summary(pl):	Wygaszacze ekranu pod X Window
 Name:		xscreensaver
 Version:	3.29
-Release:	2
+Release:	3
 Epoch:		1
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -23,6 +23,7 @@ BuildRequires:	bc
 BuildRequires:	pam-devel
 BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	xscreensaver-gnome
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
@@ -64,22 +65,6 @@ Screen savers which uses OpenGL libraries.
 
 %description -l pl GL
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
-
-%package gnome
-Summary:	GNOME Control Center applet for setting up xscreensaver
-Summary(pl):	Applet dla Centrum Kontroli GNOME do konfiguracji xscreensaver
-Group:		X11/Applications
-Group(de):	X11/Applikationen
-Group(pl):	X11/Aplikacje
-Requires:	%{name} = %{version}
-
-%description gnome
-This package includes GNOME Control Center applet which allows easy
-configuration of screen saver.
-
-%description -l pl gnome
-Pakiet zawiera applet dla Centrum Kontroli GNOME umo¿liwiaj±cy wygodn±
-konfiguracjê wygaszacza ekranu.
 
 %prep
 %setup  -q
@@ -301,7 +286,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/xscreensaver/stonerview
 %{_libdir}/xscreensaver/superquadrics
 %{_libdir}/xscreensaver/xscreensaver-gl-helper
-
-%files gnome
-%defattr(644,root,root,755)
-%attr(0755,root,root) %{_bindir}/xscreensaver-demo-gnome
