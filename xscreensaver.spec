@@ -10,6 +10,7 @@ Group(pl):	X11/Narzêdzia
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 Source1:	xscreensaver.desktop
+Source2:	xscreensaver.pamd
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	Mesa-devel >= 3.1
 BuildRequires:	gnome-libs-devel
@@ -21,7 +22,6 @@ BuildRequires:	bc
 BuildRequires:	pam-devel
 BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Requires:	pam-pam_pwdb
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
