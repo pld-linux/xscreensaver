@@ -48,6 +48,7 @@ BuildRequires:	pam-devel >= 0.77.3
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 Requires:	pam >= 0.77.3
+Requires:	perl-perldoc
 Obsoletes:	xscreensaver-gnome
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
