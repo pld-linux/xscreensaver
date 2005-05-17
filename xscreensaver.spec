@@ -251,8 +251,6 @@ cd $_DIR
 %find_lang %{name} --all-name
 cat %{name}.lang >> files.normal
 
-install -d $RPM_BUILD_ROOT%{_desktopdir}
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
