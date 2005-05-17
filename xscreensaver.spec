@@ -26,6 +26,7 @@ Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-fix-launch-with-kde.patch
 Patch3:		%{name}-man.patch
+Patch4:		%{name}-degnomify.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf
@@ -147,6 +148,7 @@ Wsparcie dla GNOME2.
 %patch1 -p1
 #%%patch2 -p1
 %patch3 -p1
+%patch4 -p1
 install -m755 %{SOURCE4} .
 
 mv po/{no,nb}.po
