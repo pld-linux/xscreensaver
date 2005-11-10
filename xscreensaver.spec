@@ -12,7 +12,7 @@ Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
 Version:	4.21
-Release:	0.1
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
@@ -273,7 +273,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/xscreensaver
 %{_appdefsdir}/*
 %{_datadir}/%{name}
-%{_desktopdir}/*.desktop
+%{_desktopdir}/xscreensaver.desktop
+%{_desktopdir}/xscreensaver-lock.desktop
 %{_mandir}/man1/xscreensaver*
 %{_pixmapsdir}/*.xpm
 
