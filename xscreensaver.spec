@@ -16,7 +16,7 @@ Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
-Source0:	http://www.jwz.org/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 # Source0-md5:	3ea7d0bc9b7159523855296e175d7ac7
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
@@ -269,7 +269,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-text
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
 #%dir %{_datadir}/%{name}
-%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/pam.d/xscreensaver
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
 %dir %{_libdir}/xscreensaver
 %{_appdefsdir}/*
 %{_datadir}/%{name}
