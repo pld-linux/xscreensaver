@@ -269,7 +269,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-text
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
 #%dir %{_datadir}/%{name}
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
+%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
 %dir %{_libdir}/xscreensaver
 %{_appdefsdir}/*
 %{_datadir}/%{name}
