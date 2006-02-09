@@ -26,20 +26,6 @@ diff -ur xscreensaver-4.21.orig/hacks/anemotaxis.man xscreensaver-4.21/hacks/ane
  [\-display \fIhost:display.screen\fP]
  [\-visual \fIvisual\fP]
  [\-window]
-diff -ur xscreensaver-4.21.orig/hacks/ant.man xscreensaver-4.21/hacks/ant.man
---- xscreensaver-4.21.orig/hacks/ant.man	2002-11-20 08:54:02.000000000 +0100
-+++ xscreensaver-4.21/hacks/ant.man	2005-05-17 17:20:16.000000000 +0200
-@@ -1,8 +1,8 @@
- .TH XScreenSaver 1 "" "X Version 11"
- .SH NAME
--ant - cellular automaton.
-+ant - cellular automaton
- .SH SYNOPSIS
--.B ant
-+.B /usr/lib/xscreensaver/ant
- [\-display \fIhost:display.screen\fP]
- [\-visual \fIvisual\fP]
- [\-window]
 diff -ur xscreensaver-4.21.orig/hacks/apollonian.man xscreensaver-4.21/hacks/apollonian.man
 --- xscreensaver-4.21.orig/hacks/apollonian.man	2002-05-31 05:07:18.000000000 +0200
 +++ xscreensaver-4.21/hacks/apollonian.man	2005-05-17 17:20:22.000000000 +0200
@@ -164,30 +150,6 @@ diff -ur xscreensaver-4.21.orig/hacks/bsod.man xscreensaver-4.21/hacks/bsod.man
  [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP]
  [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-install]
  [\-visual \fIvisual\fP] [\-delay \fIseconds\fP]
-diff -ur xscreensaver-4.21.orig/hacks/bubbles.man xscreensaver-4.21/hacks/bubbles.man
---- xscreensaver-4.21.orig/hacks/bubbles.man	2003-07-12 10:59:55.000000000 +0200
-+++ xscreensaver-4.21/hacks/bubbles.man	2005-05-17 17:01:52.000000000 +0200
-@@ -15,7 +15,7 @@
- .SH NAME
- bubbles - frying pan / soft drink simulation
- .SH SYNOPSIS
--.B bubbles
-+.B /usr/lib/xscreensaver/bubbles
- [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP] [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-install] [\-visual \fIvisual\fP] [\-simple] [\-broken] [\-3D]
- .SH DESCRIPTION
- \fIBubbles\fP sprays lots of little random bubbles all over the window which
-diff -ur xscreensaver-4.21.orig/hacks/bumps.man xscreensaver-4.21/hacks/bumps.man
---- xscreensaver-4.21.orig/hacks/bumps.man	2001-04-15 02:24:19.000000000 +0200
-+++ xscreensaver-4.21/hacks/bumps.man	2005-05-17 17:02:01.000000000 +0200
-@@ -2,7 +2,7 @@
- .SH NAME
- bumps - move distorting spotlight around desktop
- .SH SYNOPSIS
--.B bumps
-+.B /usr/lib/xscreensaver/bumps
- [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP]
- [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-install]
- [\-visual \fIvisual\fP] [\-delay \fIusecs\fP] [\-radius \fIpixels\fP]
 diff -ur xscreensaver-4.21.orig/hacks/ccurve.man xscreensaver-4.21/hacks/ccurve.man
 --- xscreensaver-4.21.orig/hacks/ccurve.man	2002-05-31 05:04:59.000000000 +0200
 +++ xscreensaver-4.21/hacks/ccurve.man	2005-05-17 17:21:00.000000000 +0200
@@ -323,20 +285,6 @@ diff -ur xscreensaver-4.21.orig/hacks/deluxe.man xscreensaver-4.21/hacks/deluxe.
  .SH SYNOPSIS
 -.B deluxe
 +.B /usr/lib/xscreensaver/deluxe
- [\-display \fIhost:display.screen\fP]
- [\-visual \fIvisual\fP]
- [\-window]
-diff -ur xscreensaver-4.21.orig/hacks/demon.man xscreensaver-4.21/hacks/demon.man
---- xscreensaver-4.21.orig/hacks/demon.man	2002-05-31 05:01:17.000000000 +0200
-+++ xscreensaver-4.21/hacks/demon.man	2005-05-17 17:21:38.000000000 +0200
-@@ -1,8 +1,8 @@
- .TH XScreenSaver 1 "" "X Version 11"
- .SH NAME
--demon - celular automaton.
-+demon - celular automaton
- .SH SYNOPSIS
--.B demon
-+.B /usr/lib/xscreensaver/demon
  [\-display \fIhost:display.screen\fP]
  [\-visual \fIvisual\fP]
  [\-window]
@@ -650,18 +598,6 @@ diff -ur xscreensaver-4.21.orig/hacks/hopalong.man xscreensaver-4.21/hacks/hopal
  [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP] [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-install] [\-visual \fIvisual\fP] [\-ncolors \fIinteger\fP] [\-delay \fImicroseconds\fP] [\-cycles \fIinteger\fP] [\-count \fIinteger\fP] [\-jong] [\-no\-jong] [\-jong] [\-no\-sine]
  
  .SH DESCRIPTION
-diff -ur xscreensaver-4.21.orig/hacks/hyperball.man xscreensaver-4.21/hacks/hyperball.man
---- xscreensaver-4.21.orig/hacks/hyperball.man	2001-02-02 07:40:33.000000000 +0100
-+++ xscreensaver-4.21/hacks/hyperball.man	2005-05-17 17:05:13.000000000 +0200
-@@ -2,7 +2,7 @@
- .SH NAME
- hyperball - 2d projection of a 4d object
- .SH SYNOPSIS
--.B hyperball
-+.B /usr/lib/xscreensaver/hyperball
- [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP] [\-background \fIcolor\fP] [\-xy \fIfloat\fP] [\-xz \fIfloat\fP] [\-yz \fIfloat\fP] [\-xw \fIfloat\fP] [\-yw \fIfloat\fP] [\-zw \fIfloat\fP] [\-observer-z \fIint\fP] [\-delay \fIusecs\fP] [\-window] [\-root] [\-mono] [\-install] [\-visual \fIvisual\fP]
- .SH DESCRIPTION
- The \fIhyperball\fP program displays a wireframe projection of a hyperball
 diff -ur xscreensaver-4.21.orig/hacks/hypercube.man xscreensaver-4.21/hacks/hypercube.man
 --- xscreensaver-4.21.orig/hacks/hypercube.man	1998-08-03 10:04:57.000000000 +0200
 +++ xscreensaver-4.21/hacks/hypercube.man	2005-05-17 17:29:37.000000000 +0200
@@ -1060,18 +996,6 @@ diff -ur xscreensaver-4.21.orig/hacks/penetrate.man xscreensaver-4.21/hacks/pene
  [\-display \fIhost:display.screen\fP] [\-root] [\-window]
  [\-install] [\-noinstall] [\-visual \fIvisual\fP]
  [\-bgrowth \fImicroseconds\fP] [\-lrate \fInumber\fP] [\-smart \fInumber\fP]
-diff -ur xscreensaver-4.21.orig/hacks/penrose.man xscreensaver-4.21/hacks/penrose.man
---- xscreensaver-4.21.orig/hacks/penrose.man	2002-06-15 08:21:01.000000000 +0200
-+++ xscreensaver-4.21/hacks/penrose.man	2005-05-17 17:09:07.000000000 +0200
-@@ -2,7 +2,7 @@
- .SH NAME
- penrose - draws quasiperiodic tilings
- .SH SYNOPSIS
--.B penrose
-+.B /usr/lib/xscreensaver/penrose
- [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP] [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-install] [\-visual \fIvisual\fP] [\-ncolors \fIinteger\fP] [\-delay \fImicroseconds\fP] [\-redoDelay \fIseconds\fP] [\-size \fIinteger\fP] [\-ammann] [\-no\-ammann]
- 
- .SH DESCRIPTION
 diff -ur xscreensaver-4.21.orig/hacks/petri.man xscreensaver-4.21/hacks/petri.man
 --- xscreensaver-4.21.orig/hacks/petri.man	2000-07-18 07:59:15.000000000 +0200
 +++ xscreensaver-4.21/hacks/petri.man	2005-05-17 17:09:11.000000000 +0200
@@ -1202,20 +1126,6 @@ diff -ur xscreensaver-4.21.orig/hacks/rocks.man xscreensaver-4.21/hacks/rocks.ma
  [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP] [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-ncolors \fIn\fP] [\-install] [\-visual \fIvisual\fP] [\-count \fIinteger\fP] [\-delay \fIusecs\fP] [\-speed \fIinteger\fP] [\-norotate] [\-nomove] [\-3d]
  .SH DESCRIPTION
  The \fIrocks\fP program draws an animation of an asteroid field moving past
-diff -ur xscreensaver-4.21.orig/hacks/rorschach.man xscreensaver-4.21/hacks/rorschach.man
---- xscreensaver-4.21.orig/hacks/rorschach.man	1998-08-03 10:05:02.000000000 +0200
-+++ xscreensaver-4.21/hacks/rorschach.man	2005-05-17 17:30:23.000000000 +0200
-@@ -1,8 +1,8 @@
--.TH XScreenSaver 1 "13-aug-92" "X Version 11"
-+.TH XScreenSaver 1 "13-Aug-92" "X Version 11"
- .SH NAME
- rorschach - simulate ink-blot patterns
- .SH SYNOPSIS
--.B rorschach
-+.B /usr/lib/xscreensaver/rorschach
- [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP] [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-install] [\-visual \fIvisual\fP] [\-iterations \fIinteger\fP] [\-offset \fIinteger\fP] [\-xsymmetry] [\-ysymmetry] [\-erase\-mode \fIinteger\fP] [\-erase\-speed \fIusecs\fP] [\-delay \fIsecs\fP]
- .SH DESCRIPTION
- The \fIrorschach\fP program draws random patterns reminiscent of the
 diff -ur xscreensaver-4.21.orig/hacks/rotor.man xscreensaver-4.21/hacks/rotor.man
 --- xscreensaver-4.21.orig/hacks/rotor.man	2002-05-31 04:52:44.000000000 +0200
 +++ xscreensaver-4.21/hacks/rotor.man	2005-05-17 17:10:17.000000000 +0200
@@ -1268,18 +1178,6 @@ diff -ur xscreensaver-4.21.orig/hacks/sierpinski.man xscreensaver-4.21/hacks/sie
  [\-display \fIhost:display.screen\fP] [\-foreground \fIcolor\fP] [\-background \fIcolor\fP] [\-window] [\-root] [\-mono] [\-install] [\-visual \fIvisual\fP] [\-ncolors \fIinteger\fP] [\-delay \fImicroseconds\fP] [\-cycles \fIinteger\fP] [\-count \fIinteger\fP]
  
  .SH DESCRIPTION
-diff -ur xscreensaver-4.21.orig/hacks/slidescreen.man xscreensaver-4.21/hacks/slidescreen.man
---- xscreensaver-4.21.orig/hacks/slidescreen.man	2001-04-15 10:55:40.000000000 +0200
-+++ xscreensaver-4.21/hacks/slidescreen.man	2005-05-17 17:10:41.000000000 +0200
-@@ -2,7 +2,7 @@
- .SH NAME
- slidescreen - permute the screen image like an 8-puzzle
- .SH SYNOPSIS
--.B slidescreen
-+.B /usr/lib/xscreensaver/slidescreen
- [\-display \fIhost:display.screen\fP] [\-background \fIcolor\fP]
- [\-grid-size \fIpixels\fP] [\-ibw \fIpixels\fP] [\-increment \fIpixels\fP]
- [\-delay \fIusecs\fP] [\-delay2 \fIusecs\fP]
 diff -ur xscreensaver-4.21.orig/hacks/slip.man xscreensaver-4.21/hacks/slip.man
 --- xscreensaver-4.21.orig/hacks/slip.man	2001-04-15 10:55:40.000000000 +0200
 +++ xscreensaver-4.21/hacks/slip.man	2005-05-17 17:10:44.000000000 +0200
