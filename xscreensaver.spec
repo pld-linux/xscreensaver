@@ -24,9 +24,8 @@ Source3:	%{name}.pamd
 Source4:	mkinstalldirs
 Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-desktop.patch
-Patch2:		%{name}-fix-launch-with-kde.patch
-Patch3:		%{name}-man.patch
-Patch4:		%{name}-degnomify.patch
+Patch2:		%{name}-man.patch
+Patch3:		%{name}-degnomify.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	autoconf
@@ -45,6 +44,7 @@ BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 Requires:	pam >= 0.77.3
 Requires:	perl-perldoc
+Requires:	%{name}-savers = %{epoch}:%{version}-%{release}
 Obsoletes:	xscreensaver-gnome
 Obsoletes:	xscreensaver-gnome1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -94,22 +94,28 @@ velho clássico, a "tela preta".
 %description -l uk
 ðÁËÅÔ xscreensaver Í¦ÓÔÉÔØ Ò¦ÚÎÏÍÁÎ¦ÔÎ¦ ÐÒÏÇÒÁÍÉ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ.
 
+%package base
+Summary:	Base X screen savers
+Summary(pl):	Podstawowe wygaszacze ekranu pod X Window
+Group:		X11/Applications
+Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
+
+%description base
+Base screen savers for X Window.
+
+%description base -l pl
+Podstawowe wygaszacze ekranu pod X Window.
+
 %package GL
 Summary:	OpenGL X screen savers
-Summary(es):	A set of GL screensavers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
 Summary(pt_BR):	Protetores de tela GL
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 Requires:	OpenGL
 
 %description GL
 Screen savers which uses OpenGL libraries.
-
-%description GL -l es
-The xscreensaver-gl package contains even more screensavers for your
-mind-numbing, ambition-eroding, time-wasting, hypnotized viewing
-pleasure. These screensavers require OpenGL or Mesa support.
 
 %description GL -l pl
 Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
@@ -121,7 +127,9 @@ Ainda mais protetores de tela, usando a biblioteca 3D OpenGL.
 Summary:	OpenGL && GLE X screen savers
 Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL && GLE
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
+# for gl-helper:
+Requires:	%{name}-GL = %{epoch}:%{version}-%{release}
 
 %description GLE
 Screen savers which uses OpenGL and GLE libraries.
@@ -146,9 +154,8 @@ Wsparcie dla GNOME2.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#%%patch2 -p1
+%patch2 -p1
 %patch3 -p1
-%patch4 -p1
 install -m755 %{SOURCE4} .
 
 mv po/{no,nb}.po
@@ -170,7 +177,6 @@ cp -f /usr/share/automake/config.sub .
 	--with-mit-ext \
 	--with-proc-interrupts \
 	--with-pam \
-	--with-shadow \
 	--without-motif \
 	--with-xml \
 	--with-gl \
@@ -191,10 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	install_prefix=$RPM_BUILD_ROOT \
-	PAM_DIR=/etc/pam.d \
-	GNOME_CCDIR_1=%{_datadir}/control-center/Desktop \
-	GNOME_CCDIR_2=%{_datadir}/control-center/capplets \
-	GNOME_PANELDIR=%{_applnkdir}/Settings/GNOME/Desktop
+	PAM_DIR=/etc/pam.d
 
 install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_desktopdir}}
 
@@ -208,14 +211,14 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 _DIR=$(pwd)
 cd $RPM_BUILD_ROOT%{_libdir}/%{name}
 
-echo '%defattr(755,root,root)' > $_DIR/files.normal
-echo '%defattr(755,root,root)' > $_DIR/files.gl
-echo '%defattr(755,root,root)' > $_DIR/files.gle
+echo '%defattr(644,root,root,755)' > $_DIR/files.base
+echo '%defattr(644,root,root,755)' > $_DIR/files.gl
+echo '%defattr(644,root,root,755)' > $_DIR/files.gle
 
 find_config_and_man()
 {
-	if test -e $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/${1}.xml ; then
-		echo %{_sysconfdir}/%{name}/${1}.xml
+	if test -e $RPM_BUILD_ROOT%{_datadir}/%{name}/${1}.xml ; then
+		echo %{_datadir}/%{name}/${1}.xml
 	fi
 	if test -e $RPM_BUILD_ROOT%{_mandir}/man1/${1}.1 ; then
 		mv $RPM_BUILD_ROOT%{_mandir}/man1/{,xscreensaver-}${1}.1
@@ -238,27 +241,26 @@ for file in * ; do
 		(START==1) && (LIBNAME!="") { print LIBNAME; }
 		/^$/ { START=0; }' 2>&1 `"
 
-if (echo "$_REQUIRES" | grep -q "libgle.so"); then
-	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.gle
-	find_config_and_man $file >> $_DIR/files.gle
-elif (echo "$_REQUIRES" | grep -q "libGLU.so"); then
-	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.gl
-	find_config_and_man $file >> $_DIR/files.gl
-else
-	echo "%{_libdir}/xscreensaver/$file" >> $_DIR/files.normal
-	find_config_and_man $file >> $_DIR/files.normal
-fi
+	if (echo "$_REQUIRES" | grep -q "libgle.so"); then
+		echo "%attr(755,root,root) %{_libdir}/xscreensaver/$file" >> $_DIR/files.gle
+		find_config_and_man $file >> $_DIR/files.gle
+	elif (echo "$_REQUIRES" | grep -q "libGLU.so"); then
+		echo "%attr(755,root,root) %{_libdir}/xscreensaver/$file" >> $_DIR/files.gl
+		find_config_and_man $file >> $_DIR/files.gl
+	else
+		echo "%attr(755,root,root) %{_libdir}/xscreensaver/$file" >> $_DIR/files.base
+		find_config_and_man $file >> $_DIR/files.base
+	fi
 done
 
 cd $_DIR
 
 %find_lang %{name} --all-name
-cat %{name}.lang >> files.normal
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f files.normal
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README README.debugging
 %doc %{_datadir}/%{name}/README
@@ -268,14 +270,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-getimage*
 %attr(755,root,root) %{_bindir}/xscreensaver-text
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
-#%dir %{_datadir}/%{name}
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
 %dir %{_libdir}/xscreensaver
 %{_appdefsdir}/*
-%{_datadir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/glade
 %{_desktopdir}/xscreensaver.desktop
 %{_desktopdir}/xscreensaver-lock.desktop
-%{_mandir}/man1/xscreensaver*
+%{_mandir}/man1/xscreensaver.1*
+%{_mandir}/man1/xscreensaver-command.1*
+%{_mandir}/man1/xscreensaver-demo.1*
+%{_mandir}/man1/xscreensaver-getimage*.1*
+%{_mandir}/man1/xscreensaver-text.1*
 %{_pixmapsdir}/*.xpm
 
 #%{_datadir}/%{name}/cosmos.xml
@@ -292,9 +298,13 @@ rm -rf $RPM_BUILD_ROOT
 #%{_datadir}/%{name}/xplanet.xml
 #%{_datadir}/%{name}/xsnow.xml
 
+%files base -f files.base
+%defattr(644,root,root,755)
+
 %files GL -f files.gl
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
+%{_mandir}/man1/xscreensaver-gl-helper.1*
 
 %files GLE -f files.gle
 %defattr(644,root,root,755)
