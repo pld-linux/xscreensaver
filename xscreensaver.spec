@@ -156,6 +156,7 @@ Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	control-center >= 1:2.0
 Obsoletes:	gnome-screensaver
+Obsoletes:	gnome-screensaver-xscreensaver
 
 %description gnome2
 GNOME2 support.
