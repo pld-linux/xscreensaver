@@ -143,6 +143,7 @@ Summary(pl):	Wsparcie dla GNOME2
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	control-center >= 1:2.0
+Obsoletes:	gnome-screensaver
 
 %description gnome2
 GNOME2 support.
