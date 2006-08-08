@@ -94,11 +94,24 @@ velho cl·ssico, a "tela preta".
 %description -l uk
 ¡À≈‘ xscreensaver Õ¶”‘…‘ÿ “¶⁄ŒœÕ¡Œ¶‘Œ¶ –“œ«“¡Õ… ⁄¬≈“≈÷≈ŒŒ— ≈À“¡Œ’.
 
+%package common
+Summary:	Common X screen savers files
+Summary(pl):	Pliki wspÛlne dla podpakietÛw wygaszaczy ekranu
+Group:		X11/Applications
+Requires:	OpenGL
+
+%description common
+Common X screen savers files.
+
+%description common -l pl
+Pliki wspÛlne dla podpakietÛw wygaszaczy ekranu.
+
 %package base
 Summary:	Base X screen savers
 Summary(pl):	Podstawowe wygaszacze ekranu pod X Window
 Group:		X11/Applications
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 
 %description base
 Base screen savers for X Window.
@@ -112,7 +125,7 @@ Summary(pl):	Wygaszacze ekranu pod X Window uøywaj±ce OpenGL
 Summary(pt_BR):	Protetores de tela GL
 Group:		X11/Applications
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
-Requires:	OpenGL
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 
 %description GL
 Screen savers which uses OpenGL libraries.
@@ -128,8 +141,7 @@ Summary:	OpenGL && GLE X screen savers
 Summary(pl):	Wygaszacze ekranu pod X Window uøywaj±ce OpenGL && GLE
 Group:		X11/Applications
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
-# for gl-helper:
-Requires:	%{name}-GL = %{epoch}:%{version}-%{release}
+Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 
 %description GLE
 Screen savers which uses OpenGL and GLE libraries.
@@ -178,6 +190,7 @@ cp -f /usr/share/automake/config.sub .
 	--with-mit-ext \
 	--with-proc-interrupts \
 	--with-pam \
+	--with-shadow \
 	--without-motif \
 	--with-xml \
 	--with-gl \
@@ -272,9 +285,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-text
 #%attr(755,root,root) %{_bindir}/xscreensaver.kss
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
-%dir %{_libdir}/xscreensaver
 %{_appdefsdir}/*
-%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/glade
 %{_desktopdir}/xscreensaver.desktop
 %{_desktopdir}/xscreensaver-lock.desktop
@@ -299,13 +310,17 @@ rm -rf $RPM_BUILD_ROOT
 #%{_datadir}/%{name}/xplanet.xml
 #%{_datadir}/%{name}/xsnow.xml
 
+%files common
+%attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
+%{_mandir}/man1/xscreensaver-gl-helper.1*
+%dir %{_libdir}/%{name}
+%dir %{_datadir}/%{name}
+
 %files base -f files.base
 %defattr(644,root,root,755)
 
 %files GL -f files.gl
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
-%{_mandir}/man1/xscreensaver-gl-helper.1*
 
 %files GLE -f files.gle
 %defattr(644,root,root,755)
