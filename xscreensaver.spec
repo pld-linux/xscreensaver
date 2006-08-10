@@ -42,9 +42,10 @@ BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	pam-devel >= 0.77.3
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
+Requires:	%{name}-savers = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.77.3
 Requires:	perl-perldoc
-Requires:	%{name}-savers = %{epoch}:%{version}-%{release}
+Requires:	xorg-lib-libXt >= 1.0.0
 Obsoletes:	xscreensaver-gnome
 Obsoletes:	xscreensaver-gnome1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
