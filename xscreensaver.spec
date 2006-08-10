@@ -51,7 +51,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
 %define		_sysconfdir	/etc/X11
-%define		_appdefsdir	/usr/X11R6/lib/X11/app-defaults
+%define		_appdefsdir	/usr/share/X11/app-defaults
 
 %description
 Screen savers of every sort are included in this package, guaranteeing
@@ -211,6 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	install_prefix=$RPM_BUILD_ROOT \
+	AD_DIR=%{_appdefsdir} \
 	PAM_DIR=/etc/pam.d
 
 install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_desktopdir}}
