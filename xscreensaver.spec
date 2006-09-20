@@ -236,13 +236,13 @@ find_config_and_man()
 	if test -e $RPM_BUILD_ROOT%{_datadir}/%{name}/${1}.xml ; then
 		echo %{_datadir}/%{name}/${1}.xml
 	fi
-	if test -e $RPM_BUILD_ROOT%{_mandir}/man1/${1}.1 ; then
-		mv $RPM_BUILD_ROOT%{_mandir}/man1/{,xscreensaver-}${1}.1
-		echo %{_mandir}/man1/xscreensaver-${1}.1'*'
+	if test -e $RPM_BUILD_ROOT%{_mandir}/man6/${1}.6 ; then
+		mv $RPM_BUILD_ROOT%{_mandir}/man6/{,xscreensaver-}${1}.6
+		echo %{_mandir}/man6/xscreensaver-${1}.6'*'
 		# these two conflict with other packages
 		if [ ${1} != barcode -a ${1} != flame ]; then
-			echo ".so xscreensaver-${1}.1" > $RPM_BUILD_ROOT%{_mandir}/man1/${1}.1
-			echo %{_mandir}/man1/${1}.1'*'
+			echo ".so xscreensaver-${1}.6" > $RPM_BUILD_ROOT%{_mandir}/man6/${1}.6
+			echo %{_mandir}/man6/${1}.6'*'
 		fi
 	fi
 }
@@ -296,7 +296,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver-getimage*.1*
 %{_mandir}/man1/xscreensaver-text.1*
-%{_mandir}/man6/*.6*
 %{_pixmapsdir}/*.xpm
 
 #%{_datadir}/%{name}/cosmos.xml
@@ -315,7 +314,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files common
 %attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
-#%{_mandir}/man1/xscreensaver-gl-helper.1*
+%{_mandir}/man6/xscreensaver-gl-helper.6*
 %dir %{_libdir}/%{name}
 %dir %{_datadir}/%{name}
 
