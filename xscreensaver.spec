@@ -11,13 +11,13 @@ Summary(ru):	Набор программ хранения экрана для X Window
 Summary(uk):	Наб╕р програм збереження екрану для X Window
 Summary(zh_CN):	X ╢╟©зо╣мЁ╠ё╩╓фВ
 Name:		xscreensaver
-Version:	4.24
-Release:	2
+Version:	5.01
+Release:	1
 Epoch:		1
 Group:		X11/Applications
 License:	BSD
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	174b6a7cebd892c1a6c2d56bf5ac5af6
+# Source0-md5:	b60abc52b39591750f48f9c9f20c4167
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
@@ -168,7 +168,7 @@ Wsparcie dla GNOME2.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+#%patch2 -p1
 %patch3 -p1
 install -m755 %{SOURCE4} .
 
@@ -278,7 +278,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README README.debugging
+%doc README README.hacking
 %doc %{_datadir}/%{name}/README
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
@@ -296,6 +296,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver-getimage*.1*
 %{_mandir}/man1/xscreensaver-text.1*
+%{_mandir}/man6/*.6*
 %{_pixmapsdir}/*.xpm
 
 #%{_datadir}/%{name}/cosmos.xml
@@ -314,7 +315,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files common
 %attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
-%{_mandir}/man1/xscreensaver-gl-helper.1*
+#%{_mandir}/man1/xscreensaver-gl-helper.1*
 %dir %{_libdir}/%{name}
 %dir %{_datadir}/%{name}
 

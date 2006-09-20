@@ -5,10 +5,10 @@ diff -ruN xscreensaver-4.21./driver/XScreenSaver.ad.in xscreensaver-4.21/driver/
  !
  !   Gnome 2.4, 2.6: (yelp can't display man pages, as of 2.6.3)
  !
--@GNOME24@*loadURL: gnome-open '%s'
+-@GNOME24@*loadURL: @WITH_BROWSER@ '%s'
 -@GNOME24@*manualCommand: gnome-terminal --title '%s manual' \
 -@GNOME24@		--command '/bin/sh -c "man %s; read foo"'
-+!@GNOME24@*loadURL: gnome-open '%s'
++!@GNOME24@*loadURL: @WITH_BROWSER@ '%s'
 +!@GNOME24@*manualCommand: gnome-terminal --title '%s manual' \
 +!@GNOME24@		--command '/bin/sh -c "man %s; read foo"'
  !
