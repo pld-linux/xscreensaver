@@ -2,14 +2,14 @@
 # make package for KDE with /usr/bin/xscreensaver.kss
 #
 Summary:	X screen savers
-Summary(de.UTF-8):   X-Bildschirmschoner
-Summary(es.UTF-8):   Protectores de pantalla X
-Summary(fr.UTF-8):   Economiseurs d'écran X
-Summary(pl.UTF-8):   Wygaszacze ekranu pod X Window
-Summary(pt_BR.UTF-8):   Salvadores de tela X
-Summary(ru.UTF-8):   Набор программ хранения экрана для X Window
-Summary(uk.UTF-8):   Набір програм збереження екрану для X Window
-Summary(zh_CN.UTF-8):   X 窗口系统保护器
+Summary(de.UTF-8):	X-Bildschirmschoner
+Summary(es.UTF-8):	Protectores de pantalla X
+Summary(fr.UTF-8):	Economiseurs d'écran X
+Summary(pl.UTF-8):	Wygaszacze ekranu pod X Window
+Summary(pt_BR.UTF-8):	Salvadores de tela X
+Summary(ru.UTF-8):	Набор программ хранения экрана для X Window
+Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
+Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
 Version:	5.01
 Release:	1
@@ -97,7 +97,7 @@ velho clássico, a "tela preta".
 
 %package common
 Summary:	Common X screen savers files
-Summary(pl.UTF-8):   Pliki wspólne dla podpakietów wygaszaczy ekranu
+Summary(pl.UTF-8):	Pliki wspólne dla podpakietów wygaszaczy ekranu
 Group:		X11/Applications
 
 %description common
@@ -108,7 +108,7 @@ Pliki wspólne dla podpakietów wygaszaczy ekranu.
 
 %package base
 Summary:	Base X screen savers
-Summary(pl.UTF-8):   Podstawowe wygaszacze ekranu pod X Window
+Summary(pl.UTF-8):	Podstawowe wygaszacze ekranu pod X Window
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
@@ -121,8 +121,8 @@ Podstawowe wygaszacze ekranu pod X Window.
 
 %package GL
 Summary:	OpenGL X screen savers
-Summary(pl.UTF-8):   Wygaszacze ekranu pod X Window używające OpenGL
-Summary(pt_BR.UTF-8):   Protetores de tela GL
+Summary(pl.UTF-8):	Wygaszacze ekranu pod X Window używające OpenGL
+Summary(pt_BR.UTF-8):	Protetores de tela GL
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
@@ -138,7 +138,7 @@ Ainda mais protetores de tela, usando a biblioteca 3D OpenGL.
 
 %package GLE
 Summary:	OpenGL & GLE X screen savers
-Summary(pl.UTF-8):   Wygaszacze ekranu pod X Window używające OpenGL i GLE
+Summary(pl.UTF-8):	Wygaszacze ekranu pod X Window używające OpenGL i GLE
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
@@ -151,7 +151,7 @@ Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 
 %package gnome2
 Summary:	GNOME2 support
-Summary(pl.UTF-8):   Wsparcie dla GNOME2
+Summary(pl.UTF-8):	Wsparcie dla GNOME2
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	control-center >= 1:2.0
