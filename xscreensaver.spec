@@ -2,14 +2,14 @@
 # make package for KDE with /usr/bin/xscreensaver.kss
 #
 Summary:	X screen savers
-Summary(de):	X-Bildschirmschoner
-Summary(es):	Protectores de pantalla X
-Summary(fr):	Economiseurs d'écran X
-Summary(pl):	Wygaszacze ekranu pod X Window
-Summary(pt_BR):	Salvadores de tela X
-Summary(ru):	îÁÂÏÒ ÐÒÏÇÒÁÍÍ ÈÒÁÎÅÎÉÑ ÜËÒÁÎÁ ÄÌÑ X Window
-Summary(uk):	îÁÂ¦Ò ÐÒÏÇÒÁÍ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ ÄÌÑ X Window
-Summary(zh_CN):	X ´°¿ÚÏµÍ³±£»¤Æ÷
+Summary(de.UTF-8):   X-Bildschirmschoner
+Summary(es.UTF-8):   Protectores de pantalla X
+Summary(fr.UTF-8):   Economiseurs d'Ã©cran X
+Summary(pl.UTF-8):   Wygaszacze ekranu pod X Window
+Summary(pt_BR.UTF-8):   Salvadores de tela X
+Summary(ru.UTF-8):   ÐÐ°Ð±Ð¾Ñ€ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ ÑÐºÑ€Ð°Ð½Ð° Ð´Ð»Ñ X Window
+Summary(uk.UTF-8):   ÐÐ°Ð±Ñ–Ñ€ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼ Ð·Ð±ÐµÑ€ÐµÐ¶ÐµÐ½Ð½Ñ ÐµÐºÑ€Ð°Ð½Ñƒ Ð´Ð»Ñ X Window
+Summary(zh_CN.UTF-8):   X çª—å£ç³»ç»Ÿä¿æŠ¤å™¨
 Name:		xscreensaver
 Version:	5.01
 Release:	1
@@ -59,56 +59,56 @@ Screen savers of every sort are included in this package, guaranteeing
 hours of enjoyment and monitor saving. And if you are bent on really
 saving your monitor, there's that old classic, the plain black screen.
 
-%description -l de
-Dieses Paket enthält eine Sammlung verschiedenster Bildschirmschoner.
-Stundenlanger Spaß ist garantiert. Und wenn Sie Ihren Bildschirm
-wirklich schonen möchten, gibt's den alten Klassiker, den einfachen
+%description -l de.UTF-8
+Dieses Paket enthÃ¤lt eine Sammlung verschiedenster Bildschirmschoner.
+Stundenlanger SpaÃŸ ist garantiert. Und wenn Sie Ihren Bildschirm
+wirklich schonen mÃ¶chten, gibt's den alten Klassiker, den einfachen
 schwarzen Bildschirm.
 
-%description -l es
-En este paquete están incluidos protectores de pantalla, de todos los
-tipos, garantizando horas de diversión para tu monitor. Y si realmente
-estás inclinado a la protección de tu monitor, existe aquel antiguo y
-clásico protector, la "pantalla negra".
+%description -l es.UTF-8
+En este paquete estÃ¡n incluidos protectores de pantalla, de todos los
+tipos, garantizando horas de diversiÃ³n para tu monitor. Y si realmente
+estÃ¡s inclinado a la protecciÃ³n de tu monitor, existe aquel antiguo y
+clÃ¡sico protector, la "pantalla negra".
 
-%description -l fr
-Des économiseurs d'écran de chaque sorte sont inclus dans ce paquet,
-guarantissant des heures de plaisir et d'économies d'écran. Et si vous
-êtes voulez vraiment économiser votre écran, il y a ce vieux
-classique, l'écran tout noir.
+%description -l fr.UTF-8
+Des Ã©conomiseurs d'Ã©cran de chaque sorte sont inclus dans ce paquet,
+guarantissant des heures de plaisir et d'Ã©conomies d'Ã©cran. Et si vous
+Ãªtes voulez vraiment Ã©conomiser votre Ã©cran, il y a ce vieux
+classique, l'Ã©cran tout noir.
 
-%description -l pl
-Ka¿dy wygaszacz ekranu do³±czony do tego pakietu zapewnia godziny
-zadowolenia i oszczêdzania monitora. Je¶li bardzo Ci zale¿y na
-oszczêdzaniu monitora to jest te¿ dostêpny klasyczny "czysty" czarny
+%description -l pl.UTF-8
+KaÅ¼dy wygaszacz ekranu doÅ‚Ä…czony do tego pakietu zapewnia godziny
+zadowolenia i oszczÄ™dzania monitora. JeÅ›li bardzo Ci zaleÅ¼y na
+oszczÄ™dzaniu monitora to jest teÅ¼ dostÄ™pny klasyczny "czysty" czarny
 wygaszacz.
 
-%description -l pt_BR
-Protetores de tela de todos os tipos estão incluídos neste pacote,
-garantindo horas de divertimento para o seu monitor. E se você
-realmente está inclinado à proteção do seu monitor, existe aquele
-velho clássico, a "tela preta".
+%description -l pt_BR.UTF-8
+Protetores de tela de todos os tipos estÃ£o incluÃ­dos neste pacote,
+garantindo horas de divertimento para o seu monitor. E se vocÃª
+realmente estÃ¡ inclinado Ã  proteÃ§Ã£o do seu monitor, existe aquele
+velho clÃ¡ssico, a "tela preta".
 
-%description -l ru
-ðÁËÅÔ xscreensaver ÓÏÄÅÒÖÉÔ ÒÁÚÎÏÏÂÒÁÚÎÙÅ ÐÒÏÇÒÁÍÍÙ ÈÒÁÎÅÎÉÑ ÜËÒÁÎÁ.
+%description -l ru.UTF-8
+ÐŸÐ°ÐºÐµÑ‚ xscreensaver ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ñ‚ Ñ€Ð°Ð·Ð½Ð¾Ð¾Ð±Ñ€Ð°Ð·Ð½Ñ‹Ðµ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹ Ñ…Ñ€Ð°Ð½ÐµÐ½Ð¸Ñ ÑÐºÑ€Ð°Ð½Ð°.
 
-%description -l uk
-ðÁËÅÔ xscreensaver Í¦ÓÔÉÔØ Ò¦ÚÎÏÍÁÎ¦ÔÎ¦ ÐÒÏÇÒÁÍÉ ÚÂÅÒÅÖÅÎÎÑ ÅËÒÁÎÕ.
+%description -l uk.UTF-8
+ÐŸÐ°ÐºÐµÑ‚ xscreensaver Ð¼Ñ–ÑÑ‚Ð¸Ñ‚ÑŒ Ñ€Ñ–Ð·Ð½Ð¾Ð¼Ð°Ð½Ñ–Ñ‚Ð½Ñ– Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¸ Ð·Ð±ÐµÑ€ÐµÐ¶ÐµÐ½Ð½Ñ ÐµÐºÑ€Ð°Ð½Ñƒ.
 
 %package common
 Summary:	Common X screen savers files
-Summary(pl):	Pliki wspólne dla podpakietów wygaszaczy ekranu
+Summary(pl.UTF-8):   Pliki wspÃ³lne dla podpakietÃ³w wygaszaczy ekranu
 Group:		X11/Applications
 
 %description common
 Common X screen savers files.
 
-%description common -l pl
-Pliki wspólne dla podpakietów wygaszaczy ekranu.
+%description common -l pl.UTF-8
+Pliki wspÃ³lne dla podpakietÃ³w wygaszaczy ekranu.
 
 %package base
 Summary:	Base X screen savers
-Summary(pl):	Podstawowe wygaszacze ekranu pod X Window
+Summary(pl.UTF-8):   Podstawowe wygaszacze ekranu pod X Window
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
@@ -116,13 +116,13 @@ Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 %description base
 Base screen savers for X Window.
 
-%description base -l pl
+%description base -l pl.UTF-8
 Podstawowe wygaszacze ekranu pod X Window.
 
 %package GL
 Summary:	OpenGL X screen savers
-Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL
-Summary(pt_BR):	Protetores de tela GL
+Summary(pl.UTF-8):   Wygaszacze ekranu pod X Window uÅ¼ywajÄ…ce OpenGL
+Summary(pt_BR.UTF-8):   Protetores de tela GL
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
@@ -130,15 +130,15 @@ Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 %description GL
 Screen savers which uses OpenGL libraries.
 
-%description GL -l pl
-Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL.
+%description GL -l pl.UTF-8
+Wygaszacze ekranu pod X Window uÅ¼ywajÄ…ce OpenGL.
 
-%description GL -l pt_BR
+%description GL -l pt_BR.UTF-8
 Ainda mais protetores de tela, usando a biblioteca 3D OpenGL.
 
 %package GLE
 Summary:	OpenGL & GLE X screen savers
-Summary(pl):	Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL i GLE
+Summary(pl.UTF-8):   Wygaszacze ekranu pod X Window uÅ¼ywajÄ…ce OpenGL i GLE
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
@@ -146,12 +146,12 @@ Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 %description GLE
 Screen savers which uses OpenGL and GLE libraries.
 
-%description GLE -l pl
-Wygaszacze ekranu pod X Window u¿ywaj±ce OpenGL oraz GLE.
+%description GLE -l pl.UTF-8
+Wygaszacze ekranu pod X Window uÅ¼ywajÄ…ce OpenGL oraz GLE.
 
 %package gnome2
 Summary:	GNOME2 support
-Summary(pl):	Wsparcie dla GNOME2
+Summary(pl.UTF-8):   Wsparcie dla GNOME2
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	control-center >= 1:2.0
@@ -161,7 +161,7 @@ Obsoletes:	gnome-screensaver-xscreensaver
 %description gnome2
 GNOME2 support.
 
-%description gnome2 -l pl
+%description gnome2 -l pl.UTF-8
 Wsparcie dla GNOME2.
 
 %prep
