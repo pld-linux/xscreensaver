@@ -14,8 +14,8 @@ Name:		xscreensaver
 Version:	5.01
 Release:	1
 Epoch:		1
-Group:		X11/Applications
 License:	BSD
+Group:		X11/Applications
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 # Source0-md5:	b60abc52b39591750f48f9c9f20c4167
 Source1:	%{name}.desktop
@@ -28,13 +28,13 @@ Patch2:		%{name}-man.patch
 Patch3:		%{name}-degnomify.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
+BuildRequires:	OpenGL-glut-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bc
 BuildRequires:	esound-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gle-devel
-BuildRequires:	glut-devel
 BuildRequires:	gtk+2-devel >= 1:2.0.3
 BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 2.0.0
@@ -313,6 +313,7 @@ rm -rf $RPM_BUILD_ROOT
 #%{_datadir}/%{name}/xsnow.xml
 
 %files common
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
 %{_mandir}/man6/xscreensaver-gl-helper.6*
 %dir %{_libdir}/%{name}
