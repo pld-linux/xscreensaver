@@ -11,13 +11,13 @@ Summary(ru.UTF-8):	Набор программ хранения экрана д�
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
-Version:	5.01
+Version:	5.02
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	b60abc52b39591750f48f9c9f20c4167
+# Source0-md5:	83937791b30f55f52011d4fee0f5dff3
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
