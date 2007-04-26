@@ -1,0 +1,3 @@
+- updated to 4.18 [fixes CVE-2004-2655]
+- BuildRequires: intltool
+- release 0.1 (%%files needs verification)
