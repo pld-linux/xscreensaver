@@ -12,7 +12,7 @@ Summary(uk.UTF-8):	Набір програм збереження екрану �
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
 Version:	5.02
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
@@ -155,8 +155,6 @@ Summary(pl.UTF-8):	Wsparcie dla GNOME2
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	control-center >= 1:2.0
-Obsoletes:	gnome-screensaver
-Obsoletes:	gnome-screensaver-xscreensaver
 
 %description gnome2
 GNOME2 support.
