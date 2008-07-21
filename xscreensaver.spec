@@ -11,13 +11,13 @@ Summary(ru.UTF-8):	Набор программ хранения экрана д�
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
-Version:	5.05
+Version:	5.06
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	d759262b10d76f87f1a7fc50ae8664d4
+# Source0-md5:	c6b2cab02aaea32684d37a9a76488e0f
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
@@ -48,6 +48,7 @@ Requires:	perl-perldoc
 Requires:	xorg-lib-libXt >= 1.0.0
 Obsoletes:	xscreensaver-gnome
 Obsoletes:	xscreensaver-gnome1
+Obsoletes:	xscreensaver-gnome2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
@@ -148,19 +149,6 @@ Screen savers which uses OpenGL and GLE libraries.
 
 %description GLE -l pl.UTF-8
 Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
-
-%package gnome2
-Summary:	GNOME2 support
-Summary(pl.UTF-8):	Wsparcie dla GNOME2
-Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	control-center >= 1:2.0
-
-%description gnome2
-GNOME2 support.
-
-%description gnome2 -l pl.UTF-8
-Wsparcie dla GNOME2.
 
 %prep
 %setup -q
@@ -288,6 +276,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_appdefsdir}/*
 %{_datadir}/%{name}/glade
 %{_desktopdir}/xscreensaver.desktop
+%{_desktopdir}/xscreensaver-properties.desktop
 %{_desktopdir}/xscreensaver-lock.desktop
 %{_mandir}/man1/xscreensaver.1*
 %{_mandir}/man1/xscreensaver-command.1*
@@ -325,7 +314,3 @@ rm -rf $RPM_BUILD_ROOT
 
 %files GLE -f files.gle
 %defattr(644,root,root,755)
-
-%files gnome2
-%defattr(644,root,root,755)
-%{_desktopdir}/gnome-screensaver-properties.desktop
