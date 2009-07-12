@@ -12,7 +12,7 @@ Summary(uk.UTF-8):	Набір програм збереження екрану �
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
 Version:	5.06
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
