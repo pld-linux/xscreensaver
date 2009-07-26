@@ -12,7 +12,7 @@ Summary(uk.UTF-8):	Набір програм збереження екрану �
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
 Version:	5.06
-Release:	2
+Release:	3
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
@@ -26,6 +26,7 @@ Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-man.patch
 Patch3:		%{name}-degnomify.patch
+Patch4:		%{name}-build.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenGL-glut-devel
@@ -156,12 +157,15 @@ Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 %patch1 -p1
 #%patch2 -p1
 %patch3 -p1
+%patch4 -p1
 install -m755 %{SOURCE4} .
 
 mv po/{no,nb}.po
 
 %build
-cp -f /usr/share/automake/config.sub .
+cp -f /usr/share/automake/{config.sub,install-sh} .
+%{__libtoolize}
+%{__intltoolize}
 %{__aclocal}
 %{__autoconf}
 %configure \
@@ -197,6 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
+	install_sh=$(pwd)/install-sh \
 	install_prefix=$RPM_BUILD_ROOT \
 	AD_DIR=%{_appdefsdir} \
 	PAM_DIR=/etc/pam.d
