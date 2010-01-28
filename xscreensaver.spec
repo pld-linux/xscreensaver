@@ -11,18 +11,17 @@ Summary(ru.UTF-8):	Набор программ хранения экрана д�
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
-Version:	5.06
-Release:	4
+Version:	5.10
+Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	c6b2cab02aaea32684d37a9a76488e0f
+# Source0-md5:	0d7205f9da8e3f1b83bcda549d73a7c4
 Source1:	%{name}.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Source4:	mkinstalldirs
-Patch0:		%{name}-locale-names.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-man.patch
 Patch3:		%{name}-degnomify.patch
@@ -153,14 +152,11 @@ Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 #%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 install -m755 %{SOURCE4} .
-
-mv po/{no,nb}.po
 
 %build
 cp -f /usr/share/automake/{config.sub,install-sh} .
