@@ -12,7 +12,7 @@ Summary(uk.UTF-8):	Набір програм збереження екрану �
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
 Version:	5.10
-Release:	2
+Release:	3
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
@@ -44,8 +44,11 @@ BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 Requires:	%{name}-savers = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.77.3
-Requires:	perl-perldoc
 Requires:	xorg-lib-libXt >= 1.0.0
+# for screensaver-getimage-file
+Suggests:	perl-perldoc
+# for xscreensaver-text
+Suggests:	xorg-app-appres
 Obsoletes:	xscreensaver-gnome
 Obsoletes:	xscreensaver-gnome1
 Obsoletes:	xscreensaver-gnome2
@@ -127,6 +130,8 @@ Summary(pt_BR.UTF-8):	Protetores de tela GL
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
+# for starwars req: xscreensaver-text
+Suggests:	%{name}
 
 %description GL
 Screen savers which uses OpenGL libraries.
@@ -209,7 +214,7 @@ install %{SOURCE1} %{SOURCE2} \
 
 %{__make} -C driver install-pam \
 	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
+cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/xscreensaver
 
 _DIR=$(pwd)
 cd $RPM_BUILD_ROOT%{_libdir}/%{name}
@@ -234,20 +239,20 @@ find_config_and_man()
 	fi
 }
 
-for file in * ; do
-	_REQUIRES="`objdump -p $file 2> /dev/null | awk '
+for file in *; do
+	_REQUIRES=$(objdump -p $file 2> /dev/null | awk '
 		BEGIN { START=0; LIBNAME=""; }
 		/Dynamic Section:/ { START=1; }
 		/NEEDED/ && (START==1) {
 			LIBNAME=$2;
 		}
 		(START==1) && (LIBNAME!="") { print LIBNAME; }
-		/^$/ { START=0; }' 2>&1 `"
+		/^$/ { START=0; }')
 
-	if (echo "$_REQUIRES" | grep -q "libgle.so"); then
+	if echo "$_REQUIRES" | grep -q "libgle.so"; then
 		echo "%attr(755,root,root) %{_libdir}/xscreensaver/$file" >> $_DIR/files.gle
 		find_config_and_man $file >> $_DIR/files.gle
-	elif (echo "$_REQUIRES" | grep -q "libGLU.so"); then
+	elif echo "$_REQUIRES" | grep -q "libGLU.so"; then
 		echo "%attr(755,root,root) %{_libdir}/xscreensaver/$file" >> $_DIR/files.gl
 		find_config_and_man $file >> $_DIR/files.gl
 	else
