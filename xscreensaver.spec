@@ -12,7 +12,7 @@ Summary(uk.UTF-8):	Набір програм збереження екрану �
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
 Version:	5.10
-Release:	3
+Release:	4
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
@@ -32,7 +32,6 @@ BuildRequires:	OpenGL-glut-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bc
-BuildRequires:	esound-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gle-devel
 BuildRequires:	gtk+2-devel >= 1:2.0.3
