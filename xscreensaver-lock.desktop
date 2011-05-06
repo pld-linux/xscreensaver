@@ -7,6 +7,6 @@ Exec=xscreensaver-command -lock
 Icon=xscreensaver
 Terminal=false
 Type=Application
-Categories=Settings;
+Categories=System;
 NotShowIn=GNOME;
 # vi: encoding=utf-8
