@@ -1,0 +1,9 @@
+--- xscreensaver-5.13/driver/screensaver-properties.desktop.in~	2009-10-07 04:26:41.000000000 +0200
++++ xscreensaver-5.13/driver/screensaver-properties.desktop.in	2011-05-06 12:37:16.191573631 +0200
+@@ -5,4 +5,5 @@
+ _Name=Screensaver
+ _Comment=Change screensaver properties
+ Type=Application
+-Categories=Settings;DesktopSettings;Security;X-XFCE;
++Categories=GTK;Settings;X-XFCE;
++NotShowIn=GNOME;
