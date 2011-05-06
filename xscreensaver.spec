@@ -1,6 +1,3 @@
-# TODO:
-# make package for KDE with /usr/bin/xscreensaver.kss
-#
 Summary:	X screen savers
 Summary(de.UTF-8):	X-Bildschirmschoner
 Summary(es.UTF-8):	Protectores de pantalla X
@@ -11,21 +8,21 @@ Summary(ru.UTF-8):	Набор программ хранения экрана д�
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
-Version:	5.10
-Release:	4
+Version:	5.13
+Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	0d7205f9da8e3f1b83bcda549d73a7c4
-Source1:	%{name}.desktop
+# Source0-md5:	a1a55b763e17c5c83a2b7cb5ddf23560
+Source1:	%{name}-autostart.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Source4:	mkinstalldirs
-Patch1:		%{name}-desktop.patch
-Patch2:		%{name}-man.patch
-Patch3:		%{name}-degnomify.patch
-Patch4:		%{name}-build.patch
+Patch0:		%{name}-degnomify.patch
+Patch1:		%{name}-build.patch
+Patch2:		%{name}-test-passwd-segv-tty.patch
+Patch3:		%{name}-desktop.patch
 URL:		http://www.jwz.org/xscreensaver/
 BuildRequires:	OpenGL-devel
 BuildRequires:	OpenGL-glut-devel
@@ -156,10 +153,10 @@ Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
-#%patch2 -p1
+%patch2 -p1
 %patch3 -p1
-%patch4 -p1
 install -m755 %{SOURCE4} .
 
 %build
@@ -206,10 +203,10 @@ rm -rf $RPM_BUILD_ROOT
 	AD_DIR=%{_appdefsdir} \
 	PAM_DIR=/etc/pam.d
 
-install -d $RPM_BUILD_ROOT{/etc/pam.d,%{_desktopdir}}
+install -d $RPM_BUILD_ROOT{/etc/{pam.d,xdg/autostart},%{_desktopdir}}
 
-install %{SOURCE1} %{SOURCE2} \
-	$RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/xdg/autostart
+install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 
 %{__make} -C driver install-pam \
 	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
@@ -276,11 +273,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-demo
 %attr(755,root,root) %{_bindir}/xscreensaver-getimage*
 %attr(755,root,root) %{_bindir}/xscreensaver-text
-#%attr(755,root,root) %{_bindir}/xscreensaver.kss
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
+/etc/xdg/autostart/xscreensaver-autostart.desktop
 %{_appdefsdir}/*
 %{_datadir}/%{name}/glade
-%{_desktopdir}/xscreensaver.desktop
 %{_desktopdir}/xscreensaver-properties.desktop
 %{_desktopdir}/xscreensaver-lock.desktop
 %{_mandir}/man1/xscreensaver.1*
@@ -289,20 +285,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver-getimage*.1*
 %{_mandir}/man1/xscreensaver-text.1*
 %{_pixmapsdir}/*.xpm
-
-#%{_datadir}/%{name}/cosmos.xml
-#%{_datadir}/%{name}/electricsheep.xml
-#%{_datadir}/%{name}/fireflies.xml
-#%{_datadir}/%{name}/goban.xml
-#%{_datadir}/%{name}/sphereeversion.xml
-#%{_datadir}/%{name}/ssystem.xml
-#%{_datadir}/%{name}/xaos.xml
-#%{_datadir}/%{name}/xdaliclock.xml
-#%{_datadir}/%{name}/xearth.xml
-#%{_datadir}/%{name}/xfishtank.xml
-#%{_datadir}/%{name}/xmountains.xml
-#%{_datadir}/%{name}/xplanet.xml
-#%{_datadir}/%{name}/xsnow.xml
 
 %files common
 %defattr(644,root,root,755)
