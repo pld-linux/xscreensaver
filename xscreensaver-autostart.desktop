@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=xscreensaver-autostart
+Comment=Autostart xscreensaver
+Exec=/usr/bin/xscreensaver -nosplash
+Terminal=false
+NotShowIn=GNOME;
