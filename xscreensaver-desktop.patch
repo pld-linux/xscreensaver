@@ -5,5 +5,5 @@
  _Comment=Change screensaver properties
  Type=Application
 -Categories=Settings;DesktopSettings;Security;X-XFCE;
-+Categories=GTK;Settings;X-XFCE;
++Categories=GTK;Settings;
 +NotShowIn=GNOME;
