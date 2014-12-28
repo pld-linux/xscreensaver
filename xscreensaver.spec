@@ -29,7 +29,7 @@ BuildRequires:	OpenGL-glut-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bc
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gle-devel
 BuildRequires:	gtk+2-devel >= 1:2.0.3
 BuildRequires:	intltool
