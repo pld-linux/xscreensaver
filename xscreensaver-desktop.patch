@@ -6,4 +6,4 @@
  Type=Application
 -Categories=Settings;DesktopSettings;Security;X-XFCE;
 +Categories=GTK;Settings;
-+NotShowIn=GNOME;
++NotShowIn=XFCE;GNOME;

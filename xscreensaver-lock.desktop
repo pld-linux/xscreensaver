@@ -8,5 +8,5 @@ Icon=xscreensaver
 Terminal=false
 Type=Application
 Categories=System;
-NotShowIn=GNOME;
+NotShowIn=XFCE;GNOME;
 # vi: encoding=utf-8
