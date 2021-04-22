@@ -13,23 +13,24 @@ Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
-Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
+Source0:	https://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
 # Source0-md5:	0c77c3d46a4b4d11fdef1d368349ed7a
 Source1:	%{name}-autostart.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Patch0:		%{name}-desktop.patch
-URL:		http://www.jwz.org/xscreensaver/
+URL:		https://www.jwz.org/xscreensaver/
 BuildRequires:	Mesa-libGL-devel
 BuildRequires:	Mesa-libGLES-devel
 BuildRequires:	Mesa-libGLU-devel
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
 BuildRequires:	bc
-BuildRequires:	gdk-pixbuf2-xlib-devel
+BuildRequires:	gdk-pixbuf2-xlib-devel >= 2.0.0
 BuildRequires:	gettext-tools
 BuildRequires:	gle-devel
-BuildRequires:	gtk+2-devel >= 1:2.0.3
+BuildRequires:	glib2-devel >= 2.0.0
+BuildRequires:	gtk+2-devel >= 1:2.22.0
 BuildRequires:	intltool
 BuildRequires:	libjpeg-devel
 BuildRequires:	libtool
@@ -37,28 +38,30 @@ BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	pam-devel >= 0.77.3
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
-BuildRequires:	systemd-devel
+BuildRequires:	rpmbuild(macros) >= 1.745
+BuildRequires:	systemd-devel >= 1:221
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXft-devel >= 2.1.0
 BuildRequires:	xorg-lib-libXi-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXt-devel
 BuildRequires:	xorg-lib-libXxf86vm-devel
 Requires:	%{name}-savers = %{epoch}:%{version}-%{release}
+Requires:	gtk+2 >= 1:2.22.0
 Requires:	pam >= 0.77.3
 Requires:	xorg-lib-libXt >= 1.0.0
 # for screensaver-getimage-file
 Suggests:	perl-perldoc
 # for xscreensaver-text
 Suggests:	xorg-app-appres
-Obsoletes:	xscreensaver-gnome 
-Obsoletes:	xscreensaver-gnome1
-Obsoletes:	xscreensaver-gnome2
+Obsoletes:	xscreensaver-gnome < 1:4.06
+Obsoletes:	xscreensaver-gnome1 < 1:4.21
+Obsoletes:	xscreensaver-gnome2 < 1:5.06
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_sysconfdir	/etc/X11
 %define		_appdefsdir	/usr/share/X11/app-defaults
 
@@ -121,6 +124,7 @@ Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
 Requires:	perl-HTML-Parser
 Requires:	perl-LWP-Protocol-https
+Requires:	xorg-lib-libXft >= 2.1.0
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 
 %description base
@@ -135,6 +139,7 @@ Summary(pl.UTF-8):	Wygaszacze ekranu pod X Window używające OpenGL
 Summary(pt_BR.UTF-8):	Protetores de tela GL
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
+Requires:	xorg-lib-libXft >= 2.1.0
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 # for starwars req: xscreensaver-text
 Suggests:	%{name}
@@ -153,6 +158,7 @@ Summary:	OpenGL & GLE X screen savers
 Summary(pl.UTF-8):	Wygaszacze ekranu pod X Window używające OpenGL i GLE
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
+Requires:	xorg-lib-libXft >= 2.1.0
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 
 %description GLE
@@ -279,7 +285,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver-settings
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
 /etc/xdg/autostart/xscreensaver-autostart.desktop
-%{_appdefsdir}/*
+%{_appdefsdir}/XScreenSaver
 %{_desktopdir}/xscreensaver-properties.desktop
 %{_desktopdir}/xscreensaver-lock.desktop
 %{_mandir}/man1/xscreensaver.1*
@@ -287,7 +293,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver-settings.1*
 %{_mandir}/man6/xscreensaver-command.6*
-%{_pixmapsdir}/*.xpm
+%{_pixmapsdir}/xscreensaver.xpm
 %dir %{_datadir}/%{name}/ui
 %{_datadir}/%{name}/ui/screensaver*.png
 %{_datadir}/%{name}/ui/xscreensaver.ui
