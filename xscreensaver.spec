@@ -8,36 +8,44 @@ Summary(ru.UTF-8):	Набор программ хранения экрана д�
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
-Version:	5.13
-Release:	3
+Version:	6.00
+Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	http://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	a1a55b763e17c5c83a2b7cb5ddf23560
+# Source0-md5:	0c77c3d46a4b4d11fdef1d368349ed7a
 Source1:	%{name}-autostart.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
-Source4:	mkinstalldirs
-Patch0:		%{name}-degnomify.patch
-Patch1:		%{name}-build.patch
-Patch2:		%{name}-test-passwd-segv-tty.patch
-Patch3:		%{name}-desktop.patch
+Patch0:		%{name}-desktop.patch
 URL:		http://www.jwz.org/xscreensaver/
-BuildRequires:	OpenGL-devel
-BuildRequires:	OpenGL-glut-devel
+BuildRequires:	Mesa-libGL-devel
+BuildRequires:	Mesa-libGLES-devel
+BuildRequires:	Mesa-libGLU-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bc
+BuildRequires:	gdk-pixbuf2-xlib-devel
 BuildRequires:	gettext-tools
 BuildRequires:	gle-devel
 BuildRequires:	gtk+2-devel >= 1:2.0.3
 BuildRequires:	intltool
-BuildRequires:	libglade2-devel >= 2.0.0
+BuildRequires:	libjpeg-devel
+BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	pam-devel >= 0.77.3
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
+BuildRequires:	systemd-devel
+BuildRequires:	xorg-lib-libICE-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXi-devel
+BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXrandr-devel
+BuildRequires:	xorg-lib-libXt-devel
+BuildRequires:	xorg-lib-libXxf86vm-devel
 Requires:	%{name}-savers = %{epoch}:%{version}-%{release}
 Requires:	pam >= 0.77.3
 Requires:	xorg-lib-libXt >= 1.0.0
@@ -45,12 +53,12 @@ Requires:	xorg-lib-libXt >= 1.0.0
 Suggests:	perl-perldoc
 # for xscreensaver-text
 Suggests:	xorg-app-appres
-Obsoletes:	xscreensaver-gnome
+Obsoletes:	xscreensaver-gnome 
 Obsoletes:	xscreensaver-gnome1
 Obsoletes:	xscreensaver-gnome2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_noautoreqdep	libGL.so.1 libGLU.so.1 libGLcore.so.1
+%define		_noautoreqdep	libGL.so.1 libGLU.so.1
 %define		_sysconfdir	/etc/X11
 %define		_appdefsdir	/usr/share/X11/app-defaults
 
@@ -111,6 +119,8 @@ Summary:	Base X screen savers
 Summary(pl.UTF-8):	Podstawowe wygaszacze ekranu pod X Window
 Group:		X11/Applications
 Requires:	%{name}-common = %{epoch}:%{version}-%{release}
+Requires:	perl-HTML-Parser
+Requires:	perl-LWP-Protocol-https
 Provides:	%{name}-savers = %{epoch}:%{version}-%{release}
 
 %description base
@@ -154,42 +164,37 @@ Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-install -m755 %{SOURCE4} .
 
 %build
-cp -f /usr/share/automake/{config.sub,install-sh} .
-%{__libtoolize}
-%{__intltoolize}
-%{__aclocal}
-%{__autoconf}
 %configure \
-	PERL=%{__perl} \
-%ifarch alpha
-	--without-xshm-ext \
-%endif
+	--with-x \
+	--with-dpms-ext \
+	--with-xf86vmode-ext \
 	--with-xinerama-ext \
 	--with-randr-ext \
-	--with-xf86vmode-ext \
+	--with-xinput-ext \
 	--with-xf86gamma-ext \
-	--with-dpms-ext \
-	--with-mit-ext \
+	--with-xshm-ext \
+	--with-xdbe-ext \
+	--with-xkb-ext \
 	--with-proc-interrupts \
+	--with-proc-oom \
+	--with-systemd \
 	--with-pam \
 	--with-shadow \
-	--without-motif \
-	--with-xml \
+	--with-gtk \
 	--with-gl \
 	--with-gle \
 	--with-jpeg \
-	--with-xshm-ext \
-	--with-xdbe-ext \
+	--with-png \
+	--with-pixbuf \
+	--with-xft \
 	--with-hackdir=%{_libdir}/xscreensaver \
 	--with-configdir=%{_datadir}/xscreensaver \
-	--with-fortune=%{_bindir}/fortune \
-	--enable-locking
+	--enable-locking \
+	--without-login-manager \
+	--without-kerberos \
+	--without-motif
 
 %{__make} all
 
@@ -205,8 +210,8 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{/etc/{pam.d,xdg/autostart},%{_desktopdir}}
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/xdg/autostart
-install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
+cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/xdg/autostart
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 
 %{__make} -C driver install-pam \
 	PAM_DIR=$RPM_BUILD_ROOT/etc/pam.d
@@ -271,27 +276,28 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
 %attr(755,root,root) %{_bindir}/xscreensaver-demo
-%attr(755,root,root) %{_bindir}/xscreensaver-getimage*
-%attr(755,root,root) %{_bindir}/xscreensaver-text
+%attr(755,root,root) %{_bindir}/xscreensaver-settings
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
 /etc/xdg/autostart/xscreensaver-autostart.desktop
 %{_appdefsdir}/*
-%{_datadir}/%{name}/glade
 %{_desktopdir}/xscreensaver-properties.desktop
 %{_desktopdir}/xscreensaver-lock.desktop
 %{_mandir}/man1/xscreensaver.1*
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
-%{_mandir}/man1/xscreensaver-getimage*.1*
-%{_mandir}/man1/xscreensaver-text.1*
+%{_mandir}/man1/xscreensaver-settings.1*
+%{_mandir}/man6/xscreensaver-command.6*
 %{_pixmapsdir}/*.xpm
+%dir %{_datadir}/%{name}/ui
+%{_datadir}/%{name}/ui/screensaver*.png
+%{_datadir}/%{name}/ui/xscreensaver.ui
 
 %files common
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/xscreensaver-gl-helper
-%{_mandir}/man6/xscreensaver-gl-helper.6*
 %dir %{_libdir}/%{name}
-%dir %{_datadir}/%{name}
+%dir %{_fontsdir}/xscreensaver
+%{_fontsdir}/xscreensaver/*.otf
+%{_fontsdir}/xscreensaver/*.ttf
 
 %files base -f files.base
 %defattr(644,root,root,755)
