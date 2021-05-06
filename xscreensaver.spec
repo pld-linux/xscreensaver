@@ -9,7 +9,7 @@ Summary(uk.UTF-8):	Набір програм збереження екрану �
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
 Version:	6.00
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
@@ -294,6 +294,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver-settings.1*
 %{_mandir}/man6/xscreensaver-command.6*
 %{_pixmapsdir}/xscreensaver.xpm
+%{_datadir}/%{name}
 %dir %{_datadir}/%{name}/ui
 %{_datadir}/%{name}/ui/screensaver*.png
 %{_datadir}/%{name}/ui/xscreensaver.ui
