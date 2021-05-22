@@ -294,7 +294,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/xscreensaver-settings.1*
 %{_mandir}/man6/xscreensaver-command.6*
 %{_pixmapsdir}/xscreensaver.xpm
-%{_datadir}/%{name}
+%dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/ui
 %{_datadir}/%{name}/ui/screensaver*.png
 %{_datadir}/%{name}/ui/xscreensaver.ui
