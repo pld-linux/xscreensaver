@@ -20,9 +20,9 @@ Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Patch0:		%{name}-desktop.patch
 URL:		https://www.jwz.org/xscreensaver/
-BuildRequires:	Mesa-libGL-devel
-BuildRequires:	Mesa-libGLES-devel
-BuildRequires:	Mesa-libGLU-devel
+BuildRequires:	EGL-devel
+BuildRequires:	OpenGL-devel >= 1.3
+BuildRequires:	OpenGL-GLU-devel
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
 BuildRequires:	bc
