@@ -7,22 +7,27 @@ Summary(pt_BR.UTF-8):	Salvadores de tela X
 Summary(ru.UTF-8):	Набор программ хранения экрана для X Window
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
+%define		main_ver 6.05
 Name:		xscreensaver
-Version:	6.02
+Version:	6.05.1
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	https://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	f86b56f5459182fbcd2cbf49351e4a02
+# Source0-md5:	79d6618adeabda8419f8390b3d85c51b
 Source1:	%{name}-autostart.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Patch0:		%{name}-desktop.patch
+# from fedora
+Patch1:		%{name}-6.05-0001-demo-Gtk.c-main-enable-localization-again.patch
+# from fedora
+Patch2:		%{name}-6.05-0002-demo-Gtk.c-populate_prefs_page-use-correct-pointer-f.patch
 URL:		https://www.jwz.org/xscreensaver/
 BuildRequires:	EGL-devel
-BuildRequires:	OpenGL-devel >= 1.3
 BuildRequires:	OpenGL-GLU-devel
+BuildRequires:	OpenGL-devel >= 1.3
 BuildRequires:	autoconf >= 2.69
 BuildRequires:	automake
 BuildRequires:	bc
@@ -168,8 +173,24 @@ Screen savers which uses OpenGL and GLE libraries.
 Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{main_ver}
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+
+# from Fedora:
+# xscreensaver 6.03: manually fix po/Makefile.in.in
+# ca.po seems broken
+cd po
+sed -i Makefile.in.in \
+	-e "\@^POFILES[ \t]*=@s@^.*@POTFILES\t=$(ls -1 *po | grep -v ca.po | while read f ; do echo -n -e " $f" ; done)@" \
+	-e "\@^GMOFILES[ \t]*=@s@^.*@GMOTFILES\t=$(ls -1 *po | grep -v ca.po | while read f ; do echo -n -e " ${f%.po}.gmo" ; done)@" \
+	-e "\@^CATALOGS[ \t]*=@s@^.*@CATALOGS\t=$(ls -1 *po | grep -v ca.po | while read f ; do echo -n -e " ${f%.po}.gmo" ; done)@" \
+	-e "\@^CATOBJEXT[ \t]*=@s@^.*@CATOBJEXT\t= .gmo@" \
+	-e "\@^INSTOBJEXT[ \t]*=@s@^.*@INSTOBJEXT\t= .mo@" \
+	-e "\@^MKINSTALLDIRS[ \t]*=@s@^.*@MKINSTALLDIRS\t= install -d@" \
+        %{nil}
+cd -
 
 %build
 %configure \
@@ -286,17 +307,19 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
 /etc/xdg/autostart/xscreensaver-autostart.desktop
 %{_appdefsdir}/XScreenSaver
-%{_desktopdir}/xscreensaver-properties.desktop
 %{_desktopdir}/xscreensaver-lock.desktop
 %{_mandir}/man1/xscreensaver.1*
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver-settings.1*
-%{_pixmapsdir}/xscreensaver.xpm
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/ui
-%{_datadir}/%{name}/ui/screensaver*.png
-%{_datadir}/%{name}/ui/xscreensaver.ui
+#%dir %{_datadir}/%{name}/ui
+#%{_datadir}/%{name}/ui/screensaver*.png
+#%{_datadir}/%{name}/ui/xscreensaver.ui
+%{_desktopdir}/xscreensaver-settings.desktop
+%{_desktopdir}/xscreensaver.desktop
+%{_pixmapsdir}/xscreensaver.png
+%{_datadir}/xscreensaver/xscreensaver.service
 
 %files common
 %defattr(644,root,root,755)
