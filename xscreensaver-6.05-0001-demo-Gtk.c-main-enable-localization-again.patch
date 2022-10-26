@@ -1,0 +1,31 @@
+From 8e78268b11e76648a2d7924bb5ed402e9f926a85 Mon Sep 17 00:00:00 2001
+From: Mamoru TASAKA <mtasaka@fedoraproject.org>
+Date: Sun, 23 Oct 2022 01:03:21 +0900
+Subject: [PATCH] demo-Gtk.c/main: enable localization again
+
+Even if demo-Gtk.c switched to use g_application_run(), for localization
+gettext stuff must be called.
+---
+ driver/demo-Gtk.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/driver/demo-Gtk.c b/driver/demo-Gtk.c
+index 442dac1..404fc88 100644
+--- a/driver/demo-Gtk.c
++++ b/driver/demo-Gtk.c
+@@ -5094,6 +5094,12 @@ main (int argc, char *argv[])
+   if (s) progname = s+1;
+   g_log_set_default_handler (g_logger, NULL);
+   g_log_set_writer_func (g_other_logger, NULL, NULL);
++# ifdef ENABLE_NLS
++  bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
++  textdomain (GETTEXT_PACKAGE);
++  bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
++# endif /* ENABLE_NLS */
++
+   return g_application_run (G_APPLICATION (xscreensaver_app_new()),
+                             argc, argv);
+ }
+-- 
+2.38.1
+
