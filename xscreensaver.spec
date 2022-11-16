@@ -178,14 +178,17 @@ Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 %patch1 -p1
 %patch2 -p1
 
+# fix encoding (xscreensaver-6.05: actual encoding is ISO-8869-1, but file specifies UTF-8)
+iconv -f iso-8859-1 -t utf-8 po/ca.po -o po/ca.po.tmp
+%{__mv} po/ca.po.tmp po/ca.po
+
 # from Fedora:
 # xscreensaver 6.03: manually fix po/Makefile.in.in
-# ca.po seems broken
 cd po
 sed -i Makefile.in.in \
-	-e "\@^POFILES[ \t]*=@s@^.*@POTFILES\t=$(ls -1 *po | grep -v ca.po | while read f ; do echo -n -e " $f" ; done)@" \
-	-e "\@^GMOFILES[ \t]*=@s@^.*@GMOTFILES\t=$(ls -1 *po | grep -v ca.po | while read f ; do echo -n -e " ${f%.po}.gmo" ; done)@" \
-	-e "\@^CATALOGS[ \t]*=@s@^.*@CATALOGS\t=$(ls -1 *po | grep -v ca.po | while read f ; do echo -n -e " ${f%.po}.gmo" ; done)@" \
+	-e "\@^POFILES[ \t]*=@s@^.*@POTFILES\t=$(ls -1 *po | while read f ; do echo -n -e " $f" ; done)@" \
+	-e "\@^GMOFILES[ \t]*=@s@^.*@GMOTFILES\t=$(ls -1 *po | while read f ; do echo -n -e " ${f%.po}.gmo" ; done)@" \
+	-e "\@^CATALOGS[ \t]*=@s@^.*@CATALOGS\t=$(ls -1 *po | while read f ; do echo -n -e " ${f%.po}.gmo" ; done)@" \
 	-e "\@^CATOBJEXT[ \t]*=@s@^.*@CATOBJEXT\t= .gmo@" \
 	-e "\@^INSTOBJEXT[ \t]*=@s@^.*@INSTOBJEXT\t= .mo@" \
 	-e "\@^MKINSTALLDIRS[ \t]*=@s@^.*@MKINSTALLDIRS\t= install -d@" \
@@ -257,7 +260,7 @@ find_config_and_man()
 		echo %{_datadir}/%{name}/${1}.xml
 	fi
 	if test -e $RPM_BUILD_ROOT%{_mandir}/man6/${1}.6 ; then
-		mv $RPM_BUILD_ROOT%{_mandir}/man6/{,xscreensaver-}${1}.6
+		%{__mv} $RPM_BUILD_ROOT%{_mandir}/man6/{,xscreensaver-}${1}.6
 		echo %{_mandir}/man6/xscreensaver-${1}.6'*'
 		# these two conflict with other packages
 		if [ ${1} != barcode -a ${1} != flame ]; then
@@ -299,27 +302,24 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README README.hacking
-%doc %{_datadir}/%{name}/README
 %attr(755,root,root) %{_bindir}/xscreensaver
 %attr(755,root,root) %{_bindir}/xscreensaver-command
 %attr(755,root,root) %{_bindir}/xscreensaver-demo
 %attr(755,root,root) %{_bindir}/xscreensaver-settings
+%dir %{_datadir}/%{name}
+%doc %{_datadir}/%{name}/README
+%{_datadir}/%{name}/xscreensaver.service
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/xscreensaver
 /etc/xdg/autostart/xscreensaver-autostart.desktop
 %{_appdefsdir}/XScreenSaver
-%{_desktopdir}/xscreensaver-lock.desktop
 %{_mandir}/man1/xscreensaver.1*
 %{_mandir}/man1/xscreensaver-command.1*
 %{_mandir}/man1/xscreensaver-demo.1*
 %{_mandir}/man1/xscreensaver-settings.1*
-%dir %{_datadir}/%{name}
-#%dir %{_datadir}/%{name}/ui
-#%{_datadir}/%{name}/ui/screensaver*.png
-#%{_datadir}/%{name}/ui/xscreensaver.ui
+%{_desktopdir}/xscreensaver-lock.desktop
 %{_desktopdir}/xscreensaver-settings.desktop
 %{_desktopdir}/xscreensaver.desktop
 %{_pixmapsdir}/xscreensaver.png
-%{_datadir}/xscreensaver/xscreensaver.service
 
 %files common
 %defattr(644,root,root,755)
