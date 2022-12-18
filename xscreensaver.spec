@@ -7,23 +7,18 @@ Summary(pt_BR.UTF-8):	Salvadores de tela X
 Summary(ru.UTF-8):	Набор программ хранения экрана для X Window
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
-%define		main_ver 6.05
 Name:		xscreensaver
-Version:	6.05.1
+Version:	6.06
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	https://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	79d6618adeabda8419f8390b3d85c51b
+# Source0-md5:	7e9437089cc8162a3cf9ff335633faed
 Source1:	%{name}-autostart.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
 Patch0:		%{name}-desktop.patch
-# from fedora
-Patch1:		%{name}-6.05-0001-demo-Gtk.c-main-enable-localization-again.patch
-# from fedora
-Patch2:		%{name}-6.05-0002-demo-Gtk.c-populate_prefs_page-use-correct-pointer-f.patch
 URL:		https://www.jwz.org/xscreensaver/
 BuildRequires:	EGL-devel
 BuildRequires:	OpenGL-GLU-devel
@@ -173,10 +168,8 @@ Screen savers which uses OpenGL and GLE libraries.
 Wygaszacze ekranu pod X Window używające OpenGL oraz GLE.
 
 %prep
-%setup -q -n %{name}-%{main_ver}
+%setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 # fix encoding (xscreensaver-6.05: actual encoding is ISO-8869-1, but file specifies UTF-8)
 iconv -f iso-8859-1 -t utf-8 po/ca.po -o po/ca.po.tmp
