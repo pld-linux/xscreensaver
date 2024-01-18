@@ -8,13 +8,13 @@ Summary(ru.UTF-8):	Набор программ хранения экрана д�
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
-Version:	6.06
-Release:	2
+Version:	6.08
+Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	https://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	7e9437089cc8162a3cf9ff335633faed
+# Source0-md5:	d64f3fdb8881c735fff4601ec5d88e1f
 Source1:	%{name}-autostart.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
@@ -37,6 +37,7 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 2.4.22
 BuildRequires:	pam-devel >= 0.77.3
 BuildRequires:	perl-base
+BuildRequires:	perl-perldoc
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.745
 BuildRequires:	systemd-devel >= 1:221
@@ -52,6 +53,7 @@ BuildRequires:	xorg-lib-libXxf86vm-devel
 Requires:	%{name}-savers = %{epoch}:%{version}-%{release}
 Requires:	gtk+2 >= 1:2.22.0
 Requires:	pam >= 0.77.3
+Requires:	xdg-utils
 Requires:	xorg-lib-libXt >= 1.0.0
 # for screensaver-getimage-file
 Suggests:	perl-perldoc
@@ -188,6 +190,10 @@ sed -i Makefile.in.in \
         %{nil}
 cd -
 
+# fix shebangs
+%{__sed} -i '1s,/usr/bin/env xdg-open$,/usr/bin/xdg-open,' \
+		driver/{xscreensaver-settings.desktop.in,xscreensaver.desktop.in}
+
 %build
 %configure \
 	--with-x \
@@ -292,6 +298,12 @@ cd $_DIR
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%update_desktop_database_post
+
+%postun
+%update_desktop_database_postun
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README README.hacking
@@ -318,7 +330,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %dir %{_libdir}/%{name}
 %dir %{_fontsdir}/xscreensaver
-%{_fontsdir}/xscreensaver/*.otf
 %{_fontsdir}/xscreensaver/*.ttf
 
 %files base -f files.base

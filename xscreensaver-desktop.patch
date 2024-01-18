@@ -1,10 +1,10 @@
---- xscreensaver-6.04/driver/xscreensaver-settings.desktop.in~	2022-05-21 17:31:28.111318663 +0000
-+++ xscreensaver-6.04/driver/xscreensaver-settings.desktop.in	2022-06-04 08:46:36.071395498 +0000
-@@ -4,5 +4,6 @@
+--- xscreensaver-6.07/driver/xscreensaver-settings.desktop.in~	2023-08-02 19:16:05.000000000 +0000
++++ xscreensaver-6.07/driver/xscreensaver-settings.desktop.in	2023-09-01 14:13:33.952625883 +0000
+@@ -5,5 +5,6 @@
  _Name=XScreenSaver Settings
  _Comment=Change screensaver properties
  Type=Application
--Categories=Settings;DesktopSettings;Screensaver;Security
-+Categories=GTK;Settings;
-+NotShowIn=XFCE;GNOME;
+-Categories=Settings;DesktopSettings;Screensaver;Security;GNOME;GTK;KDE;Motif;Qt;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-Unity-Settings-Panel;X-XFCE-SettingsDialog;X-XFCE-SystemSettings
++Categories=GTK;Settings;Screensaver;DesktopSettings
++NotShowIn=XFCE;GNOME
  Terminal=false
