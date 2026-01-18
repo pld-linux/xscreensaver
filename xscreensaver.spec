@@ -8,13 +8,13 @@ Summary(ru.UTF-8):	Набор программ хранения экрана д�
 Summary(uk.UTF-8):	Набір програм збереження екрану для X Window
 Summary(zh_CN.UTF-8):	X 窗口系统保护器
 Name:		xscreensaver
-Version:	6.13
+Version:	6.14
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		X11/Applications
 Source0:	https://www.jwz.org/xscreensaver/%{name}-%{version}.tar.gz
-# Source0-md5:	b30f5738bd5aab0e50fce337d28a487e
+# Source0-md5:	29f359b2ffc172a53328b5c72c055230
 Source1:	%{name}-autostart.desktop
 Source2:	%{name}-lock.desktop
 Source3:	%{name}.pamd
@@ -196,30 +196,29 @@ cd -
 
 %build
 %configure \
-	--with-x \
+	--with-configdir=%{_datadir}/xscreensaver \
 	--with-dpms-ext \
-	--with-xf86vmode-ext \
-	--with-xinerama-ext \
-	--with-randr-ext \
-	--with-xinput-ext \
-	--with-xf86gamma-ext \
-	--with-xshm-ext \
-	--with-xdbe-ext \
-	--with-xkb-ext \
-	--with-proc-interrupts \
-	--with-proc-oom \
-	--with-systemd \
-	--with-pam \
-	--with-shadow \
-	--with-gtk \
 	--with-gl \
 	--with-gle \
-	--with-jpeg \
-	--with-png \
-	--with-pixbuf \
-	--with-xft \
+	--with-gtk \
 	--with-hackdir=%{_libdir}/xscreensaver \
-	--with-configdir=%{_datadir}/xscreensaver \
+	--with-jpeg \
+	--with-pam \
+	--with-pixbuf \
+	--with-png \
+	--with-proc-oom \
+	--with-pthread \
+	--with-randr-ext \
+	--with-shadow \
+	--with-systemd \
+	--with-wayland \
+	--with-x \
+	--with-xdbe-ext \
+	--with-xft \
+	--with-xinerama-ext \
+	--with-xinput-ext \
+	--with-xkb-ext \
+	--with-xshm-ext \
 	--enable-locking \
 	--without-login-manager \
 	--without-kerberos \
